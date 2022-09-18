@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Parry
+  - Enemy
+  - Slam
+  - Liquid
+  - Bomb
+  - DestructibleGround
+  - Ground
+  - Phaseable
+  - PhasingPlayer
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player
+  - Water
+  - UI
+  - Ground
+  - Enemy
+  - PhaseableObject
+  - PhasingPlayer
+  - Ammo
+  - Trap
+  - EnemyStop
+  - PlayerStop
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
