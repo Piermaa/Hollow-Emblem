@@ -11,24 +11,8 @@ public class AbilityUnlocker : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            switch (unlockedAb)
-            {
-                case "Slime":
-                    StateManager stateManager;
-                    collision.gameObject.TryGetComponent<StateManager> (out stateManager);
-                    stateManager.enabled = enabled;
-                    break;
-                case "Dash":
-                    PlayerMovement playerMovement;
-                    collision.gameObject.TryGetComponent<PlayerMovement>(out playerMovement);
-                    playerMovement.dashUnlocked = true;
-                    break;
-                case "Slam":
-                    PlayerAbilities playerAbilities;
-                    collision.gameObject.TryGetComponent<PlayerAbilities>(out playerAbilities);
-                    playerAbilities.slamUnlocked = true;
-                    break;
-            }
+            collision.TryGetComponent<PlayerAbilities>(out var abilities);
+            abilities.AbilityUnlock(unlockedAb);
 
             gameObject.SetActive(false);
         }

@@ -37,7 +37,7 @@ public class PlayerCombat : MonoBehaviour
     public void Update()
     {
         SetAttackDirection();
-        if(Input.GetKeyDown(KeyCode.X)&&canAttack)
+        if(Input.GetButtonDown("Attack") && canAttack)
         {
             Attack();
         }

@@ -42,7 +42,7 @@ public class StateManager : MonoBehaviour
 
     void Update()
     {
-        if (nearToLiquid && Input.GetKeyDown(KeyCode.Space))
+        if (nearToLiquid && Input.GetKeyDown(KeyCode.Q))
         {
             sounds.PlaySound(sounds.slime);
 

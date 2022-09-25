@@ -12,6 +12,9 @@ public class PlayerAbilities : MonoBehaviour
     Animator animator;
     Rigidbody2D rb;
 
+
+    StateManager stateManager;
+    public bool unlockAll;
     bool willDestroy;
     public bool slamUnlocked;
 
@@ -21,17 +24,21 @@ public class PlayerAbilities : MonoBehaviour
     float slamTimer;
     private void Start()
     {
+        stateManager = GetComponent<StateManager>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController2D>();
         rb = GetComponent<Rigidbody2D>();
-
+        if (unlockAll)
+        {
+            AutoUnlock();
+        }
     }
 
     private void Update()
     {
         slamTimer -= Time.deltaTime;
 
-        if(Input.GetButtonDown("Crouch") && slamUnlocked && slamTimer<0)
+        if(Input.GetButtonDown("Jump") && Input.GetAxis("Vertical") < 0 && slamUnlocked && slamTimer<0)
         {
             if (!controller.CheckGround())
             {
@@ -66,7 +73,7 @@ public class PlayerAbilities : MonoBehaviour
         gAnimator.SetTrigger("Destroy");
         yield return null;
     }
-        private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         print(collision.collider.name);
         if ((collision.collider.tag == "Ground" || collision.collider.tag == "DestructibleGround") && willDestroy)
@@ -78,7 +85,33 @@ public class PlayerAbilities : MonoBehaviour
             }
             sounds.PlaySound(sounds.slam);
         }
+
          willDestroy = false;
        
+    }
+
+    void AutoUnlock()
+    {
+        stateManager.enabled = enabled;
+        slamUnlocked = true;
+        TryGetComponent<PlayerMovement>(out var movement);
+        movement.dashUnlocked = true;
+    }
+
+    public void AbilityUnlock(string unlockedAb)
+    {
+        switch (unlockedAb)
+        {
+            case "Slime":
+                stateManager.enabled = enabled;
+                break;
+            case "Dash":
+                TryGetComponent<PlayerMovement>(out var movement);
+                movement.dashUnlocked = true;
+                    break;
+            case "Slam":
+                slamUnlocked = true;
+                break;
+        }
     }
 }
