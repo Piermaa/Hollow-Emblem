@@ -15,6 +15,8 @@ public class HealthController : MonoBehaviour
 
     bool takingDamage;
     public float playerInmunity=1;
+
+    public UnityEvent OnHealthAdd;
     private void Start()
     {
         if (sprite==null)
@@ -99,6 +101,7 @@ public class HealthController : MonoBehaviour
     {
         maxHealth+=healthAdded;
         FullHeal();
+        OnHealthAdd.Invoke();
     }
 
     public void Death()

@@ -4,33 +4,30 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-	public bool dashUnlocked = false;
-
 	[SerializeField]PlayerSounds sounds;
-
-	public float layerCD;
-	float layerTimer;
-
 	Animator animator;
 
 	Rigidbody2D rb;
 	Vector3 lastPosition;
 	public HealthManager healthManager;
 	public CharacterController2D controller;
+
 	public float dashSpeed = 80;
 	public float runSpeed = 30f;
 	public float dashCoolDown = 0;
-	public bool isDashing;
 	public float horizontalMove = 0f;
+	public float layerCD;
+	float layerTimer;
+
+	bool doubleJumped;
 	bool jump = false;
 	bool beginingJump;
 	public bool crouch = false;
-
-	bool doubleJumped;
+	public bool isDashing;
+	public bool dashUnlocked = false;
 
 	private void Start()
 	{
-
 		animator = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 		healthManager = FindObjectOfType<HealthManager>();
@@ -38,42 +35,14 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
+		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		layerTimer -= Time.deltaTime;
-
+		
 		DashUpdate();
 		DashCorrection();
 
-		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-
-		if (Input.GetButtonDown("Jump") && Input.GetAxisRaw("Vertical")>=0)
-		{
-			
-			
-			animator.SetBool("Jump",true);
-			//animator.SetTrigger("DoubleJump");
-			StartCoroutine(BeginJump());
-			if (dashUnlocked)
-			{
-				jump = true;
-				if(!controller.CheckGround() &&!doubleJumped)
-				{
-					sounds.PlaySound(sounds.doubleJump);
-					animator.SetBool("DoubleJumping", true);
-					animator.SetTrigger("DoubleJump");
-					doubleJumped = true;
-					//animator.SetBool("Jump", false);
-				}
-				
-			}
-			else
-			{
-				if(controller.CheckGround())
-				{
-					sounds.PlaySound(sounds.jump);
-					jump = true;
-				}
-			}
-		}
+		Run();
+		Jump();
 
 		if (Input.GetButtonDown("Crouch"))
 		{
@@ -88,32 +57,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			Dash();
 		}
-
-
-		if (horizontalMove/runSpeed != 0)
-		{
-			if (controller.CheckGround())
-			{
-				sounds.PlaySound(sounds.step);
-			}
-	
-			animator.SetBool("Run", true);
-		}
-		else
-		{
-			animator.SetBool("Run", false);
-		}
-
-		if (controller.CheckGround() &&!beginingJump)
-		{
-			doubleJumped = false;
-			animator.SetBool("Jump", false);
-			animator.SetBool("DoubleJumping", false);
-		}
-
-		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-		jump = false;
-
 	}
 
 	IEnumerator BeginJump()
@@ -125,13 +68,12 @@ public class PlayerMovement : MonoBehaviour
 	//there is a exploit that if you dash against a corner in a very precise way you perform a huge jump, with this code if your Y position is very big between frames the rigidbody constrains the Y position
 	void DashCorrection()
 	{
-		if (transform.position.y - lastPosition.y > 0.3f)
+		if (transform.position.y - lastPosition.y > 0.36f)
 		{
 			controller.m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
 		}
 		else if (dashCoolDown<0.3)
 		{
-			
 			controller.m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 		}
 
@@ -139,15 +81,66 @@ public class PlayerMovement : MonoBehaviour
 		{
 			gameObject.layer = 3;
 		}
-
 	}
 
 	void FixedUpdate()
 	{
 		// Move our character
-	
-
+		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+		jump = false;
 		lastPosition = transform.position;
+	}
+	void Jump()
+	{
+		if (Input.GetButtonDown("Jump") && Input.GetAxisRaw("Vertical") >= 0)
+		{
+			animator.SetBool("Jump", true);
+			//animator.SetTrigger("DoubleJump");
+			StartCoroutine(BeginJump());
+			if (dashUnlocked)
+			{
+				jump = true;
+				if (!controller.CheckGround() && !doubleJumped)
+				{
+					sounds.PlaySound(sounds.doubleJump);
+					animator.SetBool("DoubleJumping", true);
+					animator.SetTrigger("DoubleJump");
+					doubleJumped = true;
+					//animator.SetBool("Jump", false);
+				}
+			}
+			else
+			{
+				if (controller.CheckGround())
+				{
+					sounds.PlaySound(sounds.jump);
+					jump = true;
+				}
+			}
+		}
+
+		if (controller.CheckGround() && !beginingJump)
+		{
+			doubleJumped = false;
+			animator.SetBool("Jump", false);
+			animator.SetBool("DoubleJumping", false);
+		}
+	}
+	void Run()
+	{
+		if (horizontalMove / runSpeed != 0)
+		{
+			if (controller.CheckGround())
+			{
+				sounds.PlaySound(sounds.step);
+			}
+
+			animator.SetBool("Run", true);
+		}
+		else
+		{
+			animator.SetBool("Run", false);
+		}
 	}
 	void DashUpdate()
 	{
