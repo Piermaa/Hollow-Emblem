@@ -42,6 +42,11 @@ public class HealthController : MonoBehaviour
                 healthPoints = maxHealth;
             }
         }
+
+        if (healthPoints <= 0)
+        {
+            Death();
+        }
     }
     IEnumerator DamageTaken(Color color)
     {
@@ -56,20 +61,11 @@ public class HealthController : MonoBehaviour
         takeDamageSound.Play();
         if (!inmune && healthPoints>0 &&!takingDamage)
         {
-            if (_staminaController != null)
-            {
-                if (!_staminaController.CheckStamina())
-                {
-                    healthPoints -= 1000;
-                }
-                {
-                    healthPoints -= damage;
-                }
-            }
-            else
-            {
-                healthPoints -= damage;
-            }
+           
+               
+             healthPoints -= damage;
+             
+            
             Color col;
             if (white)
             {
@@ -87,10 +83,7 @@ public class HealthController : MonoBehaviour
             StartCoroutine(DamageTaken(col));
         }
 
-        if(healthPoints<=0)
-        {
-            Death();
-        }
+        
     }
     public void Heal(int hpAdded)
     {

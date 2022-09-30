@@ -399,15 +399,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca569d1d8c00fb41b521f77444c6ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 2957762975338282927}
+  takeDamageSound: {fileID: 4404865927510759996}
   inmune: 0
+  white: 0
   healthPoints: 3
   maxHealth: 0
-  sprite: {fileID: 2957762975338282927}
-  white: 0
-  DieEvent:
+  playerInmunity: 1
+  OnHealthAdd:
     m_PersistentCalls:
       m_Calls: []
-  takeDamageSound: {fileID: 4404865927510759996}
+  DieEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6733455178630262116}
+        m_TargetAssemblyTypeName: HealthController, Assembly-CSharp
+        m_MethodName: DestroyThis
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6733455178630262114
 MonoBehaviour:
   m_ObjectHideFlags: 0

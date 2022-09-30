@@ -369,6 +369,34 @@ PrefabInstance:
       propertyPath: takeDamageSound
       value: 
       objectReference: {fileID: 3074243806367729465}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6020051994889496122}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DestroyThis
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HealthController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802618, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Size.x
       value: 2.1843543
@@ -485,6 +513,34 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9131492135775221009, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131492135775221009, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131492135775221009, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6020051994889496122}
+    - target: {fileID: 9131492135775221009, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131492135775221009, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DestroyThis
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131492135775221009, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: HealthController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131492135775221009, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
 --- !u!4 &6020051994889496127 stripped
@@ -492,6 +548,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5046753533852802620, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
   m_PrefabInstance: {fileID: 1549852887725340675}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6020051994889496122 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+  m_PrefabInstance: {fileID: 1549852887725340675}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca569d1d8c00fb41b521f77444c6ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &828257228030277400 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2232837030186815259, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
