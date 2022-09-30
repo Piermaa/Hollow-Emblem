@@ -1,25 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum PlayerState
+{
+    Solid,
+    Liquid
+}
 
 public class StateManager : MonoBehaviour
 {
-    CharacterController2D controller2D;
+    [Header("Classes")]
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] GameObject slime;
+    [SerializeField] PlayerSounds sounds;
+    private CharacterController2D controller2D;
     private PlayerMovement playerMovement;
     private LiquidMovement liquidMovement;
-    [SerializeField]  private SpriteRenderer sprite;
+    private Animator animator;
     private Rigidbody2D rb2D;
     private PlayerCombat playerCombat;
-  
+
+
+    [Header("Bools")]
     public bool nearToLiquid;
 
-    Animator animator;
-    [SerializeField]GameObject slime;
+    public PlayerState state;
 
-    [SerializeField] PlayerSounds sounds;
     private void Start()
     {
-
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
         liquidMovement = GetComponent<LiquidMovement>();
@@ -30,14 +38,7 @@ public class StateManager : MonoBehaviour
         } 
         rb2D = GetComponent<Rigidbody2D>();
         controller2D = GetComponent<CharacterController2D>();
-      
     }
-    public enum PlayerState
-    {
-        Solid,
-        Liquid
-    }
-    public PlayerState state;
 
 
     void Update()

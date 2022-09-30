@@ -43,6 +43,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+
     void SetAttackDirection()
     {
         float y = Input.GetAxis("Vertical");
@@ -52,7 +53,7 @@ public class PlayerCombat : MonoBehaviour
         {
             directionsToAttack = DirectionsToAttack.Front;
             attackPoint.position = attackDirections[0].position;
-            attackDirection = new Vector2((transform.position.x) - (attackPoint.position.x), 0)*3;
+            attackDirection = new Vector2((transform.position.x) - (attackPoint.position.x), 0)*6;
         }
         if(y>0)
         {
@@ -69,6 +70,9 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Attacks using overlapcricleall, triggers the correct animation and inflict damage on enemies
+    /// </summary>
     void Attack()
     {
         sounds.PlaySound(sounds.attack);

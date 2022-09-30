@@ -51,19 +51,17 @@ public class CharacterController2D : MonoBehaviour
 		m_Grounded = false;
 
 		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-		// This can be done using layers instead but Sample Assets will not overwrite your project settings.
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
 		for (int i = 0; i < colliders.Length; i++)
 		{
 			if (colliders[i].gameObject != gameObject)
 			{
 				m_Grounded = true;
-				if (!wasGrounded && triggerSlam)
+				if (!wasGrounded && triggerSlam) //if wasnt grounded and the slam is triggered the OnLandEvent will play, wich is the slam
 				{
 					OnLandEvent.Invoke();
 					triggerSlam = false;
 				}
-					
 			}
 		}
 	}
@@ -84,7 +82,6 @@ public class CharacterController2D : MonoBehaviour
 		//only control the player if grounded or airControl is turned on
 		if (m_Grounded || m_AirControl)
 		{
-
 			// If crouching
 			if (crouch)
 			{
@@ -99,7 +96,10 @@ public class CharacterController2D : MonoBehaviour
 
 				// Disable one of the colliders when crouching
 				if (m_CrouchDisableCollider != null)
+				{
 					m_CrouchDisableCollider.enabled = false;
+				}
+					
 			}
 			else
 			{
@@ -110,7 +110,7 @@ public class CharacterController2D : MonoBehaviour
 				if (m_wasCrouching)
 				{
 					m_wasCrouching = false;
-					OnCrouchEvent.Invoke(false);
+					OnCrouchEvent.Invoke(false); //stops invoking
 				}
 			}
 
@@ -145,7 +145,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 		if(canDoubleJump && jump &&!m_Grounded)
 		{
-			m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+			m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY; //freezing Y ignores falling acceleration
 			m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 			canDoubleJump = false;
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));

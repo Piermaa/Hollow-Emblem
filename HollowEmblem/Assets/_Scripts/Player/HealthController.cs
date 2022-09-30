@@ -3,20 +3,25 @@ using UnityEngine;
 using UnityEngine.Events;
 public class HealthController : MonoBehaviour
 {
-    public bool inmune = false;
-    public int healthPoints = 100;
-    public int maxHealth; 
-    [SerializeField]SpriteRenderer sprite;
+    [Header("Classes")]
+    [SerializeField] SpriteRenderer sprite;
     StaminaController _staminaController;
-
-    public bool white;
-    public UnityEvent DieEvent;
     public AudioSource takeDamageSound;
 
-    bool takingDamage;
-    public float playerInmunity=1;
+    [Header("Bool")]
+    public bool inmune = false;
+    public bool white;
 
+    bool takingDamage;
+    [Header("Int")]
+    public int healthPoints = 100;
+    public int maxHealth;
+ 
+    public float playerInmunity = 1;
+
+    [Header("Events")]
     public UnityEvent OnHealthAdd;
+    public UnityEvent DieEvent;
     private void Start()
     {
         if (sprite==null)
@@ -106,16 +111,8 @@ public class HealthController : MonoBehaviour
 
     public void Death()
     {
-       
         if (DieEvent!=null)
         {
-            PlayerMovement playerMovement;
-            TryGetComponent<PlayerMovement>(out playerMovement);
-            if (playerMovement==null)
-            {
-               
-                this.gameObject.SetActive(false);
-            }
             DieEvent.Invoke();
         }
         

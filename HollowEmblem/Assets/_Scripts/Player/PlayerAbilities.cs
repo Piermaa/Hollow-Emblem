@@ -3,25 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 public class PlayerAbilities : MonoBehaviour
 {
-
-    [SerializeField] PlayerSounds sounds;
-
-    CharacterController2D controller;
-    PlayerMovement movement;
-    public bool isParrying;
-    Animator animator;
-    Rigidbody2D rb;
-
-
+    [Header("Classes")]
+    [SerializeField] private PlayerSounds sounds;
+    private CharacterController2D controller;
+    private PlayerMovement movement;
+    private Animator animator;
+    private Rigidbody2D rb;
     StateManager stateManager;
+
+    [Header("Bool")]
+    public bool isParrying;
     public bool unlockAll;
-    bool willDestroy;
     public bool slamUnlocked;
+    bool willDestroy;
 
+    [Header("Floats")]
     public float slamForce;
-
     public float slamCD = 3;
     float slamTimer;
+
     private void Start()
     {
         stateManager = GetComponent<StateManager>();
@@ -48,10 +48,6 @@ public class PlayerAbilities : MonoBehaviour
                 controller.MustSlam();
                 slamTimer = slamCD;
             }
-            //else
-            //{
-            //    animator.SetTrigger("Parry");
-            //}
         }
 
         if(controller.CheckGround())
@@ -68,8 +64,6 @@ public class PlayerAbilities : MonoBehaviour
     IEnumerator Destroy(GameObject ground)
     {
         ground.TryGetComponent<Animator>(out Animator gAnimator);
-        
-        
         gAnimator.SetTrigger("Destroy");
         yield return null;
     }

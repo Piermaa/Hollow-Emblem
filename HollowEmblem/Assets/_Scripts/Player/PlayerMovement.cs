@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+	[Header("Classes")]
 	[SerializeField]PlayerSounds sounds;
 	Animator animator;
-
 	Rigidbody2D rb;
 	Vector3 lastPosition;
 	public HealthManager healthManager;
 	public CharacterController2D controller;
 
+	[Header("Floats")]
 	public float dashSpeed = 80;
 	public float runSpeed = 30f;
 	public float dashCoolDown = 0;
@@ -19,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
 	public float layerCD;
 	float layerTimer;
 
+
+	[Header("Bools")]
 	bool doubleJumped;
 	bool jump = false;
 	bool beginingJump;

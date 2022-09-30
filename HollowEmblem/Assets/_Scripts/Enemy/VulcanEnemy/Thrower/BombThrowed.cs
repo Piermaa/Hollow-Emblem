@@ -24,7 +24,6 @@ public class BombThrowed : MonoBehaviour, IPooledObject
             Vector3 theScale = transform.localScale;
             theScale.x = -1;
             transform.localScale = theScale;
-           
         }
         if((transform.rotation.z != 0 && x < 0))
         {
@@ -32,12 +31,8 @@ public class BombThrowed : MonoBehaviour, IPooledObject
             Vector3 theScale = transform.localScale;
             theScale.x = 1;
             transform.localScale = theScale;
-           
-          
         }
         rb2D.AddForce(new Vector2(x,y)*force,ForceMode2D.Impulse);
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,11 +45,8 @@ public class BombThrowed : MonoBehaviour, IPooledObject
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            
                 collision.gameObject.TryGetComponent<HealthController>(out var target);
-
                 target.TakeDamage(1);
-            
         }
 
     }

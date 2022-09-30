@@ -8,7 +8,6 @@ public class ControlTextos : MonoBehaviour
     // Start is called before the first frame update
     public void ElegirTexto()
     {
-        print("qqq");
         SexoSinConsensuacion(parrila);
     }
     public void SexoSinConsensuacion(int a)

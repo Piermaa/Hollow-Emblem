@@ -29,7 +29,6 @@ public class UIHealth : MonoBehaviour
             emptyHearts[i].SetActive(true);
             healthSprites.Add(emptyHearts[i].GetComponent<Image>());
         }
-       
     }
 
     public void UpdateHealth()
@@ -56,6 +55,5 @@ public class UIHealth : MonoBehaviour
         }
 
         */
-
     }
 }

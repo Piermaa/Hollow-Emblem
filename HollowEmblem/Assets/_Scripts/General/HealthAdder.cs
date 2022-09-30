@@ -6,6 +6,7 @@ public class HealthAdder : MonoBehaviour
 {
     public int healthToAdd; 
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -13,9 +14,6 @@ public class HealthAdder : MonoBehaviour
             collision.gameObject.TryGetComponent<HealthController>(out HealthController healthController);
             healthController.AddMaxHealth(healthToAdd);
             this.gameObject.SetActive(false);
-
-            collision.gameObject.TryGetComponent<PlayerSounds>(out PlayerSounds sound);
-            //sound.PlaySound(sound.powerUp);
         }
     }
 }

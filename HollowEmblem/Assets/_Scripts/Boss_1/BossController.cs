@@ -50,8 +50,7 @@ public class BossController : MonoBehaviour
     }
 
     private void Update()
-    {
-
+    { 
         if(bossState==BossState.Liquid)
             rangedAttackTimer = rangedAttackCooldown;
 
@@ -95,8 +94,6 @@ public class BossController : MonoBehaviour
         StartCoroutine(PlaySoundDelay(intoFlor));
         rangedAttackCounter = 0;
         changeSideUpCounter= 0;
-
-        
     }
 
     void ChangeSide()
@@ -120,13 +117,13 @@ public class BossController : MonoBehaviour
     
     void Shoot()
     {
-        // how i set the rotation is very possibly incorrect because I do not know wich is left or right
+
         StartCoroutine(PlaySoundDelay(shot));
+        // how i set the rotation is very possibly incorrect because I do not know wich is left or right
         Quaternion rotation =Quaternion.Euler( new Vector3(0,0,0));
         Quaternion invertedRotation = Quaternion.Euler(new Vector3(0, 0, -1));
         if (bossState != BossState.Liquid)
         {
-      
             Quaternion rot;
             if (bossInRight)
             {
@@ -137,16 +134,11 @@ public class BossController : MonoBehaviour
                 rot = invertedRotation;
             }
 
-            rangedAttackTimer =rangedAttackCooldown;
-
-
             StartCoroutine(Shooting(rot));
             print("spawning bullet");
-
+            rangedAttackTimer = rangedAttackCooldown;
             rangedAttackCounter++;
         }
-
-
     }
 
     IEnumerator PlaySoundDelay(AudioSource sound)
