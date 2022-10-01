@@ -541,7 +541,8 @@ PrefabInstance:
       propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5046753533852802566, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
 --- !u!4 &6020051994889496127 stripped
 Transform:

@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    [SerializeField] float attackTime;
+    [Header("Classes")]
     [SerializeField] Animator animator;
-    [SerializeField] StaminaController _staminaController;
     [SerializeField] BasicIA ia;
-
-    [SerializeField] float attackCooldown=5;
-    [SerializeField]float attackTimer;
-
     [SerializeField] AudioSource attackSound;
+
+    [Header("Bool")]
     bool canAttack;
     public bool playerInRange;
+
+    [Header("Float")]
+    [SerializeField] float attackCooldown=5;
+    [SerializeField] float attackTimer;
+    [SerializeField] float attackTime;
+
     private void Start()
     {
         attackTimer = attackCooldown;
@@ -42,7 +45,6 @@ public class Attack : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            print("playerinrange");
             playerInRange = true;  
         }
     }
@@ -50,16 +52,16 @@ public class Attack : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            print("playerexit;");
             playerInRange = false;
         }
     }
 
-
+    /// <summary>
+    /// If the cooldown allows it, the enemy attacks using an animation that moves a collider, if player enters on it it takes damage
+    /// </summary>
     void MeleeAttack()
     {
-      
-        if (_staminaController.CheckStamina()&&canAttack)
+        if (canAttack)
         {
             ia.StopWalking(attackTime); //the enemy will stop walkinguntil the attackTime expires
             animator.SetTrigger("Attack");

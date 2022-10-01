@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(StaminaController))]
 //using Lean.Pool;
 public class EnemyShoot : MonoBehaviour
 {
-    StaminaController staminaController;
     ObjectPooler objectPooler;
     public string ammunition;
     public float fireRate=10;
@@ -15,7 +13,6 @@ public class EnemyShoot : MonoBehaviour
 
     private void Start()
     {
-        staminaController = GetComponent<StaminaController>();
         objectPooler = ObjectPooler.Instance;
         fireCooldown = fireRate;
     }
@@ -24,11 +21,10 @@ public class EnemyShoot : MonoBehaviour
     {
         fireCooldown -= Time.deltaTime;
 
-        if(fireCooldown<0 && staminaController.CheckStamina())
+        if(fireCooldown<0 )
         {
             fireCooldown = fireRate;
             objectPooler.SpawnFromPool(ammunition, spawnPos.position, spawnPos.rotation);
-            print("spawning bullet");
         }
 
     }

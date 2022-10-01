@@ -5,7 +5,6 @@ using UnityEngine;
 public class VulcanEnemy : MonoBehaviour
 {
     // Start is called before the first frame update
-    StaminaController staminaController;
     ObjectPooler objectPooler;
     public string[] ammunition;
     public float fireRate = 10;

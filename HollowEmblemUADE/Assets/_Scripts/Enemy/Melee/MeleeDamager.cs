@@ -6,7 +6,6 @@ public class MeleeDamager : MonoBehaviour
 {
     HealthManager healthManager;
 
-    [SerializeField] StaminaController _staminaController;
 
     private void Start()
     {
@@ -25,7 +24,7 @@ public class MeleeDamager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Parry"))
         {
-            _staminaController.ParryReceived(3);
+           
             healthManager.SetInmunity();
             StartCoroutine(parrySuccessful());
         }

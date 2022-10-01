@@ -4,37 +4,41 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public string[] ammo;
-    bool shooting;
-
-    float rangedAttackTimer;
-    float changePosTimer;
-    float lowAttackTimer;
-
-    public float rangedAttackCooldown;
-    public float changePosCooldown;
-    public float lowAttackCooldown;
-
-    int rangedAttackCounter;
-    public int maxRangedAttacks;
-
-    int changeSideUpCounter;
-    public int maxChangeSideUp;
-
-    Animator animator;
+    [Header("Classes")]
     ObjectPooler objectPooler;
+    public GameObject abUnlocker;
     [SerializeField] Animator spikesAnimator;
     [SerializeField] GameObject spikesOnBody;
     [SerializeField] Transform shootTransform;
     [SerializeField] GameObject tutorial;
-    public GameObject abUnlocker;
+    Animator animator;
 
+    [Header("Bools")]
+    bool shooting;
+    public bool bossInRight;
+
+    [Header("Ints")]
+    int rangedAttackCounter;
+    int changeSideUpCounter;
+    public int maxChangeSideUp;
+    public int maxRangedAttacks;
+
+    [Header("Floats")]
+    public float rangedAttackCooldown;
+    public float changePosCooldown;
+    public float lowAttackCooldown;
+    float rangedAttackTimer;
+    float changePosTimer;
+    float lowAttackTimer;
+
+    [Header("Strings")]
+    public string[] ammo;
+
+    [Header("Sounds")]
     [SerializeField] AudioSource shot;
     [SerializeField] AudioSource intoFlor;
     [SerializeField] AudioSource intoSlime;
 
-
-    public bool bossInRight;
     public enum BossState
     {
         Solid, Liquid
@@ -76,20 +80,21 @@ public class BossController : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Triggers the attack from underground
+    /// </summary>
     void LowAttack()
     {
         if (bossInRight)
         {
             animator.SetTrigger("LowLeft");
             spikesAnimator.SetTrigger("Left");
-            print("moving left");
-
         }
         else
         {
             animator.SetTrigger("LowRight");
             spikesAnimator.SetTrigger("Right");
-            print("moving right");
         }
         StartCoroutine(PlaySoundDelay(intoFlor));
         rangedAttackCounter = 0;
@@ -102,13 +107,10 @@ public class BossController : MonoBehaviour
         if (bossInRight)
         {
             animator.SetTrigger("Left");
-            print("moving left");
-         
         }
         else
         {
             animator.SetTrigger("Right");
-            print("moving right");
         }
         changeSideUpCounter++;
         rangedAttackCounter = 0;
@@ -135,7 +137,6 @@ public class BossController : MonoBehaviour
             }
 
             StartCoroutine(Shooting(rot));
-            print("spawning bullet");
             rangedAttackTimer = rangedAttackCooldown;
             rangedAttackCounter++;
         }
@@ -184,7 +185,7 @@ public class BossController : MonoBehaviour
 
             health.TakeDamage(1);
             
-            print("PlayerAttacked");
+
         }
     }
 

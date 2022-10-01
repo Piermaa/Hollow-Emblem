@@ -5,7 +5,6 @@ public class HealthController : MonoBehaviour
 {
     [Header("Classes")]
     [SerializeField] SpriteRenderer sprite;
-    StaminaController _staminaController;
     public AudioSource takeDamageSound;
 
     [Header("Bool")]
@@ -30,7 +29,6 @@ public class HealthController : MonoBehaviour
         }
         if (maxHealth != 0) FullHeal();
 
-        TryGetComponent<StaminaController>(out _staminaController);
     }
 
     private void Update()
@@ -55,16 +53,16 @@ public class HealthController : MonoBehaviour
         sprite.color = color;
         takingDamage = false;
     }
-
+    /// <summary>
+    /// Reduces healthpoints and starts a coroutine that changes the target's sprite color
+    /// </summary>
+    /// <param name="damage">Amount of damage</param>
     public void TakeDamage(int damage)
     {
         takeDamageSound.Play();
         if (!inmune && healthPoints>0 &&!takingDamage)
-        {
-           
-               
-             healthPoints -= damage;
-             
+        {   
+            healthPoints -= damage;
             
             Color col;
             if (white)
@@ -82,8 +80,6 @@ public class HealthController : MonoBehaviour
 
             StartCoroutine(DamageTaken(col));
         }
-
-        
     }
     public void Heal(int hpAdded)
     {
@@ -108,13 +104,10 @@ public class HealthController : MonoBehaviour
         {
             DieEvent.Invoke();
         }
-        
-
-        if (DieEvent==null)
+        else       
         {
             this.gameObject.SetActive(false);
-        }
-       
+        } 
     }
     public void DestroyThis()
     {

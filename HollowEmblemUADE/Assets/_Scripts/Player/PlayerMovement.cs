@@ -69,9 +69,13 @@ public class PlayerMovement : MonoBehaviour
 		beginingJump = false;
 	}
 	//there is a exploit that if you dash against a corner in a very precise way you perform a huge jump, with this code if your Y position is very big between frames the rigidbody constrains the Y position
+
+     /// <summary>
+     /// Freezes the player if it moves very much on Y
+     /// </summary>
 	void DashCorrection()
 	{
-		if (transform.position.y - lastPosition.y > 0.36f)
+		if (transform.position.y - lastPosition.y > 0.4f)
 		{
 			controller.m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
 		}
@@ -93,6 +97,10 @@ public class PlayerMovement : MonoBehaviour
 		jump = false;
 		lastPosition = transform.position;
 	}
+
+    /// <summary>
+    /// Detects the jump button and checks if player is grounded. Executes the jump, double jump and their respective animations.
+    /// </summary>
 	void Jump()
 	{
 		if (Input.GetButtonDown("Jump") && Input.GetAxisRaw("Vertical") >= 0)
@@ -129,6 +137,10 @@ public class PlayerMovement : MonoBehaviour
 			animator.SetBool("DoubleJumping", false);
 		}
 	}
+
+    /// <summary>
+    /// Sets player movement and running animation
+    /// </summary>
 	void Run()
 	{
 		if (horizontalMove / runSpeed != 0)
@@ -149,18 +161,21 @@ public class PlayerMovement : MonoBehaviour
 	{
 		dashCoolDown -= Time.deltaTime;
 	}
-	void Dash()
-	{
-		sounds.PlaySound(sounds.dash);
-		//print(controller.CheckGround());
-		dashCoolDown = 0.3f;
-		animator.SetBool("Jump", false);
-		animator.SetTrigger("Dash");
-		//controller.Move(horizontalMove * Time.fixedDeltaTime * dashSpeed, false, false);
-		if (horizontalMove!=0)
-		{
-			rb.AddForce(new Vector2((horizontalMove / (Mathf.Abs(horizontalMove))), 0) * dashSpeed, ForceMode2D.Impulse);
-		}
+
+    /// <summary>
+    /// Performs a horizontal impulse, it depends of where the player is facing and not where he i moving
+    /// </summary>
+    void Dash()
+    {
+        sounds.PlaySound(sounds.dash);
+        dashCoolDown = 0.3f;
+        animator.SetBool("Jump", false);
+        animator.SetTrigger("Dash");
+        //controller.Move(horizontalMove * Time.fixedDeltaTime * dashSpeed, false, false);
+
+        Vector3 theScale = transform.localScale;
+        
+        rb.AddForce(new Vector2(-(theScale.x / (Mathf.Abs(theScale.x))), 0) * dashSpeed, ForceMode2D.Impulse);
 	
 		layerTimer = layerCD;
 		gameObject.layer = 9;

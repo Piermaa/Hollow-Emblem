@@ -69,7 +69,6 @@ public class PlayerAbilities : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.collider.name);
         if ((collision.collider.tag == "Ground" || collision.collider.tag == "DestructibleGround") && willDestroy)
         {
             if (collision.collider.tag == "DestructibleGround")

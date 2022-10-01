@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public int damage;
+    public LayerMask enemyLayer;
+    Vector2 attackDirection;
 
-    [SerializeField]PlayerSounds sounds;
-
+    [Header("Classes")]
+    [SerializeField] PlayerSounds sounds;
     Rigidbody2D rb;
     Animator animator;
 
+    [Header("Transforms")]
     public Transform playerCenter; //saves the position of the player center, this to attack from there when liquid
     public Transform attackPosition; // saves the transform of the normal attack in case of changing to liquid
-
     public Transform attackPoint; // the transform used when attacking
     public Transform[] attackDirections; //0 forward 1up 2down
 
-    Vector2 attackDirection;
-    public float attackRange = .8f;
-    public LayerMask enemyLayer;
-
+    [Header("Bools")]
     public bool canAttack;
+
+    [Header("Floats")]
+    public float attackRange = .8f;
+
+    [Header("Int")]
+    public int damage;
 
     public enum DirectionsToAttack
     {
@@ -112,7 +116,6 @@ public class PlayerCombat : MonoBehaviour
             if (health!=null)
             {
                 health.TakeDamage(damage);
-                Debug.Log(enemy.name + "hitted");
             }
    
         }

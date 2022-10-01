@@ -8,7 +8,7 @@ public class DamageIncr : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("player");
+    
         if (collision.gameObject.CompareTag("Player"))
         {
             

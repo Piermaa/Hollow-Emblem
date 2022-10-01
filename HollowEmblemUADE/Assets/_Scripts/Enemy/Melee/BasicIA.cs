@@ -5,8 +5,6 @@ using UnityEngine;
 public class BasicIA : MonoBehaviour
 {
 
-    StaminaController _staminaController;
-
     public Transform[] moveSpots;
     int spotsIndex;
     public float stopTime;
@@ -20,7 +18,6 @@ public class BasicIA : MonoBehaviour
 
     private void Start()
     {
-        _staminaController = GetComponent<StaminaController>();
         speedAux = speed;
     }
 
@@ -37,7 +34,7 @@ public class BasicIA : MonoBehaviour
             speed = speedAux;
         }
 
-        if (_staminaController.CheckStamina() && !chasingPlayer)
+        if (!chasingPlayer)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(moveSpots[spotsIndex].transform.position.x, transform.position.y), speed * Time.deltaTime);
 
