@@ -15,8 +15,10 @@ public class PlayerCombat : MonoBehaviour
     [Header("Transforms")]
     public Transform playerCenter; //saves the position of the player center, this to attack from there when liquid
     public Transform attackPosition; // saves the transform of the normal attack in case of changing to liquid
+    public Transform shootStart;
     public Transform attackPoint; // the transform used when attacking
     public Transform[] attackDirections; //0 forward 1up 2down
+    public Transform[] shootDirections;
 
     [Header("Bools")]
     public bool canAttack;
@@ -45,6 +47,7 @@ public class PlayerCombat : MonoBehaviour
         {
             Attack();
         }
+        Aim();
     }
 
 
@@ -119,5 +122,34 @@ public class PlayerCombat : MonoBehaviour
             }
    
         }
+    }
+
+    void Aim()
+    {
+        if (Input.GetMouseButton(1))
+        {
+            canAttack = false;
+            animator.SetBool("Aiming", Input.GetMouseButton(1));
+
+            switch (directionsToAttack)
+            { 
+            
+                case DirectionsToAttack.Front:
+                    animator.SetTrigger("AimFront");
+                    break;
+                case DirectionsToAttack.Down:
+                    animator.SetTrigger("AimDown");
+                    break;
+                case DirectionsToAttack.Up:
+                    animator.SetTrigger("AimUp");
+                    break;
+            }
+        
+        }
+        
+    }
+    void Shoot()
+    {
+
     }
 }

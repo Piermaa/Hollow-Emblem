@@ -5,9 +5,15 @@ using UnityEngine;
 public class BossSpawner : MonoBehaviour
 {
     public GameObject[] boss;
+    CameraController camController;
+    bool playerCollided;
+    private void Start()
+    {
+        camController = FindObjectOfType<CameraController>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag=="Player")
+        if(collision.gameObject.tag=="Player" && !playerCollided)
         {
             collision.TryGetComponent<PlayerRespawn>(out var respawn);
             respawn.SetRespawn(transform.position);
@@ -20,6 +26,9 @@ public class BossSpawner : MonoBehaviour
                 }
                
             }
+
+            camController.ChangeTarget(boss[0].transform);
+            playerCollided = true;
         }
     }
 
