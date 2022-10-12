@@ -105,10 +105,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 731
-        height: 1560
+        width: 815
+        height: 1641
       alignment: 9
-      pivot: {x: 0.37596008, y: 0.6162476}
+      pivot: {x: 0.2985959, y: 0.41889703}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -124,12 +124,12 @@ TextureImporter:
       name: pj_Shoot_1
       rect:
         serializedVersion: 2
-        x: 1252
+        x: 1251
         y: 0
-        width: 585
-        height: 1560
+        width: 615
+        height: 1641
       alignment: 9
-      pivot: {x: 0.47476795, y: 0.62165445}
+      pivot: {x: 0.39901033, y: 0.43241423}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -145,12 +145,12 @@ TextureImporter:
       name: pj_Shoot_2
       rect:
         serializedVersion: 2
-        x: 2529
+        x: 2528
         y: 4
-        width: 618
+        width: 717
         height: 1383
       alignment: 9
-      pivot: {x: 0.44199407, y: 0.696688}
+      pivot: {x: 0.34840977, y: 0.50481164}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -11,6 +11,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] PlayerSounds sounds;
     Rigidbody2D rb;
     Animator animator;
+    CharacterController2D controller;
 
     [Header("Transforms")]
     public Transform playerCenter; //saves the position of the player center, this to attack from there when liquid
@@ -22,12 +23,13 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Bools")]
     public bool canAttack;
-
+    public bool aiming;
     [Header("Floats")]
     public float attackRange = .8f;
 
     [Header("Int")]
     public int damage;
+    public int shootDamage;
 
     public enum DirectionsToAttack
     {
@@ -37,17 +39,20 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        controller = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
     public void Update()
     {
         SetAttackDirection();
-        if(Input.GetButtonDown("Attack") && canAttack)
+        Aim();
+        if (Input.GetButtonDown("Attack") && canAttack)
         {
             Attack();
         }
-        Aim();
+        //Debug.DrawRay(shootStart.position, Vector2.right*100,Color.red);
+        Debug.DrawRay(shootStart.position, shootStart.TransformDirection(Vector2.left) * 100, Color.red);
     }
 
 
@@ -55,17 +60,20 @@ public class PlayerCombat : MonoBehaviour
     {
         float y = Input.GetAxis("Vertical");
 
-
         if(y==0)
         {
             directionsToAttack = DirectionsToAttack.Front;
             attackPoint.position = attackDirections[0].position;
+            shootStart.position = shootDirections[0].position;
+            shootStart.rotation = shootDirections[0].rotation;
             attackDirection = new Vector2((transform.position.x) - (attackPoint.position.x), 0)*6;
         }
         if(y>0)
         {
             directionsToAttack = DirectionsToAttack.Up;
             attackPoint.position = attackDirections[1].position;
+            shootStart.position = shootDirections[1].position;
+            shootStart.rotation = shootDirections[1].rotation;
             attackDirection = new Vector2(0,0);
         }
     
@@ -73,6 +81,8 @@ public class PlayerCombat : MonoBehaviour
         {
             directionsToAttack = DirectionsToAttack.Down;
             attackPoint.position = attackDirections[2].position;
+            shootStart.position = shootDirections[2].position;
+            shootStart.rotation = shootDirections[2].rotation;
             attackDirection = Vector2.up*6 /*new Vector2(0, (transform.position.y) - (attackPoint.position.y))*/;
         }
     }
@@ -126,14 +136,15 @@ public class PlayerCombat : MonoBehaviour
 
     void Aim()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && controller.CheckGround())
         {
+            
             canAttack = false;
-            animator.SetBool("Aiming", Input.GetMouseButton(1));
+            aiming = true;
 
             switch (directionsToAttack)
-            { 
-            
+            {
+
                 case DirectionsToAttack.Front:
                     animator.SetTrigger("AimFront");
                     break;
@@ -144,12 +155,41 @@ public class PlayerCombat : MonoBehaviour
                     animator.SetTrigger("AimUp");
                     break;
             }
-        
+
+            Shoot();
         }
-        
+        else 
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            aiming = false;
+        }
+        animator.SetBool("Aiming", aiming);
     }
     void Shoot()
     {
+        RaycastHit2D hit;
+       
+        if ( Input.GetMouseButtonDown(0))
+        {
+            hit = Physics2D.Raycast(shootStart.position, shootStart.TransformDirection(Vector2.left), 50, enemyLayer); // the bug was the direction, as the shootstart is rotated... (1/2)
+            //depending of the aimDirection transform we have to use TransformDirection(new Vector(direction)), also enemyLayer as it works as int it worked as distance
 
+            if (hit)
+            {
+                Debug.Log(hit.collider.name);   
+                hit.collider.TryGetComponent < HealthController >(out var health);
+                if(health!=null)
+                {
+                    health.TakeDamage(shootDamage);
+                }
+                
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, shootStart.TransformDirection(Vector3.forward)*100);
     }
 }

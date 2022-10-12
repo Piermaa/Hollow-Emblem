@@ -8,9 +8,11 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField]PlayerSounds sounds;
 	Animator animator;
 	Rigidbody2D rb;
+	PlayerCombat combat;
 	Vector3 lastPosition;
 	public HealthManager healthManager;
 	public CharacterController2D controller;
+
 
 	[Header("Floats")]
 	public float dashSpeed = 80;
@@ -31,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Start()
 	{
+		combat = GetComponent<PlayerCombat>();
 		animator = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
 		healthManager = FindObjectOfType<HealthManager>();
@@ -75,26 +78,26 @@ public class PlayerMovement : MonoBehaviour
      /// </summary>
 	void DashCorrection()
 	{
-		if (transform.position.y - lastPosition.y > 0.4f)
-		{
-			controller.m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
-		}
-		else if (dashCoolDown<0.3)
-		{
-			controller.m_Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-		}
-
-		if(layerTimer<0)
+		if (layerTimer < 0)
 		{
 			gameObject.layer = 3;
+		}
+		else
+		{
+			rb.velocity = new Vector2(rb.velocity.x, 0); // evita que el jugador se mueva en Y al dashear
 		}
 	}
 
 	void FixedUpdate()
 	{
 		// Move our character
+		
 		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-		jump = false;
+		if (combat.aiming)
+		{
+			rb.velocity = new Vector2(0, 0); //evita que se mueva el jugador al apuntar
+		}
+			jump = false;
 		lastPosition = transform.position;
 	}
 
@@ -176,10 +179,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 theScale = transform.localScale;
         
         rb.AddForce(new Vector2(-(theScale.x / (Mathf.Abs(theScale.x))), 0) * dashSpeed, ForceMode2D.Impulse);
-	
+		rb.velocity = new Vector2(rb.velocity.x, 0);
 		layerTimer = layerCD;
 		gameObject.layer = 9;
 	}
 
+    
 }
 
