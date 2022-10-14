@@ -11,6 +11,7 @@ public class StateManager : MonoBehaviour
 {
     [Header("Classes")]
     [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private GameObject detector;
     [SerializeField] GameObject slime;
     [SerializeField] PlayerSounds sounds;
     private CharacterController2D controller2D;
@@ -43,6 +44,9 @@ public class StateManager : MonoBehaviour
 
     void Update()
     {
+
+        detector.SetActive(nearToLiquid);
+
         if (nearToLiquid && Input.GetKeyDown(KeyCode.Q))
         {
             sounds.PlaySound(sounds.slime);
