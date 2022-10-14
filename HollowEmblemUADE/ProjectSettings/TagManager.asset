@@ -53,6 +53,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Front
-    uniqueID: 1343268613
+  - name: Decoracion
+    uniqueID: 1900292557
+    locked: 0
+  - name: Babas Slime
+    uniqueID: 4145202339
+    locked: 0
+  - name: Piso
+    uniqueID: 828615247
+    locked: 0
+  - name: Saws
+    uniqueID: 346451331
+    locked: 0
+  - name: Babas bordes
+    uniqueID: 1654373655
+    locked: 0
+  - name: Enemies
+    uniqueID: 1129777159
+    locked: 0
+  - name: Player
+    uniqueID: 26975923
+    locked: 0
+  - name: UI
+    uniqueID: 3842803607
     locked: 0
