@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIHealth : MonoBehaviour
 {
-    public GameObject[] hearths;
     public GameObject[] emptyHearts;
 
     public List<Image> healthSprites = new List<Image>();
