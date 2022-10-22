@@ -20,6 +20,10 @@ public class ObjectPooler : MonoBehaviour
     {
         Instance = this;
     }
+    else
+    {
+    Destroy(this.gameObject);
+    }
 
     #endregion
 
