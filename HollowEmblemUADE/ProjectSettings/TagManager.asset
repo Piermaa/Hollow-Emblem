@@ -13,6 +13,7 @@ TagManager:
   - Ground
   - Phaseable
   - PhasingPlayer
+  - MiniMap
   layers:
   - Default
   - TransparentFX
@@ -28,10 +29,10 @@ TagManager:
   - Trap
   - EnemyStop
   - PlayerStop
-  - 
-  - 
-  - 
-  - 
+  - Map
+  - MiniMap
+  - CameraPlayer
+  - CameraMiniMap
   - 
   - 
   - 

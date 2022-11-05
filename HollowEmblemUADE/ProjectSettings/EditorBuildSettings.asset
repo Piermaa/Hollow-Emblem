@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menues/MenuManagement.unity
     guid: c3196e97c464b9e4a866aafd3271640f
   - enabled: 1
-    path: Assets/MAP.unity
+    path: Assets/Scenes/Menues/MAP.unity
     guid: 0e26708db8249ca4d86fabeb3eecbc83
   - enabled: 1
     path: Assets/Scenes/Menues/end.unity
