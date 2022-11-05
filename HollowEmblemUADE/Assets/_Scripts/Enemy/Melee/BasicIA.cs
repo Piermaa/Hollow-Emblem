@@ -11,7 +11,9 @@ public class BasicIA : MonoBehaviour
     public float speed = 6;
     float speedAux;
     public float waitTime;
-    float startWaitTime=1;
+    float startWaitTime = 1;
+
+    [SerializeField] Transform next;
 
     Transform playerTransform;
     bool chasingPlayer;
@@ -23,6 +25,8 @@ public class BasicIA : MonoBehaviour
 
     private void Update()
     {
+
+        next = moveSpots[spotsIndex];
         stopTime -= Time.deltaTime;
 
         if (stopTime >= 0)
@@ -40,7 +44,7 @@ public class BasicIA : MonoBehaviour
 
            
 
-            if (Vector2.Distance(transform.position, new Vector2(moveSpots[spotsIndex].position.x, transform.position.y)) < 0.1f)
+            if (Vector2.Distance(transform.position, new Vector2(moveSpots[spotsIndex].position.x, transform.position.y)) < 0.3f)
             {
                 if (waitTime <= 0)
                 {
