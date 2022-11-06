@@ -123,3 +123,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgToAdd: 1
+  textFeedback: {fileID: 0}
+  miniMapIcon: {fileID: 0}

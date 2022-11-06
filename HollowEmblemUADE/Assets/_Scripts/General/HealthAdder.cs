@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class HealthAdder : MonoBehaviour
 {
-    public int healthToAdd; 
+    public int healthToAdd;
 
+    public GameObject textFeedback;
+
+    public GameObject miniMapIcon;
+
+    private SpriteRenderer sr;
+
+    private void Start()
+    {
+        textFeedback.SetActive(false);
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,7 +24,23 @@ public class HealthAdder : MonoBehaviour
         {
             collision.gameObject.TryGetComponent<HealthController>(out HealthController healthController);
             healthController.AddMaxHealth(healthToAdd);
-            this.gameObject.SetActive(false);
+
+            StartCoroutine(ShowText());
         }
+    }
+
+    IEnumerator ShowText()
+    {
+        textFeedback.SetActive(true);
+        sr.enabled = false;
+        miniMapIcon.SetActive(false);
+
+        yield return new WaitForSeconds(1.5F);
+
+        textFeedback.SetActive(false);
+
+        yield return new WaitForSeconds(0.2f);
+
+        this.gameObject.SetActive(false);
     }
 }

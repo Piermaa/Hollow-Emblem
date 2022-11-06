@@ -28,6 +28,7 @@ public class PlayerAbilities : MonoBehaviour
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController2D>();
         rb = GetComponent<Rigidbody2D>();
+
         if (unlockAll)
         {
             AutoUnlock();
