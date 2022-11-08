@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+
 public class PlayerAbilities : MonoBehaviour
 {
     [Header("Classes")]
@@ -21,6 +23,9 @@ public class PlayerAbilities : MonoBehaviour
     public float slamForce;
     public float slamCD = 3;
     float slamTimer;
+
+    public Image slamUI;
+    public GameObject slamUIGameObject;
 
     private void Start()
     {
@@ -60,6 +65,8 @@ public class PlayerAbilities : MonoBehaviour
             }
          
         }
+
+        UISlam();
     }
 
     IEnumerator Destroy(GameObject ground)
@@ -106,6 +113,21 @@ public class PlayerAbilities : MonoBehaviour
             case "Slam":
                 slamUnlocked = true;
                 break;
+        }
+    }
+
+    void UISlam()
+    {
+        slamUI.fillAmount = slamTimer / slamCD;
+
+        if (slamUnlocked)
+        {
+            slamUIGameObject.SetActive(true);
+        }
+
+        else
+        {
+            slamUIGameObject.SetActive(false);
         }
     }
 }

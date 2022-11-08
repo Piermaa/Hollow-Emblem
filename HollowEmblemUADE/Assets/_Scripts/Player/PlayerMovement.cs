@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 	public float dashSpeed = 80;
 	public float runSpeed = 30f;
 	public float dashCoolDown = 0;
+	public float maxDashCoolDown = 0.5f;
 	public float horizontalMove = 0f;
 	public float layerCD;
 	float layerTimer;
@@ -30,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
 	public bool crouch = false;
 	public bool isDashing;
 	public bool dashUnlocked = false;
+
+	public Image dashUI;
+	public GameObject dashUIGameObject;
 
 	private void Start()
 	{
@@ -46,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 		
 		DashUpdate();
 		DashCorrection();
+		UIDash();
 
 		Run();
 		Jump();
@@ -114,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
 			if (dashUnlocked)
 			{
 				jump = true;
+
 				if (!controller.CheckGround() && !doubleJumped)
 				{
 					sounds.PlaySound(sounds.doubleJump);
@@ -171,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
     void Dash()
     {
         sounds.PlaySound(sounds.dash);
-        dashCoolDown = 0.3f;
+        dashCoolDown = maxDashCoolDown;
         animator.SetBool("Jump", false);
         animator.SetTrigger("Dash");
         //controller.Move(horizontalMove * Time.fixedDeltaTime * dashSpeed, false, false);
@@ -184,6 +191,19 @@ public class PlayerMovement : MonoBehaviour
 		gameObject.layer = 9;
 	}
 
+	void UIDash()
+    {
+		dashUI.fillAmount = dashCoolDown / maxDashCoolDown;
+
+		if (dashUnlocked)
+        {
+			dashUIGameObject.SetActive(true);
+        }
+
+        else
+        {
+			dashUIGameObject.SetActive(false);
+        }
+    }
     
 }
-
