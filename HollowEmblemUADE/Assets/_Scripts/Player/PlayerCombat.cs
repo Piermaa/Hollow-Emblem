@@ -24,12 +24,19 @@ public class PlayerCombat : MonoBehaviour
     [Header("Bools")]
     public bool canAttack;
     public bool aiming;
+    public bool reloading;
+
     [Header("Floats")]
     public float attackRange = .8f;
 
     [Header("Int")]
     public int damage;
     public int shootDamage;
+
+    public List<GameObject> ammo;
+
+    public int maxAmmo = 10;
+    public int currentAmmo;
 
     public enum DirectionsToAttack
     {
@@ -42,19 +49,27 @@ public class PlayerCombat : MonoBehaviour
         controller = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        currentAmmo = maxAmmo;
     }
     public void Update()
     {
         SetAttackDirection();
         Aim();
+        Reload();
+
         if (Input.GetButtonDown("Attack") && canAttack)
         {
             Attack();
         }
+
+        if (reloading)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
         //Debug.DrawRay(shootStart.position, Vector2.right*100,Color.red);
         Debug.DrawRay(shootStart.position, shootStart.TransformDirection(Vector2.left) * 100, Color.red);
     }
-
 
     void SetAttackDirection()
     {
@@ -117,6 +132,7 @@ public class PlayerCombat : MonoBehaviour
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
+
             rb.AddForce(attackDirection,ForceMode2D.Impulse);
             sounds.PlaySound(sounds.inflictdDmg);
         }
@@ -158,7 +174,7 @@ public class PlayerCombat : MonoBehaviour
 
             Shoot();
         }
-        else 
+        else if (!reloading)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             aiming = false;
@@ -168,11 +184,14 @@ public class PlayerCombat : MonoBehaviour
     void Shoot()
     {
         RaycastHit2D hit;
-       
-        if ( Input.GetMouseButtonDown(0))
+
+        if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
         {
             hit = Physics2D.Raycast(shootStart.position, shootStart.TransformDirection(Vector2.left), 50, enemyLayer); // the bug was the direction, as the shootstart is rotated... (1/2)
             //depending of the aimDirection transform we have to use TransformDirection(new Vector(direction)), also enemyLayer as it works as int it worked as distance
+            currentAmmo--;
+
+            UpdateUI();
 
             if (hit)
             {
@@ -185,6 +204,42 @@ public class PlayerCombat : MonoBehaviour
                 
             }
         }
+    }
+
+    void Reload()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && controller.CheckGround())
+        {
+            StartCoroutine(Reloading());
+        }
+    }
+
+    void UpdateUI()
+    {
+        for (int i = 0; i < ammo.Count; i++)
+        {
+            if (i < currentAmmo)
+            {
+                ammo[i].SetActive(true);
+            }
+            else
+            {
+                ammo[i].SetActive(false);
+            }
+        }
+    }
+
+    IEnumerator Reloading()
+    {
+        reloading = true;
+
+        yield return new WaitForSeconds(1);
+
+        currentAmmo = maxAmmo;
+        UpdateUI();
+        reloading = false;
+
+        yield return null;
     }
 
     private void OnDrawGizmos()
