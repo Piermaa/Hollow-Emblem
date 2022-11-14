@@ -5,7 +5,7 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
     CinemachineVirtualCamera vcam;
-    public Transform playerTransform;
+    public Transform playerTargetTransform;
     public PlayerMovement playerMovement;
     public Rigidbody2D rb;
 
@@ -16,9 +16,10 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerTargetTransform = GameObject.Find("PlayerTarget").transform;
         vcam = GetComponent<CinemachineVirtualCamera>();
-        startPos = playerTransform.position;
-        vcam.Follow = playerTransform;
+        startPos = playerTargetTransform.position;
+        vcam.Follow = playerTargetTransform;
     }
 
     // Update is called once per frame
@@ -28,14 +29,17 @@ public class CameraController : MonoBehaviour
         {
             StartCoroutine(Awaiting());
         }
-        if(!mustAim && playerTransform.localPosition != Vector3.zero)
+        if(!mustAim && playerTargetTransform.localPosition != Vector3.zero)
         {
-            playerTransform.localPosition = Vector3.zero;
+            playerTargetTransform.localPosition = Vector3.zero;
         }
     }
 
     public void ChangeTarget(Transform targetToAim)
     {
+        playerMovement.gameObject.TryGetComponent<Animator>(out var anim);
+        anim.SetBool("isWalking", false);
+        anim.SetTrigger("Idle");
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         playerMovement.enabled = false;
         newTarget = targetToAim;
@@ -47,14 +51,14 @@ public class CameraController : MonoBehaviour
     
         for (float i = 0; i <= 1; i += Time.deltaTime)
         {
-            playerTransform.position = Vector2.MoveTowards(playerTransform.position, newTarget.position, i*1/20);
+            playerTargetTransform.position = Vector2.MoveTowards(playerTargetTransform.position, newTarget.position, i*1/20);
             yield return null;
         }
         Debug.Log("Esperando");
 
         yield return new WaitForSeconds(3);
         mustAim = false;
-        playerTransform.localPosition = Vector3.zero;
+        playerTargetTransform.localPosition = Vector3.zero;
         playerMovement.enabled = true;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
