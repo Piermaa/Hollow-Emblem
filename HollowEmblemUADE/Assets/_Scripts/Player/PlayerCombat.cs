@@ -25,6 +25,7 @@ public class PlayerCombat : MonoBehaviour
     public bool canAttack;
     public bool aiming;
     public bool reloading;
+    public bool showingInventory;
 
     [Header("Floats")]
     public float attackRange = .8f;
@@ -37,6 +38,8 @@ public class PlayerCombat : MonoBehaviour
 
     public int maxAmmo = 10;
     public int currentAmmo;
+
+    public GameObject inventory;
 
     public enum DirectionsToAttack
     {
@@ -56,6 +59,7 @@ public class PlayerCombat : MonoBehaviour
         SetAttackDirection();
         Aim();
         Reload();
+        InventoryAppear();
 
         if (Input.GetButtonDown("Attack") && canAttack)
         {
@@ -246,5 +250,23 @@ public class PlayerCombat : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, shootStart.TransformDirection(Vector3.forward)*100);
+    }
+
+    void InventoryAppear()
+    {
+        if (Input.GetKeyDown(KeyCode.I) && controller.CheckGround())
+        {
+            showingInventory = !showingInventory;
+        }
+
+        if(showingInventory)
+        {
+            inventory.SetActive(true);
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        else
+        {
+            inventory.SetActive(false);
+        }
     }
 }
