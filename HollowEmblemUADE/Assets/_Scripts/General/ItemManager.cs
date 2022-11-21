@@ -25,6 +25,16 @@ public class ItemManager : MonoBehaviour
     #region Singleton
     public static ItemManager Instance;
 
+
+
+    #endregion
+    public List<Item> items=new List<Item>();
+
+    public Dictionary<string, Item> itemDictionary = new Dictionary<string, Item>();
+    public PlayerInventory inventory;
+
+    GameObject player;
+
     private void Awake()
     {
         if (Instance == null)
@@ -35,18 +45,19 @@ public class ItemManager : MonoBehaviour
         {
             Destroy(this);
         }
+        foreach (Item it in items)
+        {
+            itemDictionary.Add(it.name, it);
+        }
+        print("Dic count: " + itemDictionary.Count);
     }
 
-    #endregion
-    public List<Item> items=new List<Item>();
-    public PlayerInventory inventory;
-
-    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         inventory = PlayerInventory.Instance;
         player = inventory.gameObject;
+       
     }
 
     // Update is called once per frame
@@ -55,16 +66,11 @@ public class ItemManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             inventory.AddItem(items[0], 3);
-
-            //Debug.Log(inventory.slots[0, 0].item.name);
-            //Debug.Log(inventory.slots[0, 0].amount);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             inventory.AddItem(items[1], 5);
-            //Debug.Log(inventory.slots[0, 0].item.name);
-            //Debug.Log(inventory.slots[0, 0].amount);
         }
     }
     public void UseHeal()
@@ -72,5 +78,10 @@ public class ItemManager : MonoBehaviour
         int usedItems = 1;
         player.TryGetComponent<HealthController>(out var health);
         health.Heal(usedItems);
+    }
+
+    public void Craft()
+    {
+        // mentira 
     }
 }
