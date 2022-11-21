@@ -11,7 +11,6 @@ public class PlayerAbilities : MonoBehaviour
     private PlayerMovement movement;
     private Animator animator;
     private Rigidbody2D rb;
-    private PlayerCombat playerCombat;
     StateManager stateManager;
 
     [Header("Bool")]
@@ -33,7 +32,6 @@ public class PlayerAbilities : MonoBehaviour
         stateManager = GetComponent<StateManager>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController2D>();
-        playerCombat = GetComponent<PlayerCombat>();
         rb = GetComponent<Rigidbody2D>();
 
         if (unlockAll)
@@ -114,10 +112,6 @@ public class PlayerAbilities : MonoBehaviour
                     break;
             case "Slam":
                 slamUnlocked = true;
-                break;
-
-            case "Shoot":
-                playerCombat.canShoot = true;
                 break;
         }
     }

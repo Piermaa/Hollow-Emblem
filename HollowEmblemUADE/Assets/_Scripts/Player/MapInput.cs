@@ -2,112 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ShowStates { SHOWINGINVENTORY, SHOWINGMAP, HIDING}
-
 public class MapInput : MonoBehaviour
 {
+    public bool isShowingMap;
+    public bool isShowingIventory;
+
     public GameObject map;
     public GameObject inventory;
-    GameObject auxiliar;
 
     public Animator animator;
     public Rigidbody2D rb;
 
-    public ShowStates state;
-
-    private void Start()
-    {
-        state = ShowStates.HIDING;
-    }
-
     void Update()
     {
-        AppearSomething();
+        mapInput();
     }
 
-    void AppearSomething()
-    {   
-        if (state == ShowStates.HIDING)
+    void mapInput ()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                if (auxiliar != map)
-                {
-                    state = ShowStates.SHOWINGMAP;
-                    animator.SetBool("ShowMap", true);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                if (auxiliar != inventory)
-                {
-                    state = ShowStates.SHOWINGINVENTORY;
-                    animator.SetBool("ShowMap", true);
-                }
-            }
+            isShowingMap = !isShowingMap;
         }
 
+        if (isShowingMap)
+        {
+            animator.SetBool("ShowMap", true);
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
         else
         {
-            rb.velocity = Vector2.zero;
-            
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                if (auxiliar != map)
-                {
-                    HideAuxiliar();
-                    state = ShowStates.SHOWINGMAP;
-                    Show();
-                }
-
-                else
-                {
-                    HideAuxiliar();
-                    animator.SetBool("ShowMap", false);
-                    auxiliar = null;
-                    state = ShowStates.HIDING;
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                if (auxiliar != inventory)
-                {
-                    HideAuxiliar();
-                    state = ShowStates.SHOWINGINVENTORY;
-                    Show();
-                }
-
-                else
-                {
-                    HideAuxiliar();
-                    animator.SetBool("ShowMap", false);
-                    auxiliar = null;
-                    state = ShowStates.HIDING;
-                }
-            }
+            animator.SetBool("ShowMap", false);
         }
     }
-
-    void Show()
+    void mapAppear()
     {
-        switch (state)
+        map.SetActive(true);
+    }
+
+    void mapDisappear()
+    {
+        map.SetActive(false);
+    }
+
+    void inventoryInput()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            case ShowStates.SHOWINGMAP:
-                map.SetActive(true);
-                auxiliar = map;
-                break;
+            isShowingIventory = !isShowingIventory;
+        }
 
-            case ShowStates.SHOWINGINVENTORY:
-                inventory.SetActive(true);
-                auxiliar = inventory;
-                break;
+        if (isShowingIventory)
+        {
+            animator.SetBool("ShowInventory", true);
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+        else
+        {
+            animator.SetBool("ShowInventory", false);
         }
     }
-
-    void HideAuxiliar()
+    void InventoryAppear()
     {
-        auxiliar.SetActive(false);
+        inventory.SetActive(true);
     }
+
+    void InventoryDisappear()
+    {
+        inventory.SetActive(false);
+    }
+
 }

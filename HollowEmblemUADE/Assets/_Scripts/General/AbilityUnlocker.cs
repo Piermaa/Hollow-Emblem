@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AbilityUnlocker : MonoBehaviour
 {
-    [Tooltip("Dash (includes dj), Slam, Slime, Shoot")]
+    [Tooltip("Dash (includes dj), Slam, Slime")]
     public string unlockedAb;
 
     private void OnTriggerEnter2D(Collider2D collision)
