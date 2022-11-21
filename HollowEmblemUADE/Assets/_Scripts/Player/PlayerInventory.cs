@@ -75,10 +75,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) )
-        {
-            Reload();
-        }
+
     }
     /// <summary>
     /// Se añade cierta cantidad de items al inventario, para ello buscará un lugar disponible en el inventario
@@ -250,6 +247,12 @@ public class PlayerInventory : MonoBehaviour
                 slot.slotPopUp.useButton.onClick.AddListener(delegate { ConsumeItem(slot); });
                 slot.slotPopUp.useButton.onClick.AddListener(itemManager.UseHeal);
                 break;
+
+            case "Ammo":
+                //slot.slotPopUp.useButton.onClick += combat.Reload();
+                slot.slotPopUp.useButton.onClick.AddListener(combat.Reload);
+                break;
+
         }
     }
 
@@ -292,19 +295,42 @@ public class PlayerInventory : MonoBehaviour
         return lessAmmoSlot;
     }
 
-    public void Reload()
+    public void GetAmmoFromInventory()
     {
-        var newSlot = SearchAmmo();
-        if (newSlot != null)
+
+        int spaceAvailableOnClip=0; 
+    
+        Slot newSlot;
+        //
+        do
         {
+            spaceAvailableOnClip = combat.maxAmmo - combat.currentAmmo;
+            print(spaceAvailableOnClip);
+            newSlot = SearchAmmo();
+            if (newSlot != null)
+            {
+                if (spaceAvailableOnClip > newSlot.amount)
+                {
+                    combat.currentAmmo += newSlot.amount;
+                    EmptySlot(newSlot);
+                }
+                else
+                {
+                    combat.currentAmmo += spaceAvailableOnClip;
+                    newSlot.amount -= spaceAvailableOnClip;
+                    newSlot.tMPro.text = newSlot.amount.ToString();
+                }
+            }
 
-           
+            if ((newSlot != null) && newSlot.amount <= 0)
+            {
+                EmptySlot(newSlot);
+            }
 
 
+        } while (spaceAvailableOnClip > 0 && newSlot != null);
 
-            Debug.Log("" + newSlot.positionX + " , " + "" + newSlot.positionY);
-            Debug.Log(newSlot.item.name);
-        }
+       
     }
 }//class
 
