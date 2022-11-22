@@ -538,7 +538,7 @@ TextureImporter:
     second: SpriteAtlas-8192-II_243
   - first:
       213: -714873042312968863
-    second: SpriteAtlas-8192-II_244
+    second: SpiderBoss Idle
   - first:
       213: -4553706093176924689
     second: SpriteAtlas-8192-II_245
@@ -4423,7 +4423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpriteAtlas-8192-II_244
+      name: SpiderBoss Idle
       rect:
         serializedVersion: 2
         x: 10377
@@ -4809,7 +4809,7 @@ TextureImporter:
         width: 733
         height: 220
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -4830,7 +4830,7 @@ TextureImporter:
         width: 738
         height: 170
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
