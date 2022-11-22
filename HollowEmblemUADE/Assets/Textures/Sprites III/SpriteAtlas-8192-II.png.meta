@@ -538,7 +538,7 @@ TextureImporter:
     second: SpriteAtlas-8192-II_243
   - first:
       213: -714873042312968863
-    second: SpriteAtlas-8192-II_244
+    second: SpiderBoss Idle
   - first:
       213: -4553706093176924689
     second: SpriteAtlas-8192-II_245
@@ -596,12 +596,6 @@ TextureImporter:
   - first:
       213: 1076309832606399115
     second: SpriteAtlas-8192-II_49
-  - first:
-      213: -5439794405787287621
-    second: SpriteAtlas-8192-II_50
-  - first:
-      213: 8611628365396187545
-    second: SpriteAtlas-8192-II_51
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -757,13 +751,13 @@ TextureImporter:
       name: SpriteAtlas-8192-II_3
       rect:
         serializedVersion: 2
-        x: 10708
+        x: 10707
         y: 15941
         width: 376
         height: 258
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 41, y: 100, z: 30, w: 134}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1141,7 +1135,7 @@ TextureImporter:
         height: 350
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 112}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1162,7 +1156,7 @@ TextureImporter:
         height: 336
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 64, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1846,6 +1840,48 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: SpriteAtlas-8192-II_82
+      rect:
+        serializedVersion: 2
+        x: 4839
+        y: 11501
+        width: 278
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55f12b52890a97c80800000000000000
+      internalID: -8324445860889747627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas-8192-II_83
+      rect:
+        serializedVersion: 2
+        x: 4846
+        y: 11365
+        width: 551
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faa495cb36a9c0090800000000000000
+      internalID: -8066903079374992721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: SpriteAtlas-8192-II_84
       rect:
         serializedVersion: 2
@@ -2081,9 +2117,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 8899
-        y: 11277
+        y: 10951
         width: 634
-        height: 291
+        height: 616
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2177,6 +2213,27 @@ TextureImporter:
       bones: []
       spriteID: 85e6be8a415095b20800000000000000
       internalID: 3123533402849635928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas-8192-II_100
+      rect:
+        serializedVersion: 2
+        x: 5155
+        y: 11339
+        width: 266
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5587388b3b10f7cf0800000000000000
+      internalID: -252481182703060907
       vertices: []
       indices: 
       edges: []
@@ -2329,16 +2386,37 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: SpriteAtlas-8192-II_108
+      rect:
+        serializedVersion: 2
+        x: 4817
+        y: 11209
+        width: 278
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1d00f4df056362b0800000000000000
+      internalID: -5592515193592607462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: SpriteAtlas-8192-II_109
       rect:
         serializedVersion: 2
-        x: 4842
-        y: 11342
-        width: 576
-        height: 268
-      alignment: 9
+        x: 4823
+        y: 11073
+        width: 550
+        height: 224
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 274, y: 118, z: 263, w: 109}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2366,6 +2444,27 @@ TextureImporter:
       bones: []
       spriteID: c75dfdddcfbbe71c0800000000000000
       internalID: -4503955882595330692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas-8192-II_117
+      rect:
+        serializedVersion: 2
+        x: 5131
+        y: 11045
+        width: 266
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b984995c843013700800000000000000
+      internalID: 518199043212003483
       vertices: []
       indices: 
       edges: []
@@ -2455,6 +2554,48 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: SpriteAtlas-8192-II_132
+      rect:
+        serializedVersion: 2
+        x: 4813
+        y: 10915
+        width: 278
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c0a15a1b6298f2f0800000000000000
+      internalID: -938839533606035263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas-8192-II_133
+      rect:
+        serializedVersion: 2
+        x: 4819
+        y: 10779
+        width: 552
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c572d93ab6c0ebe0800000000000000
+      internalID: -1449940576876988983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: SpriteAtlas-8192-II_136
       rect:
         serializedVersion: 2
@@ -2497,13 +2638,34 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: SpriteAtlas-8192-II_146
+      rect:
+        serializedVersion: 2
+        x: 5127
+        y: 10753
+        width: 268
+        height: 116
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3755986083a006af0800000000000000
+      internalID: -405312730719234701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: SpriteAtlas-8192-II_147
       rect:
         serializedVersion: 2
         x: 8969
         y: 10603
         width: 494
-        height: 275
+        height: 264
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2513,6 +2675,27 @@ TextureImporter:
       bones: []
       spriteID: 77028516681aedc10800000000000000
       internalID: 2080277676422602871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas-8192-II_148
+      rect:
+        serializedVersion: 2
+        x: 9237
+        y: 10861
+        width: 114
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f6b46c70551bcd50800000000000000
+      internalID: 6758519101228103410
       vertices: []
       indices: 
       edges: []
@@ -4240,7 +4423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpriteAtlas-8192-II_244
+      name: SpiderBoss Idle
       rect:
         serializedVersion: 2
         x: 10377
@@ -4648,55 +4831,13 @@ TextureImporter:
         height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 100, y: 0, z: 98, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: b8ab3c81712dfee00800000000000000
       internalID: 1076309832606399115
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SpriteAtlas-8192-II_50
-      rect:
-        serializedVersion: 2
-        x: 4820
-        y: 11049
-        width: 575
-        height: 268
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 274, y: 118, z: 263, w: 109}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bbf34e72fc7f184b0800000000000000
-      internalID: -5439794405787287621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SpriteAtlas-8192-II_51
-      rect:
-        serializedVersion: 2
-        x: 8897
-        y: 10938
-        width: 637
-        height: 339
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9991e193f56a28770800000000000000
-      internalID: 8611628365396187545
       vertices: []
       indices: 
       edges: []
