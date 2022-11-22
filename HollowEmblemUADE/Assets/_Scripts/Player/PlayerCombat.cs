@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
     Vector2 attackDirection;
 
     [Header("Classes")]
+    PlayerInventory inventory;
     [SerializeField] PlayerSounds sounds;
     Rigidbody2D rb;
     Animator animator;
@@ -34,13 +35,11 @@ public class PlayerCombat : MonoBehaviour
     [Header("Int")]
     public int damage;
     public int shootDamage;
-
-    public List<GameObject> ammo;
-
     public int maxAmmo = 10;
     public int currentAmmo;
+    public List<GameObject> ammo;
 
-    public GameObject inventory;
+
 
     public enum DirectionsToAttack
     {
@@ -50,6 +49,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        inventory = PlayerInventory.Instance;
         controller = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -61,7 +61,12 @@ public class PlayerCombat : MonoBehaviour
         {
             SetAttackDirection();
             Aim();
-            Reload();
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Reload();
+            }
+
         }
         
         if (Input.GetButtonDown("Attack") && canAttack)
@@ -213,9 +218,9 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    void Reload()
+    public void Reload()
     {
-        if (Input.GetKeyDown(KeyCode.R) && controller.CheckGround())
+        if ( controller.CheckGround() && maxAmmo>currentAmmo)
         {
             StartCoroutine(Reloading());
         }
@@ -241,11 +246,9 @@ public class PlayerCombat : MonoBehaviour
         reloading = true;
 
         yield return new WaitForSeconds(1);
-
-        currentAmmo = maxAmmo;
+        inventory.GetAmmoFromInventory();
         UpdateUI();
         reloading = false;
-
         yield return null;
     }
 
