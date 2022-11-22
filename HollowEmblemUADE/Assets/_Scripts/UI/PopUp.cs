@@ -16,11 +16,6 @@ public class PopUp : MonoBehaviour
         inventory = PlayerInventory.Instance;
     }
 
-    void Update()
-    {
-        
-    }
-
     public void ActivatePopUp()
     {
         if (this.gameObject.activeInHierarchy)
@@ -32,7 +27,7 @@ public class PopUp : MonoBehaviour
             this.gameObject.SetActive(true);
         }
     }
-    public void Discard()
+    public void Discard() // SE añade el listener desde el inspector **
     {
         inventory.EmptySlot(slot);
         Destroy(this.gameObject);
