@@ -15,8 +15,11 @@ public class MapInput : MonoBehaviour
 
     public ShowStates state;
 
+    public bool canInput;
+
     private void Start()
     {
+        canInput = true;
         state = ShowStates.HIDING;
     }
 
@@ -29,7 +32,7 @@ public class MapInput : MonoBehaviour
     {   
         if (state == ShowStates.HIDING)
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab) && canInput)
             {
                 if (auxiliar != map)
                 {
@@ -40,7 +43,7 @@ public class MapInput : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                if (auxiliar != inventory)
+                if (auxiliar != inventory && canInput)
                 {
                     state = ShowStates.SHOWINGINVENTORY;
                     animator.SetBool("ShowMap", true);
@@ -52,7 +55,7 @@ public class MapInput : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab) && canInput)
             {
                 if (auxiliar != map)
                 {
@@ -65,12 +68,13 @@ public class MapInput : MonoBehaviour
                 {
                     HideAuxiliar();
                     animator.SetBool("ShowMap", false);
+                    animator.SetTrigger("Disappear");
                     auxiliar = null;
                     state = ShowStates.HIDING;
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.I) && canInput)
             {
                 if (auxiliar != inventory)
                 {
@@ -83,6 +87,7 @@ public class MapInput : MonoBehaviour
                 {
                     HideAuxiliar();
                     animator.SetBool("ShowMap", false);
+                    animator.SetTrigger("Disappear");
                     auxiliar = null;
                     state = ShowStates.HIDING;
                 }
@@ -104,6 +109,16 @@ public class MapInput : MonoBehaviour
                 auxiliar = inventory;
                 break;
         }
+    }
+
+    public void CanInput()
+    {
+        canInput = true;
+    }
+
+    public void CanNotInput()
+    {
+        canInput = false;
     }
 
     void HideAuxiliar()

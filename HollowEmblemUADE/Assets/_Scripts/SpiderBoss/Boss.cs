@@ -23,10 +23,14 @@ public class Boss : MonoBehaviour
     public GameObject rightSide;
     public GameObject waypointA;
     public GameObject waypointB;
+    public GameObject invulnerabilityShield;
 
     [Header("Bools")]
     public bool isRight;
     public bool goingRight;
+    public bool canEmbist;
+    public bool canRecover;
+    public bool isInvulnerable;
 
     [Header("Transforms")]
     public Transform seekPlayerStart;
@@ -38,6 +42,8 @@ public class Boss : MonoBehaviour
     public float speed = 7.5f;
     public float embistingSpeed = 10f;
     public float backSpeed = 0.1f;
+    public float cooldown;
+    [SerializeField] private float cooldownTimer = 0.2f;
 
     [Header("LayerMasks")]
     public LayerMask playerLayer;
@@ -51,6 +57,10 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
+        cooldown = cooldownTimer;
+        canEmbist = true;
+        canRecover = true;
+        isInvulnerable = true;
         gameObject.SetActive(true);
         embistingTrigger.SetActive(false);
         goingRight = true;
@@ -61,25 +71,19 @@ public class Boss : MonoBehaviour
     {
         //Debug.DrawRay(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left) + new Vector3(distanceOfRay, 0, 0), Color.blue);
         //Debug.DrawRay(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left) + new Vector3(distanceOfWallRay, 0, 0), Color.red);
+        UpdateCooldown();
+        SetInvulnerability();
         BossStateExecution();
     }
 
-    IEnumerator Searching()
+    void Searching()
     {
-        yield return new WaitForSeconds(0.2f);
+        Debug.Log("SEARCHING");
         Vector3 theScale = transform.localScale;
 
-        if (playerRc = Physics2D.Raycast(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left), distanceOfRay, playerLayer))
-        {
-            if (goingRight)
-            {
+        if ((playerRc = Physics2D.Raycast(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left), distanceOfRay, playerLayer)) && cooldown <= 0)
+        {   
                 state = BattleState.CHARGING;
-            }
-
-            else
-            {
-                state = BattleState.CHARGING;
-            } 
         }
 
         else
@@ -110,14 +114,14 @@ public class Boss : MonoBehaviour
                 transform.localScale = theScale;
             }
         }
-
-        yield return null;
     }
 
     IEnumerator Charging()
     {
+        Debug.Log("CHARGING");
+
+        canEmbist = false;
         animator.SetBool("Walk", false);
-        damageCollider.enabled = false;
 
         if (goingRight)
         {
@@ -133,6 +137,7 @@ public class Boss : MonoBehaviour
         
         yield return new WaitForSeconds(2f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+        canEmbist = true;
         state = BattleState.EMBISTING;
 
         yield return null;
@@ -140,6 +145,7 @@ public class Boss : MonoBehaviour
 
     void Embisting()
     {
+        Debug.Log("EMBISTING");
         damageCollider.enabled = true;
 
         if (wallRc = Physics2D.Raycast(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left), distanceOfWallRay, spikeLayer))
@@ -162,12 +168,15 @@ public class Boss : MonoBehaviour
             {
                 transform.position = Vector2.MoveTowards(transform.position, leftSide.transform.position, embistingSpeed * Time.deltaTime);
             }
-            
         }
     }
 
     IEnumerator Recovering()
     {
+        Debug.Log("RECOVERING");
+
+        canRecover = false;
+        isInvulnerable = false;
         embistingTrigger.SetActive(false);
         animator.SetBool("Walk", false);
         
@@ -183,9 +192,36 @@ public class Boss : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
+        cooldown = cooldownTimer;
+        canRecover = true;
+        isInvulnerable = true;
+        damageCollider.enabled = false;
         state = BattleState.SEARCHING;
 
         yield return null;
+    }
+
+    void UpdateCooldown()
+    {
+        cooldown -= Time.deltaTime;
+
+        if (cooldown <= 0)
+            cooldown = 0;
+    }
+
+    void SetInvulnerability()
+    {
+        if (isInvulnerable)
+        {
+            damageCollider.enabled = false;
+            invulnerabilityShield.SetActive(true);
+        }
+
+        else
+        {
+            damageCollider.enabled = true;  
+            invulnerabilityShield.SetActive(false);
+        }
     }
 
     void BossStateExecution()
@@ -193,11 +229,16 @@ public class Boss : MonoBehaviour
         switch (state)
         {
             case BattleState.SEARCHING:
-                StartCoroutine(Searching());
+                Searching();
                 break;
 
             case BattleState.CHARGING:
-                StartCoroutine(Charging());
+
+                if (canEmbist)
+                {
+                    StartCoroutine(Charging());
+                }
+
                 break;
 
             case BattleState.EMBISTING:
@@ -205,9 +246,13 @@ public class Boss : MonoBehaviour
                 break;
 
             case BattleState.RECOVERING:
-                StartCoroutine(Recovering());
+
+                if (canRecover)
+                {
+                    StartCoroutine(Recovering());
+                }
+        
                 break;
         }
     }
-
 }
