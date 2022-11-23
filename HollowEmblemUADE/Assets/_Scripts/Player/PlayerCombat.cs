@@ -223,6 +223,7 @@ public class PlayerCombat : MonoBehaviour
         if ( controller.CheckGround() && maxAmmo>currentAmmo)
         {
             StartCoroutine(Reloading());
+            animator.SetTrigger("Reload");
         }
     }
 

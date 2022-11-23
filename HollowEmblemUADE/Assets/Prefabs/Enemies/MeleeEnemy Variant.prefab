@@ -501,19 +501,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802618, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Size.x
-      value: 2.1843543
+      value: 1.7237792
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802618, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Size.y
-      value: 2.154957
+      value: 2.6839964
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802618, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Offset.x
-      value: 0.37037015
+      value: 0.1400826
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802618, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Offset.y
-      value: -0.6360723
+      value: -0.3715526
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802618, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_IsTrigger
@@ -565,7 +565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802622, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Name
-      value: MeleeEnemy
+      value: MeleeEnemy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802623, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: speed
