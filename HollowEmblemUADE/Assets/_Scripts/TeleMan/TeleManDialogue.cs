@@ -5,36 +5,47 @@ using UnityEngine.UI;
 
 public class TeleManDialogue : MonoBehaviour
 {
-    public Text telemanText;
+    [Header("Classes")]
+    public PlayerCombat playerCombat;
+    public PlayerMovement playerMovement;
+    public PlayerAbilities playerAbilities;
 
-    public GameObject dataText;
-    public GameObject secondDataText;
-
+    [Header("Bools")]
     public bool canInteract;
-    public bool hasTalked;
+    public bool canTalk;
+    public bool nearEnd;
 
+    [Header("GameObjects")]
     public GameObject target;
     public GameObject newTarget;
+    public GameObject textPosition;
+
+    public Transform secondPosition;
+    public Transform thirdPosition;
+
+    public Text telemanText;
 
     public Rigidbody2D rb;
 
     public float cooldown = 0.5f;
 
+    public int textChanger = 0;
+
     private Animator animator;
+
+
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        playerCombat = FindObjectOfType<PlayerCombat>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerAbilities = FindObjectOfType<PlayerAbilities>();
     }
     private void Update()
     {
-        cooldown -= Time.deltaTime;
-
-        if ( cooldown < 0)
-        {
-            cooldown = 0;
-        }
-
+        PositionText();
+        CooldownUpdate();
         ChangeText();
     }
 
@@ -56,42 +67,351 @@ public class TeleManDialogue : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             telemanText.text = "";
+            textChanger = 0;
             canInteract = false;
-            hasTalked = false;
+            canTalk = false;
             animator.SetBool("isTalking", false);
             target.transform.localPosition = new Vector3(0, 0, 0);
         }
     }
 
-    void ChangeText()
+    void CooldownUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canInteract && !hasTalked && cooldown <= 0)
-        {
-            //StartCoroutine(TimeToInteract());
-            telemanText.text = "You´re not the first one on getting here.";
-            //target.transform.position = newTarget.transform.position;
-            //rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            animator.SetBool("isTalking", true);
-            cooldown = 0.5f;
-            hasTalked = true;
-            return;
-        }
+        cooldown -= Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.E) && canInteract && hasTalked && cooldown <= 0)
+        if (cooldown < 0)
         {
-            //StartCoroutine(TimeToInteract());
-            telemanText.text = "I think that there´s a gun for you nearby!";
-            cooldown = 0.5f;
-            //target.transform.position = newTarget.transform.position;
-            //rb.constraints = RigidbodyConstraints2D.FreezeAll;
-            return;
+            cooldown = 0;
         }
     }
 
-    //IEnumerator TimeToInteract()
-    //{
-    //    canInteract = false;
-    //    yield return new WaitForSeconds(0.5f);
-    //    canInteract = true;
-    //}
+    void PositionText()
+    {
+        telemanText.transform.position = new Vector2(textPosition.transform.position.x, textPosition.transform.position.y);
+    }
+
+    void ChangeText()
+    {
+        if (!playerCombat.canShoot && !playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
+        {
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
+            {
+                canTalk = false;
+                telemanText.text = "You´re not the first one on getting here";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 1;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
+            {
+                canTalk = false;
+                telemanText.text = "I think that there´s a gun for you nearby!";
+                cooldown = 0.5f;
+                textChanger = 2;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 2)
+            {
+                canTalk = false;
+                telemanText.text = "";
+                cooldown = 0.5f;
+                canTalk = true;
+                return;
+            }
+        }
+
+        if (playerCombat.canShoot && !playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
+        {
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
+            {
+                canTalk = false;
+                telemanText.text = "Oh, you found it";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 1;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
+            {
+                canTalk = false;
+                telemanText.text = "You can destroy that wall now";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 2;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 2)
+            {
+                canTalk = false;
+                telemanText.text = "Do it, please";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 3;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 3)
+            {
+                canTalk = false;
+                telemanText.text = "I need to get somewhere";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 4;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 4)
+            {
+                canTalk = false;
+                telemanText.text = "";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                canTalk = true;
+                return;
+            }
+        }
+
+        if (playerCombat.canShoot && playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
+        {
+            transform.position = new Vector2(secondPosition.transform.position.x, secondPosition.transform.position.y);
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
+            {
+                canTalk = false;
+                telemanText.text = "¿Have you killed the embisting beast?";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 1;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
+            {
+                canTalk = false;
+                telemanText.text = "This is amazing";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 2;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 2)
+            {
+                canTalk = false;
+                telemanText.text = "You might be the one";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 3;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 3)
+            {
+                canTalk = false;
+                telemanText.text = "Please continue, there are some more things that you have to do";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 4;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 4)
+            {
+                canTalk = false;
+                telemanText.text = "";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                canTalk = true;
+                return;
+            }
+        }
+
+        if (playerCombat.canShoot && playerMovement.dashUnlocked && playerAbilities.slamUnlocked && !nearEnd)
+        {
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
+            {
+                canTalk = false;
+                telemanText.text = "¿What? this is impossible";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 1;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
+            {
+                canTalk = false;
+                telemanText.text = "Now I realize";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 2;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 2)
+            {
+                canTalk = false;
+                telemanText.text = "Go deeper, to the red zone";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 3;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 3)
+            {
+                canTalk = false;
+                telemanText.text = "You will find the last of these monsters";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 4;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 4)
+            {
+                canTalk = false;
+                telemanText.text = "Kill it";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 5;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 5)
+            {
+                canTalk = false;
+                telemanText.text = "";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 6;
+                canTalk = true;
+                return;
+            }
+        }
+
+        if (playerCombat.canShoot && playerMovement.dashUnlocked && playerAbilities.slamUnlocked && nearEnd)
+        {
+            transform.position = new Vector2(thirdPosition.transform.position.x, thirdPosition.transform.position.y);
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
+            {
+                canTalk = false;
+                telemanText.text = "Wait";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 1;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
+            {
+                canTalk = false;
+                telemanText.text = "This will be difficult";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 2;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 2)
+            {
+                canTalk = false;
+                telemanText.text = "You won´t be able to go back if you continue";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 3;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 3)
+            {
+                canTalk = false;
+                telemanText.text = "The last beast is waiting for you";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 4;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 4)
+            {
+                canTalk = false;
+                telemanText.text = "Be careful";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 5;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 5)
+            {
+                canTalk = false;
+                telemanText.text = "Please don´t die";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 6;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 6)
+            {
+                canTalk = false;
+                telemanText.text = "Please don´t die";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                textChanger = 7;
+                canTalk = true;
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 7)
+            {
+                canTalk = false;
+                telemanText.text = "";
+                animator.SetBool("isTalking", true);
+                cooldown = 0.5f;
+                canTalk = true;
+                return;
+            }
+
+            //if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
+            //{
+            //    //textChanger++;
+
+            //    //for(int i=textChanger; i<10;i++)
+            //    //{
+
+            //    //}
+            //}
+
+        }
+    }
 }
+

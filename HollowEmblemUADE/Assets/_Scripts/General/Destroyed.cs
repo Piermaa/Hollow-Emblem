@@ -5,19 +5,17 @@ using UnityEngine;
 public class Destroyed : MonoBehaviour
 {
     Animator animator;
-    // Start is called before the first frame update
+    public GameObject minimapIcon;
     void Start()
     {
         animator = GetComponent<Animator>();
+        minimapIcon.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     public void Destruction()
     {
         animator.SetTrigger("Destroy");
+        minimapIcon.SetActive(false);
     }
 }
