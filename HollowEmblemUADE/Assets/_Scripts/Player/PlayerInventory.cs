@@ -46,11 +46,12 @@ public class PlayerInventory : MonoBehaviour
 
     private void Awake()
     {
-        itemManager = ItemManager.Instance; 
+    
         Instance = this;//SINGLETON
     }
     void Start()
     {
+        itemManager = ItemManager.Instance;
         combat = GetComponent<PlayerCombat>();
         slots = new Slot[rowSize, colSize];
 
