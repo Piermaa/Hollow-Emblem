@@ -8,14 +8,28 @@ public class MapInput : MonoBehaviour
 {
     public GameObject map;
     public GameObject inventory;
+
+    public GameObject miniMap;
+    public GameObject secondMiniMapPosition;
+
+    public GameObject cameraNoZoom;
+    public GameObject cameraWithZoom;
+
     GameObject auxiliar;
 
-    public Animator animator;
+    private Animator animator;
+    public Animator minimapAnimator;
+
     public Rigidbody2D rb;
 
     public ShowStates state;
 
     public bool canInput;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -101,12 +115,19 @@ public class MapInput : MonoBehaviour
         {
             case ShowStates.SHOWINGMAP:
                 map.SetActive(true);
+                ChangeThingsMiniMap();
                 auxiliar = map;
                 break;
 
             case ShowStates.SHOWINGINVENTORY:
                 inventory.SetActive(true);
+                ShowNoMap();
                 auxiliar = inventory;
+                break;
+
+            case ShowStates.HIDING:
+                ShowNoMap();
+                ShowMiniMap();
                 break;
         }
     }
@@ -119,6 +140,43 @@ public class MapInput : MonoBehaviour
     public void CanNotInput()
     {
         canInput = false;
+    }
+
+    public void AppearMinimap()
+    {
+       miniMap.SetActive(true);
+    }
+
+    public void DissappearMiniMap()
+    {
+        miniMap.SetActive(false);
+    }
+
+    public void ChangeThingsMiniMap()
+    {
+        miniMap.SetActive(false);
+        secondMiniMapPosition.SetActive(true);
+
+        cameraNoZoom.SetActive(false);
+        cameraWithZoom.SetActive(true);
+    }
+
+    public void ShowMiniMap()
+    {
+        miniMap.SetActive(true);
+        secondMiniMapPosition.SetActive(false);
+
+        cameraNoZoom.SetActive(true);
+        cameraWithZoom.SetActive(false);
+    }
+
+    public void ShowNoMap()
+    {
+        miniMap.SetActive(false);
+        secondMiniMapPosition.SetActive(false);
+
+        cameraNoZoom.SetActive(false);
+        cameraWithZoom.SetActive(false);
     }
 
     void HideAuxiliar()
