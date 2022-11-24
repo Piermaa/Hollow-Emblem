@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Experimental.Rendering.Universal; //ESTE ES EL NECESARIO PARA USAR LUCES 2D !!!!!!1!!!
 public class PlayerCombat : MonoBehaviour
 {
     public LayerMask enemyLayer;
     Vector2 attackDirection;
 
-    [Header("Classes")]
+    [Header("Objects")]
     PlayerInventory inventory;
     [SerializeField] PlayerSounds sounds;
     Rigidbody2D rb;
     Animator animator;
     CharacterController2D controller;
+    ParticleSystem bulletShootParticles;
+    [SerializeField] GameObject bulletShootLights;
+    private Light2D shootLightSpread;
 
     [Header("Transforms")]
     public Transform playerCenter; //saves the position of the player center, this to attack from there when liquid
@@ -28,6 +31,7 @@ public class PlayerCombat : MonoBehaviour
     public bool reloading;
     public bool showingInventory;
     public bool canShoot;
+    [SerializeField]bool mustTurnOff;
 
     [Header("Floats")]
     public float attackRange = .8f;
@@ -49,6 +53,10 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        shootLightSpread = bulletShootLights.GetComponent<Light2D>();
+      
+        bulletShootParticles = bulletShootLights.GetComponentInChildren<ParticleSystem>();
+        bulletShootLights.SetActive(false);
         inventory = PlayerInventory.Instance;
         controller = GetComponent<CharacterController2D>();
         animator = GetComponent<Animator>();
@@ -66,7 +74,6 @@ public class PlayerCombat : MonoBehaviour
             {
                 Reload();
             }
-
         }
         
         if (Input.GetButtonDown("Attack") && canAttack)
@@ -77,6 +84,11 @@ public class PlayerCombat : MonoBehaviour
         if (reloading)
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        if (mustTurnOff)
+        {
+            StartCoroutine(LightSpread());
         }
 
         //Debug.DrawRay(shootStart.position, Vector2.right*100,Color.red);
@@ -158,7 +170,6 @@ public class PlayerCombat : MonoBehaviour
             {
                 health.TakeDamage(damage);
             }
-   
         }
     }
 
@@ -199,6 +210,7 @@ public class PlayerCombat : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
         {
+            ShootFX();
             hit = Physics2D.Raycast(shootStart.position, shootStart.TransformDirection(Vector2.left), 50, enemyLayer); // the bug was the direction, as the shootstart is rotated... (1/2)
             //depending of the aimDirection transform we have to use TransformDirection(new Vector(direction)), also enemyLayer as it works as int it worked as distance
             currentAmmo--;
@@ -217,10 +229,29 @@ public class PlayerCombat : MonoBehaviour
             }
         }
     }
+    void ShootFX()
+    {
+        bulletShootLights.SetActive(true);
+        bulletShootParticles.Play();
+        shootLightSpread.intensity = 1.4f;
+        mustTurnOff = true;
+    }
 
+
+    IEnumerator LightSpread()
+    {
+        for (float i = shootLightSpread.intensity; i > 0; i -= Time.deltaTime*20)
+        {
+            shootLightSpread.intensity = i;
+            yield return null;
+        }
+        mustTurnOff = false;
+        yield return new WaitForSeconds(0.1f);
+       
+    }
     public void Reload()
     {
-        if ( controller.CheckGround() && maxAmmo>currentAmmo)
+        if ( controller.CheckGround() && maxAmmo>currentAmmo &&!reloading)
         {
             StartCoroutine(Reloading());
             animator.SetTrigger("Reload");
@@ -245,7 +276,6 @@ public class PlayerCombat : MonoBehaviour
     IEnumerator Reloading()
     {
         reloading = true;
-
         yield return new WaitForSeconds(1);
         inventory.GetAmmoFromInventory();
         UpdateUI();
