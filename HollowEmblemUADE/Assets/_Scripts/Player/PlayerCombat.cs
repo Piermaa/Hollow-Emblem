@@ -63,12 +63,14 @@ public class PlayerCombat : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         currentAmmo = maxAmmo;
-    }
+    } 
     public void Update()
     {
+        SetAttackDirection();
+
         if (canShoot)
         {
-            SetAttackDirection();
+            
             Aim();
 
             if (Input.GetKeyDown(KeyCode.R))
