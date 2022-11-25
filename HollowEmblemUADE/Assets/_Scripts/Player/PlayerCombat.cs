@@ -6,7 +6,7 @@ public class PlayerCombat : MonoBehaviour
 {
     public LayerMask enemyLayer;
     Vector2 attackDirection;
-
+  
     [Header("Objects")]
     PlayerInventory inventory;
     [SerializeField] PlayerSounds sounds;
@@ -234,6 +234,7 @@ public class PlayerCombat : MonoBehaviour
     }
     void ShootFX()
     {
+        sounds.PlaySound(sounds.shoot,true);
         bulletShootLights.SetActive(true);
         bulletShootParticles.Play();
         shootLightSpread.intensity = 1.4f;
@@ -249,6 +250,7 @@ public class PlayerCombat : MonoBehaviour
             yield return null;
         }
         mustTurnOff = false;
+        shootLightSpread.intensity = 0;
         yield return new WaitForSeconds(0.1f);
        
     }
@@ -278,6 +280,7 @@ public class PlayerCombat : MonoBehaviour
 
     IEnumerator Reloading()
     {
+        sounds.PlaySound(sounds.reload);
         reloading = true;
         yield return new WaitForSeconds(1);
         inventory.GetAmmoFromInventory();

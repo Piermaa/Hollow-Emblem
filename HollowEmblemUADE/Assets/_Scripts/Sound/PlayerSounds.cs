@@ -17,11 +17,19 @@ public class PlayerSounds : MonoBehaviour
     public AudioSource step;
     public AudioSource powerUp;
     public AudioSource die;
+    public AudioSource shoot;
+    public AudioSource reload;
     public void PlaySound(AudioSource sound)
     {
         if (!sound.isPlaying)
         {
             sound.Play();
         }
+    }
+    public void PlaySound(AudioSource sound, bool canRepeat)
+    {
+        
+            sound.PlayOneShot(sound.clip);
+        
     }
 }
