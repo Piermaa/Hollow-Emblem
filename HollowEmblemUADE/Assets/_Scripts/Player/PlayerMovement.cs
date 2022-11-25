@@ -117,8 +117,7 @@ public class PlayerMovement : MonoBehaviour
 			animator.SetBool("Jump", true);
 			//animator.SetTrigger("DoubleJump");
 			StartCoroutine(BeginJump());
-			if (dashUnlocked)
-			{
+			
 				jump = true;
 
 				if (!controller.CheckGround() && !doubleJumped)
@@ -129,15 +128,15 @@ public class PlayerMovement : MonoBehaviour
 					doubleJumped = true;
 					//animator.SetBool("Jump", false);
 				}
-			}
-			else
-			{
+			
+			
+			
 				if (controller.CheckGround())
 				{
 					sounds.PlaySound(sounds.jump);
 					jump = true;
 				}
-			}
+			
 		}
 
 		if (controller.CheckGround() && !beginingJump)

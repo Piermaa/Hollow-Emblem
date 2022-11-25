@@ -90,7 +90,19 @@ public class ObjectPooler : MonoBehaviour
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = Quaternion.Euler( new Vector3(rotation.x,0,0));
+        if(direction.x<0)
+        {
+            Vector3 theScale = transform.localScale;
+            theScale.x = -1;
+            objectToSpawn.transform.localScale = theScale;
+        }
 
+        else
+        {
+            Vector3 theScale = transform.localScale;
+            theScale.x = 1;
+            objectToSpawn.transform.localScale = theScale;
+        }
         IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();     //busca que haya una interface en el objeto a spawnear
         objectToSpawn.TryGetComponent<Bullet>(out var bullet);
 

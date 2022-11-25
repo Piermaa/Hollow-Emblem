@@ -43,16 +43,5 @@ public class UIHealth : MonoBehaviour
             healthSprites[i].color = Color.white;
         }
 
-        /*for (int i = 0; i+1 <= healthController.healthPoints; i++)
-        {
-            //   hearths[i].SetActive(true);
-            emptyHearts[i].SetActive(true);
-        }
-        for (int i = healthController.maxHealth +1; i  >= healthController.healthPoints; i--)
-        {
-            hearths[i].SetActive(false);
-        }
-
-        */
     }
 }

@@ -24,8 +24,10 @@ public class Boss : MonoBehaviour
     public GameObject waypointA;
     public GameObject waypointB;
     public GameObject invulnerabilityShield;
+    public GameObject abUnlocker;
 
     [Header("Bools")]
+    public bool drop;
     public bool isRight;
     public bool goingRight;
     public bool canEmbist;
@@ -253,6 +255,14 @@ public class Boss : MonoBehaviour
                 }
         
                 break;
+        }
+    }
+
+    public void Death()
+    {
+        if (drop)
+        {
+            GameManager.instance.StartVictory(this.transform.position, "Dash");
         }
     }
 }

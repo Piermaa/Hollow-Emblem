@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 3706045552064169157}
-  takeDamageSound: {fileID: 0}
+  takeDamageSound: {fileID: 775813142}
   inmune: 0
   white: 0
   healthPoints: 13
@@ -179,7 +179,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 10fecc41c3fb7694e96fdf7f9d687871, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

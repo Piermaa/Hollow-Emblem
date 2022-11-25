@@ -53,6 +53,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+    
         shootLightSpread = bulletShootLights.GetComponent<Light2D>();
       
         bulletShootParticles = bulletShootLights.GetComponentInChildren<ParticleSystem>();

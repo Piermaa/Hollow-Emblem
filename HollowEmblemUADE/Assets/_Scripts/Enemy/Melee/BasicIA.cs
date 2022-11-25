@@ -12,7 +12,7 @@ public class BasicIA : MonoBehaviour
     float speedAux;
     public float waitTime;
     float startWaitTime = 1;
-
+    bool playerAtLeft;
     [SerializeField] Transform next;
 
     Transform playerTransform;
@@ -25,7 +25,6 @@ public class BasicIA : MonoBehaviour
 
     private void Update()
     {
-
         next = moveSpots[spotsIndex];
         stopTime -= Time.deltaTime;
 
@@ -87,9 +86,15 @@ public class BasicIA : MonoBehaviour
     {
         Vector2 dir = new Vector2(playerTransform.position.x, transform.position.y);
         transform.position = Vector2.MoveTowards(transform.position, dir, speed*Time.deltaTime);
-        Vector3 theScale = transform.position - playerTransform.position;
+        
 
+        playerAtLeft = (playerTransform.position.x < transform.position.x) ? true : false;
+        float dirMultpiplier = playerAtLeft ? -1 : 1;
 
+        //HAY ALGUNA FORMA DE NO EJECUTAR ESTO A CADA FRAME Y EJECUTARLO SOLO CUANDO EL VALOR CAMBIA????
+        Vector3 theScale = transform.localScale;
+        theScale.x = dirMultpiplier;
+        transform.localScale = theScale;
 
         if (Vector2.Distance(transform.position, playerTransform.position) < 2)
         {

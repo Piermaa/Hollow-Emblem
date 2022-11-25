@@ -11,7 +11,12 @@ public class SceneChanger : MonoBehaviour
     public GameObject panelOptions;
 
     public GameManager gameManager;
+    public static SceneChanger Instance;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     public void Start()
     {
         IniciarComponentes();
@@ -87,6 +92,11 @@ public class SceneChanger : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 }
 
