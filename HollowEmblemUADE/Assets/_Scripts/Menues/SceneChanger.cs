@@ -39,14 +39,14 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     public void ReturnToMainMenu()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        //Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
         SceneManager.LoadScene(0, LoadSceneMode.Single);
 
     }
@@ -73,15 +73,15 @@ public class SceneChanger : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     public void Resume()
     {
         gameManager.Resume();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     public void Exit()

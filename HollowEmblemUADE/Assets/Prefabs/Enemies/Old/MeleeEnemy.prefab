@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicIA: {fileID: 5046753533852802623}
+  airIA: {fileID: 0}
 --- !u!70 &1734119090
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -105,13 +106,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb508c423a6b6424ebeed15d08c22727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTime: 0.44
   animator: {fileID: 5046753533852802621}
-  _staminaController: {fileID: 5046753533852802566}
   ia: {fileID: 5046753533852802623}
+  attackSound: {fileID: 0}
+  playerInRange: 0
   attackCooldown: 5
   attackTimer: 0
-  playerInRange: 0
+  attackTime: 0.44
 --- !u!61 &5046753533769194674
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,7 +152,6 @@ GameObject:
   - component: {fileID: 5046753533852802621}
   - component: {fileID: 5046753533852802617}
   - component: {fileID: 5046753533852802618}
-  - component: {fileID: 5046753533852802566}
   - component: {fileID: 1618896175}
   - component: {fileID: 9131492135775221009}
   m_Layer: 7
@@ -197,6 +197,7 @@ MonoBehaviour:
   stopTime: 0
   speed: 4
   waitTime: 0
+  next: {fileID: 0}
 --- !u!95 &5046753533852802621
 Animator:
   serializedVersion: 3
@@ -228,10 +229,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca569d1d8c00fb41b521f77444c6ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  takeDamageSound: {fileID: 0}
   inmune: 0
+  white: 0
   healthPoints: 100
   maxHealth: 0
-  sprite: {fileID: 0}
+  playerInmunity: 1
+  OnHealthAdd:
+    m_PersistentCalls:
+      m_Calls: []
+  DieEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &5046753533852802618
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -258,19 +268,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3862522, y: 1.3916636}
   m_EdgeRadius: 0
---- !u!114 &5046753533852802566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5046753533852802622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dcca309107f4b3498334ce3e3ef6f55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stamina: 5
 --- !u!50 &1618896175
 Rigidbody2D:
   serializedVersion: 4
@@ -304,10 +301,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca569d1d8c00fb41b521f77444c6ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 2232837030186815259}
+  takeDamageSound: {fileID: 0}
   inmune: 0
+  white: 0
   healthPoints: 5
   maxHealth: 0
-  sprite: {fileID: 2232837030186815259}
+  playerInmunity: 1
+  OnHealthAdd:
+    m_PersistentCalls:
+      m_Calls: []
+  DieEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5046753535061964363
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,7 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8597fed85632d0743bbe02d65b459f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _staminaController: {fileID: 5046753533852802566}
   damage: 1
 --- !u!1 &6547681002369983053
 GameObject:
