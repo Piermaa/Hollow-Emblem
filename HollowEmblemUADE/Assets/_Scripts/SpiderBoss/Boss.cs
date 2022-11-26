@@ -125,23 +125,23 @@ public class Boss : MonoBehaviour
         canEmbist = false;
         animator.SetBool("Walk", false);
 
-        for (float i = 2; i > 0; i -= Time.deltaTime)
+        for (float i = 1.5f; i > 0; i -= Time.deltaTime)
         {
 
             if (goingRight)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 10);
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x - 0.4f, transform.position.y), backSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x - 0.005f, transform.position.y), backSpeed * Time.deltaTime);
             }
 
             else
             {
                 transform.rotation = Quaternion.Euler(0, 0, -10);
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + 0.4f, transform.position.y), backSpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + 0.005f, transform.position.y), backSpeed * Time.deltaTime);
             }
             yield return new WaitForEndOfFrame();
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         canEmbist = true;
         state = BattleState.EMBISTING;
