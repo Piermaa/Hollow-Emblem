@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//using UnityEngine.UIElements;
 using TMPro;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 public class Slot
 {
     public int positionX, positionY, amount;
@@ -14,6 +16,7 @@ public class Slot
     public UnityEvent itemEvent;
     public Button button;
     public PopUp slotPopUp;
+    public MouseDetector mouseDetector;
    
     public Slot(Item i, int pX, int pY, int a, Image im, GameObject go,TextMeshProUGUI t,Button b)
     {
@@ -196,16 +199,56 @@ public class PlayerInventory : MonoBehaviour
     /// <param name="slot"></param>
     public void EmptySlot(Slot slot)
     {
+        DepleteSlot(slot);
+        //var popUpReference = slot.button.gameObject.GetComponentsInChildren<PopUp>();
+        Destroy(slot.slotPopUp.gameObject);
+
+        //Debug.Log(slots[slot.positionX, slot.positionY]);
+        Debug.Log(slot.positionX +","+ slot.positionY);
+        if (slot.positionX < slots.GetLength(0) - 1)
+        {
+            Debug.Log(slot.positionX + 1 + "," + slot.positionY);
+            MoveItem(slots[slot.positionX + 1, slot.positionY], slots[slot.positionX, slot.positionY]);
+            Debug.Log(slots[slot.positionX + 1, slot.positionY]);
+        }
+        else if(slot.positionY < slots.GetLength(1) - 1)
+        {
+            Debug.Log(0 + "," + slot.positionY+1);
+            MoveItem(slots[0, slot.positionY+1], slots[slot.positionX, slot.positionY]);
+            //Debug.Log(slots[slot.positionX + 1, slot.positionY]);
+        }
+           
+    }
+    /// <summary>
+    /// MUEVE EL CONTENIDO DE UN SLOT A OTRO Y VACIA EL PRIMERO
+    /// </summary>
+    /// <param name="slotOrigin">EL SLOT DESDE EL QUE SE MUEVEN LOS ITEMS</param>
+    /// <param name="slotDestiny">EL SLOT AL QUE SE MOVERAN LOS ITEMS</param>
+    void MoveItem(Slot slotOrigin, Slot slotDestiny)
+    {
+        if (slotOrigin.item!=null)
+        {
+            slotDestiny.amount = slotOrigin.amount;
+            slotDestiny.itemEvent = slotOrigin.itemEvent;
+            slotDestiny.tMPro.text = slotOrigin.tMPro.text;
+            slotDestiny.item = slotOrigin.item;
+            slotDestiny.image.sprite = slotOrigin.image.sprite;
+            slotDestiny.image.enabled = slotOrigin.image.enabled;
+            CreatePopUp(slotDestiny);
+            EmptySlot(slotOrigin);
+        }
+       
+    }
+    void DepleteSlot(Slot slot)
+    {
         slot.amount = 0;
         slot.itemEvent = null;
         slot.tMPro.text = "";
         slot.item = null;
         slot.image.sprite = null;
         slot.image.enabled = false;
-        //var popUpReference = slot.button.gameObject.GetComponentsInChildren<PopUp>();
-        Destroy(slot.slotPopUp.gameObject);
+        slot.mouseDetector.popUp = null;
     }
-
     /// <summary>
     /// Llena un slot dado por un item dado
     /// </summary>
@@ -220,7 +263,7 @@ public class PlayerInventory : MonoBehaviour
         slot.image.enabled = true;
         slot.image.sprite = itemType.sprite;
         var popUpReference = slot.button.gameObject.GetComponentsInChildren<PopUp>();
-        Debug.Log("POPUPS: " + popUpReference.Length);
+        //Debug.Log("POPUPS: " + popUpReference.Length);
         if (slot.slotPopUp==null)
         {
             CreatePopUp(slot);
@@ -237,9 +280,13 @@ public class PlayerInventory : MonoBehaviour
         slot.item.popUp.gameObject.SetActive(false); // Se desactiva porque solo se debe ver al clickear el boton del slot
         popUpRef.slot = slot; // Se asigna el slot del pop up
         slot.slotPopUp = popUpRef; // Se le asigna una referencia al objeto popup del slot
-        
+
         slot.button.onClick.AddListener(popUpRef.ActivatePopUp); // Se asigna el evento del boton del slot
-   
+
+        slot.mouseDetector =slot.slotGameObject.AddComponent<MouseDetector>();
+        slot.mouseDetector.popUp = popUpRef;
+
+        
         //Se asigna el uso del boton Use de los pop ups, depende del nombre del item añadido.
         switch(slot.item.name)
         {

@@ -49,7 +49,7 @@ public class ItemManager : MonoBehaviour
         {
             itemDictionary.Add(it.name, it);
         }
-        print("Dic count: " + itemDictionary.Count);
+        //print("Dic count: " + itemDictionary.Count);
     }
 
     // Start is called before the first frame update

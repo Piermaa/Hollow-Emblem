@@ -17,7 +17,7 @@ public class PickupableItem : MonoBehaviour
     {
         itemManager = ItemManager.Instance;
         itemManager.itemDictionary.TryGetValue(itemName, out itemToAdd);
-        Debug.Log(itemToAdd.name);
+        //Debug.Log(itemToAdd.name);
         sr = GetComponent<SpriteRenderer>();
         sr.sprite = itemToAdd.sprite;
     }

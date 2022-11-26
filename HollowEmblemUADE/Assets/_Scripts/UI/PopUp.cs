@@ -11,9 +11,12 @@ public class PopUp : MonoBehaviour
     public int xIndex;
     public int yIndex;
     public PlayerInventory inventory;
+
+    public UnityEvent pointEvent;
     void Start()
     {
         inventory = PlayerInventory.Instance;
+        pointEvent.AddListener(ActivatePopUp);
     }
 
     public void ActivatePopUp()
@@ -27,6 +30,15 @@ public class PopUp : MonoBehaviour
             this.gameObject.SetActive(true);
         }
     }
+
+    public void ActivatePanel()
+    {
+        this.gameObject.SetActive(true);
+    }
+    public void DeactivatePanel()
+    {
+        this.gameObject.SetActive(false);
+    }
     public void Discard() // SE añade el listener desde el inspector **
     {
         inventory.EmptySlot(slot);
@@ -38,4 +50,5 @@ public class PopUp : MonoBehaviour
         slot.itemEvent.Invoke();
         slot.amount -= slot.item.usedPerEvent;
     }
+  
 }
