@@ -471,6 +471,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   victorySprite: {fileID: 0}
   defeatSprite: {fileID: 0}
+  abUnlockerPrefab: {fileID: 7154400189316225685, guid: 5737f075e1042fb41b9e79a619bca5c5, type: 3}
   animator: {fileID: 0}
 --- !u!4 &540968788
 Transform:

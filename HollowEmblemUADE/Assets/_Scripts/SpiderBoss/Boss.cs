@@ -125,18 +125,22 @@ public class Boss : MonoBehaviour
         canEmbist = false;
         animator.SetBool("Walk", false);
 
-        if (goingRight)
+        for (float i = 2; i > 0; i -= Time.deltaTime)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 10);
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x - 0.006f, transform.position.y), backSpeed * Time.deltaTime);
-        }
 
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 0, -10);
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + 0.006f, transform.position.y), backSpeed * Time.deltaTime);
+            if (goingRight)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 10);
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x - 0.4f, transform.position.y), backSpeed * Time.deltaTime);
+            }
+
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -10);
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + 0.4f, transform.position.y), backSpeed * Time.deltaTime);
+            }
+            yield return new WaitForEndOfFrame();
         }
-        
         yield return new WaitForSeconds(2f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         canEmbist = true;

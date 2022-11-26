@@ -6,7 +6,9 @@ public class PlayerCombat : MonoBehaviour
 {
     public LayerMask enemyLayer;
     Vector2 attackDirection;
-  
+    public GameObject pistolUI;
+
+
     [Header("Objects")]
     PlayerInventory inventory;
     [SerializeField] PlayerSounds sounds;
@@ -53,7 +55,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
-    
+        pistolUI.SetActive(false);
         shootLightSpread = bulletShootLights.GetComponent<Light2D>();
       
         bulletShootParticles = bulletShootLights.GetComponentInChildren<ParticleSystem>();
@@ -70,7 +72,7 @@ public class PlayerCombat : MonoBehaviour
 
         if (canShoot)
         {
-            
+            pistolUI.SetActive(true);
             Aim();
 
             if (Input.GetKeyDown(KeyCode.R))
