@@ -46,28 +46,28 @@ public class PlayerAbilities : MonoBehaviour
     {
         slamTimer -= Time.deltaTime;
 
-        if(Input.GetButtonDown("Jump") && Input.GetAxis("Vertical") < 0 && slamUnlocked && slamTimer<0)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && slamUnlocked && slamTimer < 0)
         {
             if (!controller.CheckGround())
             {
                 animator.SetBool("Falling", true);
-                rb.AddForce(Vector2.down*slamForce, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.down * slamForce, ForceMode2D.Impulse);
                 willDestroy = true;
                 controller.MustSlam();
                 slamTimer = slamCD;
             }
         }
 
-        if(controller.CheckGround())
+        if (controller.CheckGround())
         {
             animator.SetBool("Falling", false);
             if (willDestroy)
             {
                 animator.SetTrigger("Slam");
             }
-         
-        }
 
+        }
+               
         UISlam();
     }
 
