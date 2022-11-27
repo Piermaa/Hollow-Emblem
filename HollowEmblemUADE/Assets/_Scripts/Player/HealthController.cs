@@ -6,6 +6,7 @@ public class HealthController : MonoBehaviour
     [Header("Classes")]
     [SerializeField] SpriteRenderer sprite;
     public AudioSource takeDamageSound;
+    private UIHealth uiHealth;
 
     [Header("Bool")]
     public bool inmune = false;
@@ -21,6 +22,12 @@ public class HealthController : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnHealthAdd;
     public UnityEvent DieEvent;
+
+    private void Awake()
+    {
+        uiHealth = FindObjectOfType<UIHealth>();
+    }
+
     private void Start()
     {
         if (sprite==null)
@@ -63,7 +70,8 @@ public class HealthController : MonoBehaviour
         if (!inmune && healthPoints>0 &&!takingDamage)
         {   
             healthPoints -= damage;
-            
+            uiHealth.hasTakeDamage = true;
+
             Color col;
             if (white)
             {
