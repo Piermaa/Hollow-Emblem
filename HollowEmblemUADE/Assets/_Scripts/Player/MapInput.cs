@@ -143,6 +143,16 @@ public class MapInput : MonoBehaviour
         }
     }
 
+    public void PutMap()
+    {
+        state = ShowStates.SHOWINGMAP;
+    }
+
+    public void PutInventory()
+    {
+        state = ShowStates.SHOWINGINVENTORY;
+    }
+
     public void CanInput()
     {
         canInput = true;

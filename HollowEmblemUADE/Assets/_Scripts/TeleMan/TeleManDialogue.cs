@@ -19,6 +19,7 @@ public class TeleManDialogue : MonoBehaviour
     public GameObject target;
     public GameObject newTarget;
     public GameObject textPosition;
+    public GameObject textTutorial;
 
     public Transform secondPosition;
     public Transform thirdPosition;
@@ -54,6 +55,7 @@ public class TeleManDialogue : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             telemanText.text = "Hi There!";
+            textTutorial.SetActive(true);
         }
     }
 
@@ -70,6 +72,7 @@ public class TeleManDialogue : MonoBehaviour
             textChanger = 0;
             canInteract = false;
             canTalk = false;
+            textTutorial.SetActive(false);
             animator.SetBool("isTalking", false);
             target.transform.localPosition = new Vector3(0, 0, 0);
         }
@@ -96,6 +99,7 @@ public class TeleManDialogue : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
             {
+                textTutorial.SetActive(false);
                 canTalk = false;
                 telemanText.text = "You´re not the first one on getting here";
                 animator.SetBool("isTalking", true);

@@ -20,6 +20,7 @@ public class TutorialScripts : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             text.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }
