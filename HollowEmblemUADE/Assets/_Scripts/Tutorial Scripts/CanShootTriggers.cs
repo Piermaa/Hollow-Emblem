@@ -25,7 +25,7 @@ public class CanShootTriggers : MonoBehaviour
         if (other.CompareTag("Player") && playerCombat.canShoot)
         {
             text.SetActive(false);
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

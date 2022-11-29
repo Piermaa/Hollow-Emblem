@@ -14,6 +14,7 @@ public class UIHealth : MonoBehaviour
     [SerializeField] Slider secondHealthSlider;
 
     public bool hasTakeDamage;
+    public bool isBoss;
 
 
     private void Awake()
@@ -60,6 +61,7 @@ public class UIHealth : MonoBehaviour
         //    healthSprites[i].color = Color.white;
         //}
 
+        hasTakeDamage = true;
         healthSlider.value = healthController.healthPoints;
     }
 
@@ -73,11 +75,17 @@ public class UIHealth : MonoBehaviour
 
     IEnumerator FeedbackSecondSlider()
     {
+
         yield return new WaitForSeconds(0.5f);
 
         if (secondHealthSlider.value > healthSlider.value)
         {
             secondHealthSlider.value -= Time.deltaTime * 0.8f;
+        }
+
+        else if (secondHealthSlider.value > healthSlider.value && isBoss)
+        {
+            secondHealthSlider.value -= Time.deltaTime * 4f;
         }
 
         else if (secondHealthSlider.value <= healthSlider.value)

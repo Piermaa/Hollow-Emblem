@@ -53,6 +53,7 @@ public class Boss : MonoBehaviour
 
     private void Awake()
     {
+        gameObject.SetActive(false);
         damageCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
     }
@@ -152,6 +153,8 @@ public class Boss : MonoBehaviour
     void Embisting()
     {
         Debug.Log("EMBISTING");
+
+        isInvulnerable = false;
         damageCollider.enabled = true;
 
         if (wallRc = Physics2D.Raycast(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left), distanceOfWallRay, spikeLayer))
@@ -182,7 +185,6 @@ public class Boss : MonoBehaviour
         Debug.Log("RECOVERING");
 
         canRecover = false;
-        isInvulnerable = false;
         embistingTrigger.SetActive(false);
         animator.SetBool("Walk", false);
         
