@@ -34,11 +34,13 @@ public class MapInput : MonoBehaviour
     private void Start()
     {
         canInput = true;
+        auxiliar = map;
         state = ShowStates.HIDING;
     }
 
     void Update()
     {
+        Show();
         AppearSomething();
     }
 
@@ -46,18 +48,29 @@ public class MapInput : MonoBehaviour
     {   
         if (state == ShowStates.HIDING)
         {
+            if (Input.GetKeyDown(KeyCode.M) && canInput)
+            {
+                
+                 state = ShowStates.SHOWINGMAP;
+                 animator.SetBool("ShowMap", true);
+                
+            }
+
+            if (Input.GetKeyDown(KeyCode.I) && canInput)
+            { 
+                 state = ShowStates.SHOWINGINVENTORY;
+                 animator.SetBool("ShowMap", true);
+            }
+
             if (Input.GetKeyDown(KeyCode.Tab) && canInput)
             {
-                if (auxiliar != map)
+                if (auxiliar == map)
                 {
                     state = ShowStates.SHOWINGMAP;
                     animator.SetBool("ShowMap", true);
                 }
-            }
 
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                if (auxiliar != inventory && canInput)
+                if (auxiliar == inventory)
                 {
                     state = ShowStates.SHOWINGINVENTORY;
                     animator.SetBool("ShowMap", true);
@@ -65,46 +78,41 @@ public class MapInput : MonoBehaviour
             }
         }
 
-        else
+        else if (state == ShowStates.SHOWINGMAP)
         {
             rb.velocity = Vector2.zero;
             
-            if (Input.GetKeyDown(KeyCode.Tab) && canInput)
+            if ((Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Tab)) && canInput)
             {
-                if (auxiliar != map)
-                {
-                    HideAuxiliar();
-                    state = ShowStates.SHOWINGMAP;
-                    Show();
-                }
-
-                else
-                {
-                    HideAuxiliar();
-                    animator.SetBool("ShowMap", false);
-                    animator.SetTrigger("Disappear");
-                    auxiliar = null;
-                    state = ShowStates.HIDING;
-                }
+                animator.SetBool("ShowMap", false);
+                animator.SetTrigger("Disappear");
+                HideAuxiliar();
+                state = ShowStates.HIDING;
+                auxiliar = map;
             }
 
-            if (Input.GetKeyDown(KeyCode.I) && canInput)
+            else if (Input.GetKeyDown(KeyCode.I) && canInput)
             {
-                if (auxiliar != inventory)
-                {
-                    HideAuxiliar();
-                    state = ShowStates.SHOWINGINVENTORY;
-                    Show();
-                }
+                state = ShowStates.SHOWINGINVENTORY;
+            }
+        }
 
-                else
-                {
-                    HideAuxiliar();
-                    animator.SetBool("ShowMap", false);
-                    animator.SetTrigger("Disappear");
-                    auxiliar = null;
-                    state = ShowStates.HIDING;
-                }
+        else if (state == ShowStates.SHOWINGINVENTORY)
+        {
+            rb.velocity = Vector2.zero;
+
+            if ((Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.Tab)) && canInput)
+            {
+                animator.SetBool("ShowMap", false);
+                animator.SetTrigger("Disappear");
+                HideAuxiliar();
+                state = ShowStates.HIDING;
+                auxiliar = inventory;
+            }
+
+            else if (Input.GetKeyDown(KeyCode.M) && canInput)
+            {
+                state = ShowStates.SHOWINGMAP;
             }
         }
     }
@@ -115,11 +123,13 @@ public class MapInput : MonoBehaviour
         {
             case ShowStates.SHOWINGMAP:
                 map.SetActive(true);
+                inventory.SetActive(false);
                 ChangeThingsMiniMap();
                 auxiliar = map;
                 break;
 
             case ShowStates.SHOWINGINVENTORY:
+                map.SetActive(false);
                 inventory.SetActive(true);
                 ShowNoMap();
                 auxiliar = inventory;
@@ -128,6 +138,7 @@ public class MapInput : MonoBehaviour
             case ShowStates.HIDING:
                 ShowNoMap();
                 ShowMiniMap();
+                HideAuxiliar();
                 break;
         }
     }
