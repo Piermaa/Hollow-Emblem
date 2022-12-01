@@ -50,7 +50,7 @@ public class PlayerAttack : MonoBehaviour, IPooledObject
             enemyH.TakeDamage(1);
 
             playerRigidBody.velocity = Vector2.zero;
-            playerRigidBody.AddForce((playerRigidBody.gameObject.transform.position - this.gameObject.transform.position).normalized*10, ForceMode2D.Impulse);
+            playerRigidBody.AddForce((playerRigidBody.gameObject.transform.position - this.gameObject.transform.position).normalized*5, ForceMode2D.Impulse);
          
         }
     }
