@@ -10,6 +10,7 @@ public class PlayerCombat : MonoBehaviour
 
 
     [Header("Objects")]
+    ObjectPooler objectPooler;
     PlayerInventory inventory;
     [SerializeField] PlayerSounds sounds;
     Rigidbody2D rb;
@@ -55,6 +56,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        objectPooler = ObjectPooler.Instance;
         pistolUI.SetActive(false);
         shootLightSpread = bulletShootLights.GetComponent<Light2D>();
       
@@ -131,6 +133,22 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+
+    public void AttackFront()
+    {
+        objectPooler.SpawnFromPool("PlayerAttack", attackPoint.position, attackPosition.rotation, rb,transform.localScale);
+    }
+
+    public void AttackUp()
+    {
+        objectPooler.SpawnFromPool("PlayerAttackUp", attackPoint.position, attackPosition.rotation, rb, transform.localScale);
+    }
+
+    public void AttackDown()
+    {
+        objectPooler.SpawnFromPool("PlayerAttackDown", attackPoint.position, attackPosition.rotation, rb, transform.localScale);
+    }
+
     /// <summary>
     /// Attacks using overlapcricleall, triggers the correct animation and inflict damage on enemies
     /// </summary>
@@ -149,32 +167,6 @@ public class PlayerCombat : MonoBehaviour
             case DirectionsToAttack.Up:
                 animator.SetTrigger("AttackUp");
                 break;
-        }
-      
-
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange,enemyLayer);
-
-        if(hitEnemies.Length >0)
-        {
-            if(attackDirection.y>0)
-            {
-                rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            }
-
-            rb.AddForce(attackDirection,ForceMode2D.Impulse);
-            sounds.PlaySound(sounds.inflictdDmg);
-        }
-
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            HealthController health;
-            enemy.TryGetComponent<HealthController>(out health);
-
-            if (health!=null)
-            {
-                health.TakeDamage(damage);
-            }
         }
     }
 

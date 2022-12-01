@@ -8,9 +8,7 @@ public class CameraController : MonoBehaviour
     public Transform playerTargetTransform;
     public PlayerMovement playerMovement;
     public Rigidbody2D rb;
-
     Vector3 startPos;
-
     Transform newTarget;
     bool mustAim;
     // Start is called before the first frame update

@@ -3378,10 +3378,10 @@ TextureImporter:
         serializedVersion: 2
         x: 14367
         y: 8903
-        width: 309
+        width: 299
         height: 626
       alignment: 9
-      pivot: {x: 0.46629438, y: 0.50685155}
+      pivot: {x: 0.479453, y: 0.50595456}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3397,8 +3397,8 @@ TextureImporter:
       name: SpriteAtlas-8192-II_195
       rect:
         serializedVersion: 2
-        x: 14671
-        y: 8903
+        x: 14667
+        y: 8905
         width: 376
         height: 626
       alignment: 9
@@ -3418,9 +3418,9 @@ TextureImporter:
       name: SpriteAtlas-8192-II_196
       rect:
         serializedVersion: 2
-        x: 15043
+        x: 15045
         y: 8903
-        width: 430
+        width: 424
         height: 626
       alignment: 9
       pivot: {x: 0.27487054, y: 0.5039156}
@@ -3439,9 +3439,9 @@ TextureImporter:
       name: SpriteAtlas-8192-II_197
       rect:
         serializedVersion: 2
-        x: 15467
+        x: 15470
         y: 8903
-        width: 440
+        width: 436
         height: 626
       alignment: 9
       pivot: {x: 0.23125222, y: 0.5117453}
@@ -3460,9 +3460,9 @@ TextureImporter:
       name: SpriteAtlas-8192-II_198
       rect:
         serializedVersion: 2
-        x: 15903
+        x: 15906
         y: 8903
-        width: 481
+        width: 478
         height: 626
       alignment: 9
       pivot: {x: 0.20842604, y: 0.5098483}

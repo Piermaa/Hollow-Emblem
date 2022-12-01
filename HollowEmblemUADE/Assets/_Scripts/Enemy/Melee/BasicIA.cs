@@ -88,7 +88,7 @@ public class BasicIA : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, dir, speed*Time.deltaTime);
         
 
-        playerAtLeft = (playerTransform.position.x < transform.position.x) ? true : false;
+        playerAtLeft = (playerTransform.position.x < transform.position.x);
         float dirMultpiplier = playerAtLeft ? -1 : 1;
 
         //HAY ALGUNA FORMA DE NO EJECUTAR ESTO A CADA FRAME Y EJECUTARLO SOLO CUANDO EL VALOR CAMBIA????
