@@ -30,6 +30,11 @@ public class SceneChanger : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
+    private void Update()
+    {
+        Pause();
+    }
+
     public void IniciarComponentes()
     {
         canvas = GameObject.Find("Canvas");
@@ -51,23 +56,26 @@ public class SceneChanger : MonoBehaviour
 
     }
 
-    public void Options()
+    public void Pause()
     {
-        panelMenu.SetActive(false);
-        if (panelOptions!=null)
+        if (Input.GetKeyDown(KeyCode.Escape) && panelOptions.active == true)
         {
+            Volver();
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Escape) && panelOptions.active == false)
+        {
+            Time.timeScale = 0f;
+            Cursor.visible = true;
             panelOptions.SetActive(true);
         }
-      
     }
 
     public void Volver()
     {
-        panelMenu.SetActive(true);
-        if (panelOptions != null)
-        {
-            panelOptions.SetActive(true);
-        }
+        Time.timeScale = 1f;
+        Cursor.visible = false;
+        panelMenu.SetActive(false);
     }
 
     public void Restart()

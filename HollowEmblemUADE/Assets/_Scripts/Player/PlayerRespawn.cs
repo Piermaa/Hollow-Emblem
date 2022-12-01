@@ -7,6 +7,7 @@ public class PlayerRespawn : MonoBehaviour
     Vector3 respawnPosition;
     [SerializeField]PlayerSounds sounds;
     HealthController health;
+    [SerializeField] HealthController[] bossHealth;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Sprite playerSprite;
     int progress;
@@ -23,6 +24,12 @@ public class PlayerRespawn : MonoBehaviour
     public void Respawn()
     {
         health.FullHeal();
+
+        foreach (HealthController health in bossHealth)
+        {
+            health.FullHeal();
+        }
+
         transform.position = respawnPosition;
 
         sprite.color = Color.white;
