@@ -11,6 +11,8 @@ public class ChangeCameraPosition : MonoBehaviour
     [SerializeField] Transform bossTarget;
     [SerializeField] Transform playerTarget;
 
+
+
     [SerializeField] GameObject[] invisibleWalls;
 
     [SerializeField] GameObject playerCamera;
@@ -27,6 +29,9 @@ public class ChangeCameraPosition : MonoBehaviour
             {
                 wall.SetActive(true);
             }
+
+            collision.TryGetComponent<PlayerRespawn>(out var pr);
+            pr.SetRespawn(transform.position);
 
             vcam.Follow = bossTarget;
             bossCanvas.SetActive (true);

@@ -24,9 +24,9 @@ public class PlayerRespawn : MonoBehaviour
     {
         health.FullHeal();
         transform.position = respawnPosition;
-    
+
         sprite.color = Color.white;
-    
+
         TryGetComponent<PlayerCombat>(out var combat);
         combat.canAttack = true;
         TryGetComponent<Animator>(out var animator);
