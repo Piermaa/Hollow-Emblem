@@ -34,9 +34,9 @@ TagManager:
   - CameraPlayer
   - CameraMiniMap
   - SpikesSpiderBoss
-  - 
-  - 
-  - 
+  - PlayerAttack
+  - Items
+  - PlayerAmmo
   - 
   - 
   - 

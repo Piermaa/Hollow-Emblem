@@ -11,8 +11,8 @@ public class Bullet : MonoBehaviour, IPooledObject
     public Vector3 moveDirection;
     public void OnObjectSpawn()
     {
-        moveDirection = moveDirection + Vector3.up;
-        moveDirection = moveDirection - transform.position;
+        moveDirection += Vector3.up;
+        moveDirection -= transform.position;
         moveDirection.Normalize();
     }
 

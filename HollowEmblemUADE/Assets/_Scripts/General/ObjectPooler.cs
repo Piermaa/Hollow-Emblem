@@ -59,12 +59,49 @@ public class ObjectPooler : MonoBehaviour
 
 
         objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = position;
-        objectToSpawn.transform.rotation= rotation;
+        objectToSpawn.transform.SetPositionAndRotation(position, rotation);
+        //objectToSpawn.transform.position = position;
+        //objectToSpawn.transform.rotation= rotation;
 
         IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();     //busca que haya una interface en el objeto a spawnear
 
         if (pooledObj!= null)
+        {
+            pooledObj.OnObjectSpawn(); // si tiene el tipo IPooledObject se llamara el metodo OnObjectSpawn() al spawnear el obj  //accede a la interfaz, busca la implementacion del metodo y lo executa
+        }
+
+        poolDictionary[tag].Enqueue(objectToSpawn);
+
+        return objectToSpawn;
+    }
+
+    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation, Rigidbody2D rb, Vector3 scale)
+    {
+
+        if (!poolDictionary.ContainsKey(tag))
+        {
+            print("Tag" + tag + "does not exists");
+            return null;
+        }
+
+        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+        //saca de la cola al objeto a despawnear
+
+
+        objectToSpawn.SetActive(true);
+        objectToSpawn.transform.SetPositionAndRotation(position, rotation);
+        //objectToSpawn.transform.position = position;
+        //objectToSpawn.transform.rotation = rotation;
+        objectToSpawn.transform.localScale = scale;
+        var pAttack = objectToSpawn.GetComponent<PlayerAttack>();
+        //Debug.Log("Has");
+        if (pAttack.playerRigidBody == null)
+        {
+            pAttack.playerRigidBody = rb;
+        }
+        IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();     //busca que haya una interface en el objeto a spawnear
+
+        if (pooledObj != null)
         {
             pooledObj.OnObjectSpawn(); // si tiene el tipo IPooledObject se llamara el metodo OnObjectSpawn() al spawnear el obj  //accede a la interfaz, busca la implementacion del metodo y lo executa
         }
