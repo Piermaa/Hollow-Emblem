@@ -8,6 +8,7 @@ public class ChangeCameraPosition : MonoBehaviour
 {
 
     [SerializeField] CinemachineVirtualCamera vcam;
+
     [SerializeField] Transform bossTarget;
     [SerializeField] Transform playerTarget;
 
@@ -19,6 +20,14 @@ public class ChangeCameraPosition : MonoBehaviour
     [SerializeField] GameObject boss;
     [SerializeField] GameObject bossCanvas;
 
+    [SerializeField] Slider healthSlider;
+    [SerializeField] Slider secondHealthSlider;
+
+    [SerializeField] HealthController healthController;
+
+    [SerializeField] RectTransform sliderValuePosition;
+    [SerializeField] RectTransform secondSliderValuePosistion;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -27,6 +36,9 @@ public class ChangeCameraPosition : MonoBehaviour
             {
                 wall.SetActive(true);
             }
+
+            collision.TryGetComponent<PlayerRespawn>(out var pr);
+            pr.SetRespawn(transform.position);
 
             vcam.Follow = bossTarget;
             bossCanvas.SetActive (true);
@@ -44,9 +56,31 @@ public class ChangeCameraPosition : MonoBehaviour
             wall.SetActive(false);
         }
 
+        PutMaxHealth();
+
         vcam.Follow = playerTarget;
         bossCanvas.SetActive(false);
+
         //playerCamera.SetActive(true);
         //bossCamera.SetActive(false);
+    }
+
+    public void PutMaxHealth()
+    {
+        healthController.maxHealth++;
+
+        sliderValuePosition.transform.localPosition = new Vector2(sliderValuePosition.transform.localPosition.x + 50, sliderValuePosition.transform.localPosition.y);
+        sliderValuePosition.transform.localScale = new Vector2(sliderValuePosition.transform.localScale.x + 0.3f, sliderValuePosition.transform.localScale.y);
+
+        secondSliderValuePosistion.transform.localPosition = new Vector2(secondSliderValuePosistion.transform.localPosition.x + 50, secondSliderValuePosistion.transform.localPosition.y);
+        secondSliderValuePosistion.transform.localScale = new Vector2(secondSliderValuePosistion.transform.localScale.x + 0.3f, secondSliderValuePosistion.transform.localScale.y);
+
+        healthSlider.maxValue = healthController.maxHealth;
+        secondHealthSlider.maxValue = healthController.maxHealth;
+
+        healthController.healthPoints = healthController.maxHealth;
+
+        healthSlider.value = healthController.healthPoints;
+        secondHealthSlider.value = healthController.healthPoints;
     }
 }

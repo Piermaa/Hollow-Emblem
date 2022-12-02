@@ -133,6 +133,7 @@ public class TeleManDialogue : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
             {
+                textTutorial.SetActive(false);
                 canTalk = false;
                 telemanText.text = "Oh, you found it";
                 animator.SetBool("isTalking", true);
@@ -192,6 +193,7 @@ public class TeleManDialogue : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
             {
+                textTutorial.SetActive(false);
                 canTalk = false;
                 telemanText.text = "¿Have you killed the embisting beast?";
                 animator.SetBool("isTalking", true);
@@ -249,6 +251,7 @@ public class TeleManDialogue : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
             {
+                textTutorial.SetActive(false);
                 canTalk = false;
                 telemanText.text = "¿What? this is impossible";
                 animator.SetBool("isTalking", true);
@@ -320,6 +323,7 @@ public class TeleManDialogue : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E) && canInteract && !canTalk && cooldown <= 0 && textChanger == 0)
             {
+                textTutorial.SetActive(false);
                 canTalk = false;
                 telemanText.text = "Wait";
                 animator.SetBool("isTalking", true);
