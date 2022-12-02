@@ -58,12 +58,12 @@ public class SceneChanger : MonoBehaviour
 
     public void Pause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && panelOptions.active == true)
+        if (Input.GetKeyDown(KeyCode.Escape) && panelOptions.activeInHierarchy == true)
         {
             Volver();
         }
 
-        else if (Input.GetKeyDown(KeyCode.Escape) && panelOptions.active == false)
+        else if (Input.GetKeyDown(KeyCode.Escape) && panelOptions.activeInHierarchy == false)
         {
             Time.timeScale = 0f;
             Cursor.visible = true;

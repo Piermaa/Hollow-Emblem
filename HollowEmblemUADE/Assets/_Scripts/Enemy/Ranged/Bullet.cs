@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class Bullet : MonoBehaviour, IPooledObject
 {
+    Rigidbody2D rb;
     public float speed;
     public float timeToDespawn;
     public float timeLimit = 5;
@@ -14,14 +15,28 @@ public class Bullet : MonoBehaviour, IPooledObject
         moveDirection += Vector3.up;
         moveDirection -= transform.position;
         moveDirection.Normalize();
+        rb.AddForce(moveDirection.normalized * speed, ForceMode2D.Force);
+        if (rb.velocity.x < 0)
+        {
+            Vector3 theScale = transform.localScale;
+            theScale.x = 1;
+            this.transform.localScale = theScale;
+        }
+        else
+        {
+            Vector3 theScale = transform.localScale;
+            theScale.x = -1;
+            this.transform.localScale = theScale;
+        }
     }
 
-   
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
     private void Update()
     {
-        //Vector3 newDir= Vector3.
-        //transform.position = Vector3.MoveTowards(transform.position,moveDirection,Time.deltaTime * speed);
-        transform.Translate(moveDirection * Time.deltaTime * speed);
 
         timeToDespawn += Time.deltaTime;
 
@@ -38,11 +53,21 @@ public class Bullet : MonoBehaviour, IPooledObject
         {
             if (collision.gameObject.TryGetComponent<HealthController>(out var health))
             {
-                
-
                 health.TakeDamage(1);
             }
         }
         this.gameObject.SetActive(false);
     }
+
+
+    //-----------------------Feliz Cumple Dante-----------------------|
+    //                          $10000                                |
+    //                                                                |
+    //                                                                |
+    //                                                                |
+    //                     navidad                                    |
+    //                                                                |
+    //                                                                |
+    //                                                                |
+    //----------------------------------------------------------------|
 }
