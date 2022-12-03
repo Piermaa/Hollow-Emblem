@@ -109,44 +109,43 @@ public class PlayerCombat : MonoBehaviour
         if(y==0)
         {
             directionsToAttack = DirectionsToAttack.Front;
-            attackPoint.position = attackDirections[0].position;
+    
             shootStart.position = shootDirections[0].position;
             shootStart.rotation = shootDirections[0].rotation;
-            attackDirection = new Vector2((transform.position.x) - (attackPoint.position.x), 0)*6;
+            
         }
         if(y>0)
         {
             directionsToAttack = DirectionsToAttack.Up;
-            attackPoint.position = attackDirections[1].position;
+            
             shootStart.position = shootDirections[1].position;
             shootStart.rotation = shootDirections[1].rotation;
-            attackDirection = new Vector2(0,0);
+ 
         }
     
         if(y<0)
         {
             directionsToAttack = DirectionsToAttack.Down;
-            attackPoint.position = attackDirections[2].position;
             shootStart.position = shootDirections[2].position;
             shootStart.rotation = shootDirections[2].rotation;
-            attackDirection = Vector2.up*6 /*new Vector2(0, (transform.position.y) - (attackPoint.position.y))*/;
+           
         }
     }
 
 
     public void AttackFront()
     {
-        objectPooler.SpawnFromPool("PlayerAttack", attackPoint.position, attackPosition.rotation, rb,transform.localScale);
+        objectPooler.SpawnFromPool("PlayerAttack", attackDirections[0].position, attackDirections[0].rotation, rb,transform.localScale);
     }
 
     public void AttackUp()
     {
-        objectPooler.SpawnFromPool("PlayerAttackUp", attackPoint.position, attackPosition.rotation, rb, transform.localScale);
+        objectPooler.SpawnFromPool("PlayerAttackUp", attackDirections[1].position, attackDirections[1].rotation, rb, transform.localScale);
     }
 
     public void AttackDown()
     {
-        objectPooler.SpawnFromPool("PlayerAttackDown", attackPoint.position, attackPosition.rotation, rb, transform.localScale);
+        objectPooler.SpawnFromPool("PlayerAttackDown", attackDirections[2].position, attackDirections[2].rotation, rb, transform.localScale);
     }
 
     /// <summary>

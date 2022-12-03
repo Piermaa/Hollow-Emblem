@@ -1,13 +1,16 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEditor;
 public class HealthController : MonoBehaviour
 {
     [Header("Classes")]
     [SerializeField] SpriteRenderer sprite;
     public AudioSource takeDamageSound;
+    public Material takingDamageMaterial;
+    Material baseMaterial;
     private UIHealth uiHealth;
-
+    
     [Header("Bool")]
     public bool inmune = false;
     public bool white;
@@ -23,17 +26,20 @@ public class HealthController : MonoBehaviour
     public UnityEvent OnHealthAdd;
     public UnityEvent DieEvent;
 
+
     private void Awake()
     {
+        if (sprite == null)
+        {
+            sprite = GetComponent<SpriteRenderer>();
+        }
         uiHealth = FindObjectOfType<UIHealth>();
+        
     }
 
     private void Start()
     {
-        if (sprite==null)
-        {
-            sprite = GetComponent<SpriteRenderer>();
-        }
+        baseMaterial = sprite.material;
         if (maxHealth != 0) FullHeal();
 
     }
@@ -53,11 +59,11 @@ public class HealthController : MonoBehaviour
             Death();
         }
     }
-    IEnumerator DamageTaken(Color color)
+    IEnumerator DamageTaken()
     {
         takingDamage = true;
         yield return new WaitForSeconds(0.1f*playerInmunity);
-        sprite.color = color;
+        sprite.material = baseMaterial;
         takingDamage = false;
     }
     /// <summary>
@@ -72,21 +78,14 @@ public class HealthController : MonoBehaviour
             healthPoints -= damage;
             uiHealth.hasTakeDamage = true;
 
-            Color col;
-            if (white)
-            {
-                col = Color.white;
-            }
-            else
-            {
-                col = sprite.color;
-            }
-          
-            var red = new Color(255, 0, 0);
-            
-            sprite.color = red;
+            sprite.material = takingDamageMaterial;
 
-            StartCoroutine(DamageTaken(col));
+            //Color col = sprite.color;
+            //var red = new Color(255, 0, 0);
+            
+            //sprite.color = red;
+
+            StartCoroutine(DamageTaken());
         }
     }
     public void Heal(int hpAdded)

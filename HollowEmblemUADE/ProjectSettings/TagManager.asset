@@ -14,6 +14,7 @@ TagManager:
   - Phaseable
   - PhasingPlayer
   - MiniMap
+  - PlatForm
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - PlayerAttack
   - Items
   - PlayerAmmo
-  - 
+  - PhaseableGround
   - 
   - 
   - 

@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 2792500994365188145}
   - component: {fileID: 2792500994365189070}
   - component: {fileID: 2792500994365188144}
+  - component: {fileID: 4987394965524566818}
   - component: {fileID: 2792500994365188147}
-  m_Layer: 6
+  m_Layer: 22
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: PlatForm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,10 +101,22 @@ PlatformEffector2D:
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
+  m_SurfaceArc: 132.48
   m_UseSideFriction: 0
   m_UseSideBounce: 0
-  m_SideArc: 1
+  m_SideArc: 0
+--- !u!114 &4987394965524566818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2792500994365189071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7c6c4aa229ab94ba2b394c8f3f3fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &2792500994365188147
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -117,7 +130,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.708156}
+  m_Offset: {x: 0, y: 0.8114829}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -128,7 +141,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.34, y: 0.22564405}
+  m_Size: {x: 7.34, y: 0.019090354}
   m_EdgeRadius: 0
 --- !u!1 &2792500994564675173
 GameObject:
@@ -140,7 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2792500994564675172}
   - component: {fileID: 2792500994564675175}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: SpriteAtlas-8192-II_48
   m_TagString: Untagged
   m_Icon: {fileID: 0}
