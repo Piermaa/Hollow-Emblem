@@ -15,6 +15,7 @@ TagManager:
   - PhasingPlayer
   - MiniMap
   - PlatForm
+  - EnemyStop
   layers:
   - Default
   - TransparentFX
