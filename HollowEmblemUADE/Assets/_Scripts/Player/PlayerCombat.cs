@@ -252,7 +252,7 @@ public class PlayerCombat : MonoBehaviour
         if ( controller.CheckGround() && maxAmmo>currentAmmo &&!reloading)
         {
             StartCoroutine(Reloading());
-            animator.SetTrigger("Reload");
+           
         }
     }
 
@@ -273,10 +273,15 @@ public class PlayerCombat : MonoBehaviour
 
     IEnumerator Reloading()
     {
-        sounds.PlaySound(sounds.reload);
-        reloading = true;
-        yield return new WaitForSeconds(1);
+        int actualAmmo = currentAmmo;
+        yield return new WaitForSeconds(0.5f);
         inventory.GetAmmoFromInventory();
+        if (actualAmmo!=currentAmmo)
+        {
+            sounds.PlaySound(sounds.reload);
+            reloading = true;
+            animator.SetTrigger("Reload");
+        }
         UpdateUI();
         reloading = false;
         yield return null;
