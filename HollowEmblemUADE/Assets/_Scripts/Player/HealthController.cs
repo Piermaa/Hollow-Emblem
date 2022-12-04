@@ -8,6 +8,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] SpriteRenderer sprite;
     public AudioSource takeDamageSound;
     public Material takingDamageMaterial;
+    public GameObject dropItemPrefab;
     Material baseMaterial;
     private UIHealth uiHealth;
     
@@ -41,7 +42,6 @@ public class HealthController : MonoBehaviour
     {
         baseMaterial = sprite.material;
         if (maxHealth != 0) FullHeal();
-
     }
 
     private void Update()
@@ -119,5 +119,39 @@ public class HealthController : MonoBehaviour
     public void DestroyThis()
     {
         Destroy(this.gameObject);
+    }
+
+    public void Drop()
+    {
+        int ammount = Random.Range(0, 5);
+        RamdomizeItem(dropItemPrefab,ammount);
+    }
+    public void RamdomizeItem(GameObject itemToDrop,int cuantity)
+    {
+        if (cuantity>0)
+        {
+            int type = Random.Range(0, 2);
+            switch (type)
+            {
+                case 0:
+                    CreateDrop("Ammo", cuantity);
+                    break;
+                case 1:
+                    CreateDrop("Heal", cuantity);
+                    break;
+            }
+        }
+       
+    }
+    void CreateDrop(string itemName,int cuantity)
+    {
+        GameObject drop = Instantiate(dropItemPrefab,this.transform.position,this.transform.rotation);
+        drop.TryGetComponent<PickupableItem>(out var item);
+        item.itemName = itemName;
+        item.amount = cuantity;
+    }
+    public void DropItem(GameObject itemToDrop, int cuantity,string type)
+    {
+
     }
 }

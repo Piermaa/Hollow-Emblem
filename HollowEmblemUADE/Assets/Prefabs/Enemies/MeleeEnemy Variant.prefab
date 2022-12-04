@@ -468,15 +468,23 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: dropItemPrefab
+      value: 
+      objectReference: {fileID: 8792563876624547284, guid: 058dda6844bc48e45abb039d45bdf06d, type: 3}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: takeDamageSound
       value: 
       objectReference: {fileID: 3074243806367729465}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
@@ -484,7 +492,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6020051994889496122}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 6020051994889496122}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
@@ -492,11 +508,23 @@ PrefabInstance:
       value: DestroyThis
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Drop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: HealthController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: HealthController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: DieEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802618, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
