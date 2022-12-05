@@ -11,14 +11,15 @@ public class FinalBossScript : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
-    [SerializeField]
-    Animator[] floorSpots;
+    [SerializeField] Animator[] floorSpots;
+
+    private ObjectPooler objectPooler;
+
+    [SerializeField] GameObject bulletPrefab;
 
     private RaycastHit2D hit;
     public LayerMask playerLayer;
     [SerializeField] Animator player;
-
-
 
     [Header("Bools")]
     public bool canSpawning;
@@ -30,7 +31,6 @@ public class FinalBossScript : MonoBehaviour
     public bool canShoot;
     public bool isRight;
     public bool canChangeScale;
-    public bool isFlying;
 
     private float distanceOfRay = -4f;
     private float speed = 3f;
@@ -40,6 +40,11 @@ public class FinalBossScript : MonoBehaviour
     [SerializeField] Transform raycastStart;
     [SerializeField] Transform hangingSpot;
     [SerializeField] Transform floorSpot;
+    [SerializeField] Transform shootStartUp;
+    [SerializeField] Transform shootStartDown;
+
+    Vector3 direction;
+    Vector3 directionDown;
 
     public int attackIndex;
 
@@ -47,7 +52,7 @@ public class FinalBossScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        //sr = GetComponentInChildren<SpriteRenderer>();
+        objectPooler = ObjectPooler.Instance;
     }
 
     void Start()
@@ -58,14 +63,13 @@ public class FinalBossScript : MonoBehaviour
 
     void Update()
     {
-        //Debug.DrawRay(raycastStart.position, raycastStart.TransformDirection(Vector2.left) + new Vector3(distanceOfRay, 0, 0), Color.green);
         BossStateExecution();
         ChangeScale();
     }
 
     IEnumerator SpawningAnimation()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         canIdle = true;
         state = FBBattleState.IDLE;
         yield return null;
@@ -75,7 +79,7 @@ public class FinalBossScript : MonoBehaviour
     {
         canMelee = true;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.2f);
 
         attackIndex = Random.Range(0, 3);
         AttackExecution();
@@ -107,7 +111,6 @@ public class FinalBossScript : MonoBehaviour
         {
             if (!hasFloorAttacked)
             {
-                Debug.Log("Yanosemuevee");
                 animator.SetBool("Flying", false);
                 animator.SetTrigger("FloorAttack");
                 foreach (Animator anim in floorSpots)
@@ -119,7 +122,6 @@ public class FinalBossScript : MonoBehaviour
         }
         else 
         {
-                print("SE MUEVEEE");
                 transform.position = Vector2.MoveTowards(transform.position, hangingSpot.transform.position, flySpeed * Time.deltaTime);
                 if (!animator.GetBool("Flying"))
                 {
@@ -131,6 +133,22 @@ public class FinalBossScript : MonoBehaviour
     void ShootAttackActivator()
     {
         animator.SetTrigger("ShootAttack");
+    }
+
+    public void InitializeShootOne()
+    {
+        objectPooler.SpawnFromPool("Bullet", shootStartUp.position, shootStartUp.rotation, direction);
+    }
+
+    public void InitializeShootTwo()
+    {
+        objectPooler.SpawnFromPool("Bullet", shootStartDown.position, shootStartDown.rotation, directionDown);
+    }
+
+    public void CalculatePosition()
+    {
+        direction = new Vector3(player.transform.position.x - 2, shootStartUp.transform.position.y, 0);
+        directionDown = new Vector3(player.transform.position.x - 2, shootStartDown.transform.position.y, 0);
     }
 
     void BossStateExecution()
@@ -152,7 +170,6 @@ public class FinalBossScript : MonoBehaviour
                 {
                     canFloor = true;
                     animator.SetBool("Flying", false);
-                    //sr.sprite = idleSprite;
                     canIdle = false;
                     hasFloorAttacked = false;
                     StartCoroutine(Vulnerable());
@@ -160,8 +177,7 @@ public class FinalBossScript : MonoBehaviour
                 else
                 {
                     Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
-                    //sr.sprite = flySprite;
-                    if (Vector2.Distance(transform.position, toFloor) > 0.1f)
+                    if (Vector2.Distance(transform.position, toFloor) > 0.5f)
                     {
                         animator.SetBool("Flying", true);
                         transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
@@ -191,14 +207,12 @@ public class FinalBossScript : MonoBehaviour
             case FBBattleState.FLOORATTACK:
                  FloorAttackActivator();
                 
-               
-                    
-                
                 break;
 
             case FBBattleState.SHOOTATTACK:
                 if (canShoot)
                 {
+                    CalculatePosition();
                     canShoot = false;
                     ShootAttackActivator();
                 }
@@ -238,15 +252,15 @@ public class FinalBossScript : MonoBehaviour
 
             if (theScale.x < 0)
             {
-                theScale.x = -0.3720472f;
+                theScale.x = -0.5f;
             }
 
             else
             {
-                theScale.x = 0.3720472f;
+                theScale.x = 0.5f;
             }
 
-            theScale = new Vector3(theScale.x, 0.3720472f, 0.3720472f);
+            theScale = new Vector3(theScale.x, 0.5f, 0.5f);
             transform.localScale = theScale;
         }
     }
