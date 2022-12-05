@@ -18,6 +18,12 @@ public class FinalBossScript : MonoBehaviour
     public LayerMask playerLayer;
     [SerializeField] Animator player;
 
+    [SerializeField] SpriteRenderer sr;
+
+    [SerializeField] Sprite idleSprite;
+    [SerializeField] Sprite flySprite;
+
+
     [Header("Bools")]
     public bool canSpawning;
     public bool canIdle;
@@ -43,10 +49,12 @@ public class FinalBossScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        //sr = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Start()
     {
+        Debug.Log(sr.sprite.name);
         canSpawning = true;
         state = FBBattleState.SPAWNING;
     }
@@ -95,12 +103,11 @@ public class FinalBossScript : MonoBehaviour
         }
     }
 
-    
-
     void FloorAttackActivator()
     {
         if (transform.position == hangingSpot.transform.position)
         {
+            animator.SetBool("Flying", false);
             animator.SetTrigger("FloorAttack");
 
             foreach (Animator anim in floorSpots)
@@ -111,8 +118,9 @@ public class FinalBossScript : MonoBehaviour
 
         else
         {
-            //animator.SetTrigger("Flying");
             transform.position = Vector2.MoveTowards(transform.position, hangingSpot.transform.position, flySpeed * Time.deltaTime);
+            //sr.sprite = flySprite;
+            animator.SetBool("Flying", true);
         }
     }
 
@@ -138,13 +146,19 @@ public class FinalBossScript : MonoBehaviour
 
                 if (transform.position.y == floorSpot.transform.position.y && canIdle)
                 {
+
+                    animator.SetBool("Flying", false);
+                    //sr.sprite = idleSprite;
                     canIdle = false;
                     StartCoroutine(Vulnerable());
                 }
                 else
                 {
+
                     Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
 
+                    //sr.sprite = flySprite;
+                    animator.SetBool("Flying", true);
                     transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
                 }  
 

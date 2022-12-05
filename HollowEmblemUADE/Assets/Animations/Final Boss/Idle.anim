@@ -98,7 +98,7 @@ AnimationClip:
     - time: 0
       value: {fileID: 3987866186034306678, guid: 7384b4180f28fc44c82c24f72c7a5488, type: 3}
     attribute: m_Sprite
-    path: 
+    path: Sprite
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -137,7 +137,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 0
+      path: 850496168
       attribute: 0
       script: {fileID: 0}
       typeID: 212
