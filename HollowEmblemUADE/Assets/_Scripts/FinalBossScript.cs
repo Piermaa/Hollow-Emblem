@@ -18,17 +18,15 @@ public class FinalBossScript : MonoBehaviour
     public LayerMask playerLayer;
     [SerializeField] Animator player;
 
-    [SerializeField] SpriteRenderer sr;
-
-    [SerializeField] Sprite idleSprite;
-    [SerializeField] Sprite flySprite;
 
 
     [Header("Bools")]
     public bool canSpawning;
     public bool canIdle;
     public bool canMelee;
+    public bool canFly;
     public bool canFloor;
+    bool hasFloorAttacked;
     public bool canShoot;
     public bool isRight;
     public bool canChangeScale;
@@ -54,7 +52,6 @@ public class FinalBossScript : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(sr.sprite.name);
         canSpawning = true;
         state = FBBattleState.SPAWNING;
     }
@@ -83,6 +80,7 @@ public class FinalBossScript : MonoBehaviour
         attackIndex = Random.Range(0, 3);
         AttackExecution();
         canIdle = true;
+        
         yield return null;
         
     }
@@ -107,20 +105,26 @@ public class FinalBossScript : MonoBehaviour
     {
         if (transform.position == hangingSpot.transform.position)
         {
-            animator.SetBool("Flying", false);
-            animator.SetTrigger("FloorAttack");
-
-            foreach (Animator anim in floorSpots)
+            if (!hasFloorAttacked)
             {
-                anim.SetTrigger("Attack");
+                Debug.Log("Yanosemuevee");
+                animator.SetBool("Flying", false);
+                animator.SetTrigger("FloorAttack");
+                foreach (Animator anim in floorSpots)
+                {
+                    anim.SetTrigger("Attack");
+                }
+                hasFloorAttacked = true;
             }
         }
-
-        else
+        else 
         {
-            transform.position = Vector2.MoveTowards(transform.position, hangingSpot.transform.position, flySpeed * Time.deltaTime);
-            //sr.sprite = flySprite;
-            animator.SetBool("Flying", true);
+                print("SE MUEVEEE");
+                transform.position = Vector2.MoveTowards(transform.position, hangingSpot.transform.position, flySpeed * Time.deltaTime);
+                if (!animator.GetBool("Flying"))
+                {
+                    animator.SetBool("Flying", true);
+                }
         }
     }
 
@@ -144,22 +148,33 @@ public class FinalBossScript : MonoBehaviour
 
             case FBBattleState.IDLE:
 
-                if (transform.position.y == floorSpot.transform.position.y && canIdle)
+                if (canIdle)
                 {
-
+                    canFloor = true;
                     animator.SetBool("Flying", false);
                     //sr.sprite = idleSprite;
                     canIdle = false;
+                    hasFloorAttacked = false;
                     StartCoroutine(Vulnerable());
                 }
                 else
                 {
-
                     Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
-
                     //sr.sprite = flySprite;
-                    animator.SetBool("Flying", true);
-                    transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
+                    if (Vector2.Distance(transform.position, toFloor) > 0.1f)
+                    {
+                        animator.SetBool("Flying", true);
+                        transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
+                    }
+                    else 
+                    {
+                        canIdle = false;
+                        hasFloorAttacked = false;
+                       
+                        canFloor = true;
+                        animator.SetBool("Flying", false);
+                    }
+                  
                 }  
 
                 break;
@@ -174,13 +189,10 @@ public class FinalBossScript : MonoBehaviour
                 break;
 
             case FBBattleState.FLOORATTACK:
-                {
-                    if (canFloor)
-                    {
-                        canFloor = false;
-                        FloorAttackActivator();
-                    }
-                }
+                 FloorAttackActivator();
+                
+               
+                    
                 
                 break;
 

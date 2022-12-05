@@ -34,13 +34,22 @@ public class HealthController : MonoBehaviour
         {
             sprite = GetComponent<SpriteRenderer>();
         }
-        uiHealth = FindObjectOfType<UIHealth>();
+        if (sprite == null)
+        {
+            sprite = GetComponentInChildren<SpriteRenderer>();
+        }
+            uiHealth = FindObjectOfType<UIHealth>();
         
     }
 
     private void Start()
     {
-        baseMaterial = sprite.material;
+        if (sprite!=null)
+        {
+            baseMaterial = sprite.material;
+
+        }
+   
         if (maxHealth != 0) FullHeal();
     }
 
