@@ -8,26 +8,18 @@ public class Bullet : MonoBehaviour, IPooledObject
     public float speed;
     public float timeToDespawn;
     public float timeLimit = 5;
-
+    public float xvelocity;
     public Vector3 moveDirection;
+
+    bool verifyScale=false;
     public void OnObjectSpawn()
     {
+        rb.velocity = Vector3.zero;
         moveDirection += Vector3.up;
         moveDirection -= transform.position;
         moveDirection.Normalize();
         rb.AddForce(moveDirection.normalized * speed, ForceMode2D.Force);
-        if (rb.velocity.x < 0)
-        {
-            Vector3 theScale = transform.localScale;
-            theScale.x = 1;
-            this.transform.localScale = theScale;
-        }
-        else
-        {
-            Vector3 theScale = transform.localScale;
-            theScale.x = -1;
-            this.transform.localScale = theScale;
-        }
+        verifyScale = true;
     }
 
     private void Awake()
@@ -37,7 +29,28 @@ public class Bullet : MonoBehaviour, IPooledObject
 
     private void Update()
     {
+        if (verifyScale)
+        {
+            if (rb.velocity.x < 0)
+            {
 
+                Vector3 theScale = transform.localScale;
+                theScale.x = 1;
+                this.transform.localScale = theScale;
+             
+
+            }
+            else
+            {
+                Vector3 theScale = transform.localScale;
+                theScale.x = -1;
+                this.transform.localScale = theScale;
+             
+            }
+            verifyScale = false;
+        }
+
+        xvelocity = rb.velocity.x;
         timeToDespawn += Time.deltaTime;
 
         if (timeToDespawn>timeLimit)

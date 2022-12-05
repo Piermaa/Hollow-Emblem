@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicIA : MonoBehaviour
 {
-
+    float chasingSpeed=3;
     public Transform[] moveSpots;
     int spotsIndex;
     public float stopTime;
@@ -73,6 +73,8 @@ public class BasicIA : MonoBehaviour
         }
         else
         {
+
+            speed = chasingSpeed;
             ChasePlayer();
         }
     }
@@ -123,5 +125,13 @@ public class BasicIA : MonoBehaviour
     public void StopWalking(float time) 
     {
         stopTime = time;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyStop") &&chasingPlayer)
+        {
+            chasingPlayer = false;
+            playerAtLeft = false;
+        }
     }
 }

@@ -204,5 +204,14 @@ public class PlayerMovement : MonoBehaviour
 			dashUIGameObject.SetActive(false);
         }
     }
-    
+
+	void PlatFormFix()
+	{ 
+		
+	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+		
+    }
 }
