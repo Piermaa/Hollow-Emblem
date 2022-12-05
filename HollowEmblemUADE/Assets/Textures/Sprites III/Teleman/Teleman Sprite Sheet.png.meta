@@ -46,7 +46,7 @@ TextureImporter:
     second: Teleman Sprite Sheet_13
   - first:
       213: 470667837472999943
-    second: Teleman Sprite Sheet_14
+    second: TeleMan Floor 5
   - first:
       213: -8127513178193567321
     second: Teleman Sprite Sheet_15
@@ -55,10 +55,10 @@ TextureImporter:
     second: Teleman Sprite Sheet_16
   - first:
       213: -8421328411408491483
-    second: Teleman Sprite Sheet_17
+    second: TeleMan Floor 1
   - first:
       213: 6871113615290703917
-    second: Teleman Sprite Sheet_18
+    second: TeleMan Floor 2
   - first:
       213: -8644054473236877726
     second: Teleman Sprite Sheet_19
@@ -67,10 +67,10 @@ TextureImporter:
     second: Teleman Sprite Sheet_20
   - first:
       213: -2584060007576671826
-    second: Teleman Sprite Sheet_21
+    second: TeleMan Floor 3
   - first:
       213: -1740404023807977565
-    second: Teleman Sprite Sheet_22
+    second: TeleMan Floor 4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -445,7 +445,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teleman Sprite Sheet_14
+      name: TeleMan Floor 5
       rect:
         serializedVersion: 2
         x: 3464
@@ -508,7 +508,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teleman Sprite Sheet_17
+      name: TeleMan Floor 1
       rect:
         serializedVersion: 2
         x: 2996
@@ -529,7 +529,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teleman Sprite Sheet_18
+      name: TeleMan Floor 2
       rect:
         serializedVersion: 2
         x: 3524
@@ -592,7 +592,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teleman Sprite Sheet_21
+      name: TeleMan Floor 3
       rect:
         serializedVersion: 2
         x: 2876
@@ -613,7 +613,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teleman Sprite Sheet_22
+      name: TeleMan Floor 4
       rect:
         serializedVersion: 2
         x: 3506
