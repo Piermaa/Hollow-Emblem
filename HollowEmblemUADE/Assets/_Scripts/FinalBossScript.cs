@@ -12,6 +12,7 @@ public class FinalBossScript : MonoBehaviour
     private ObjectPooler objectPooler;
     private RaycastHit2D hit;
     public LayerMask playerLayer;
+    private SceneChanger changer;
 
     private Animator animator;
     [SerializeField] Animator[] floorSpots;
@@ -27,6 +28,7 @@ public class FinalBossScript : MonoBehaviour
     public bool canMelee;
     public bool canFly;
     public bool canFloor;
+    public bool canDie;
     bool hasFloorAttacked;
     public bool canShoot;
     public bool isRight;
@@ -53,6 +55,7 @@ public class FinalBossScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         objectPooler = ObjectPooler.Instance;
+        changer = FindObjectOfType<SceneChanger>();
     }
 
     void Start()
@@ -139,6 +142,17 @@ public class FinalBossScript : MonoBehaviour
     public void Death()
     {
         state = FBBattleState.DEATH;
+
+        StartCoroutine(FinishingGame());
+    }
+
+    IEnumerator FinishingGame()
+    {
+        yield return new WaitForSeconds(5f);
+
+        changer.GameOver();
+
+        yield return null;
     }
 
     public void InitializeShootOne()
@@ -196,7 +210,6 @@ public class FinalBossScript : MonoBehaviour
                         canFloor = true;
                         animator.SetBool("Flying", false);
                     }
-                  
                 }  
 
                 break;
@@ -226,7 +239,22 @@ public class FinalBossScript : MonoBehaviour
                 break;
 
             case FBBattleState.DEATH:
-                animator.SetTrigger("Death");
+                if (canDie)
+                {
+                    Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
+
+                    if (Vector2.Distance(transform.position, toFloor) > 0.5f)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
+                    }
+
+                    else
+                    {
+                        canDie = false;
+                        animator.SetTrigger("Death");
+                    }
+                }
+                
                 break;
         }
     }
