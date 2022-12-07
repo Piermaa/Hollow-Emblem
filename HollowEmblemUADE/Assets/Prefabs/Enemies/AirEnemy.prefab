@@ -100,8 +100,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 3706045552064169157}
   takeDamageSound: {fileID: 775813142}
+  takingDamageMaterial: {fileID: 0}
+  dropItemPrefab: {fileID: 0}
   inmune: 0
   white: 0
+  died: 0
   healthPoints: 13
   maxHealth: 0
   playerInmunity: 1
@@ -113,7 +116,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 775813143}
         m_TargetAssemblyTypeName: HealthController, Assembly-CSharp
-        m_MethodName: DestroyThis
+        m_MethodName: AnimatedDeath
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -295,7 +298,7 @@ GameObject:
   - component: {fileID: 7178766294497563030}
   - component: {fileID: 7178766294497563031}
   - component: {fileID: 7178766294497563028}
-  m_Layer: 10
+  m_Layer: 4
   m_Name: PlayerDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5520126298390152039}
   - component: {fileID: 3706045552064169157}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

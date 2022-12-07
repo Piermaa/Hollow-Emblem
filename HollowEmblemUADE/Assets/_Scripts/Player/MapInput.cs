@@ -6,6 +6,8 @@ public enum ShowStates { SHOWINGINVENTORY, SHOWINGMAP, HIDING}
 
 public class MapInput : MonoBehaviour
 {
+    public static MapInput Cortana;
+
     public GameObject map;
     public GameObject inventory;
 
@@ -29,6 +31,7 @@ public class MapInput : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        Cortana = this;
     }
 
     private void Start()
@@ -46,8 +49,10 @@ public class MapInput : MonoBehaviour
 
     void AppearSomething()
     {   
+        
         if (state == ShowStates.HIDING)
         {
+
             if (Input.GetKeyDown(KeyCode.M) && canInput)
             {
                 

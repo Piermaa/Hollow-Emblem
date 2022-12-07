@@ -365,7 +365,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -568,6 +568,7 @@ MonoBehaviour:
   sprite: {fileID: 2957762975338282927}
   takeDamageSound: {fileID: 4404865927510759996}
   takingDamageMaterial: {fileID: 0}
+  dropItemPrefab: {fileID: 0}
   inmune: 0
   white: 0
   healthPoints: 5
@@ -581,7 +582,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6733455178630262116}
         m_TargetAssemblyTypeName: HealthController, Assembly-CSharp
-        m_MethodName: DestroyThis
+        m_MethodName: AnimatedDeath
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -729,7 +730,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

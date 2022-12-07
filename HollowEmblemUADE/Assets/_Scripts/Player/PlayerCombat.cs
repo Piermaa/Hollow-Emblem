@@ -19,6 +19,7 @@ public class PlayerCombat : MonoBehaviour
     ParticleSystem bulletShootParticles;
     [SerializeField] GameObject bulletShootLights;
     private Light2D shootLightSpread;
+    private MapInput cortana;
 
     [Header("Transforms")]
     public Transform playerCenter; //saves the position of the player center, this to attack from there when liquid
@@ -46,8 +47,6 @@ public class PlayerCombat : MonoBehaviour
     public int currentAmmo;
     public List<GameObject> ammo;
 
-
-
     public enum DirectionsToAttack
     {
         Up,Down,Front
@@ -56,6 +55,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        cortana = MapInput.Cortana;
         objectPooler = ObjectPooler.Instance;
         pistolUI.SetActive(false);
         shootLightSpread = bulletShootLights.GetComponent<Light2D>();
@@ -71,27 +71,30 @@ public class PlayerCombat : MonoBehaviour
     public void Update()
     {
         SetAttackDirection();
-
-        if (canShoot)
+        if (cortana.state==ShowStates.HIDING)
         {
-            pistolUI.SetActive(true);
-            Aim();
-
-            if (Input.GetKeyDown(KeyCode.R))
+            if (canShoot)
             {
-                Reload();
+                pistolUI.SetActive(true);
+                Aim();
+
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    Reload();
+                }
+            }
+
+            if (Input.GetButtonDown("Attack") && canAttack)
+            {
+                Attack();
+            }
+
+            if (reloading)
+            {
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
         
-        if (Input.GetButtonDown("Attack") && canAttack)
-        {
-            Attack();
-        }
-
-        if (reloading)
-        {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
 
         if (mustTurnOff)
         {
@@ -252,7 +255,6 @@ public class PlayerCombat : MonoBehaviour
         if ( controller.CheckGround() && maxAmmo>currentAmmo &&!reloading)
         {
             StartCoroutine(Reloading());
-           
         }
     }
 
@@ -273,18 +275,29 @@ public class PlayerCombat : MonoBehaviour
 
     IEnumerator Reloading()
     {
-        int actualAmmo = currentAmmo;
-        yield return new WaitForSeconds(0.5f);
-        inventory.GetAmmoFromInventory();
-        if (actualAmmo!=currentAmmo)
+      
+        bool hasAmmoOnInventory= inventory.GetAmmoFromInventory(true) != 0;
+        //int actualAmmo = currentAmmo;
+        if (hasAmmoOnInventory)
         {
-            sounds.PlaySound(sounds.reload);
             reloading = true;
+            sounds.PlaySound(sounds.reload);
             animator.SetTrigger("Reload");
+            Debug.Log(inventory.GetAmmoFromInventory(true));
+            yield return new WaitForSeconds(0.5f);
+            while (hasAmmoOnInventory)
+            {
+                currentAmmo += inventory.GetAmmoFromInventory(false);
+                hasAmmoOnInventory = inventory.GetAmmoFromInventory(true) != 0;
+                UpdateUI();
+            }
         }
-        UpdateUI();
-        reloading = false;
-        yield return null;
+        else
+        {
+            reloading = false;
+            yield return null;
+        }
+
     }
 
     private void OnDrawGizmos()

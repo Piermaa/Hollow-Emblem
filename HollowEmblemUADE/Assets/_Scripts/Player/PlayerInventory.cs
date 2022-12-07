@@ -354,7 +354,7 @@ public class PlayerInventory : MonoBehaviour
     /// <summary>
     /// Agrega municion al cargador del Player, buscará hasta encontrar mas municion si se vacia el slot
     /// </summary>
-    public void GetAmmoFromInventory()
+    public int GetAmmoFromInventory(bool justChecking)
     {
         int spaceAvailableOnClip=0; 
         Slot newSlot;
@@ -368,26 +368,38 @@ public class PlayerInventory : MonoBehaviour
             {
                 if (spaceAvailableOnClip > newSlot.amount) //Si las balas del slot son menos que las requeridas para llenar el cargador:
                 {
-                    combat.currentAmmo += newSlot.amount; //Sumar todas las balas al cargador
-                    EmptySlot(newSlot); // Y vaciar el slot
+                    //combat.currentAmmo += newSlot.amount; //Sumar todas las balas al cargador
+                    if (!justChecking)
+                    {
+                        EmptySlot(newSlot); // Y vaciar el slot
+                    }
+
+                    return newSlot.amount;
                 }
                 else
                 {
-                    combat.currentAmmo += spaceAvailableOnClip; // Si alcanza con las balas del slot para llenar el cargador, llenarlo
-                    newSlot.amount -= spaceAvailableOnClip; // Y actualizar el monto del slot
-                    newSlot.tMPro.text = newSlot.amount.ToString();
+                    //combat.currentAmmo += spaceAvailableOnClip; // Si alcanza con las balas del slot para llenar el cargador, llenarlo
+                    if (!justChecking)
+                    {
+                        newSlot.amount -= spaceAvailableOnClip; // Y actualizar el monto del slot
+                        newSlot.tMPro.text = newSlot.amount.ToString();
+                        if ((newSlot != null) && newSlot.amount <= 0)
+                        {
+                            EmptySlot(newSlot);
+                        }
+                    }
+                
+                    return spaceAvailableOnClip;
                 }
             }
 
             //Si quedaban 0 balas en el slot por alguna razon, vaciarlo
-            if ((newSlot != null) && newSlot.amount <= 0)
-            {
-                EmptySlot(newSlot);
-            }
+        
 
 
         } while (spaceAvailableOnClip > 0 && newSlot != null); // El slot no era null porque se habia encontrado en la busqueda anterior
 
+        return 0;
        
     }
 }//class

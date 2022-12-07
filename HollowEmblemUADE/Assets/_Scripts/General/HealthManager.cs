@@ -15,7 +15,7 @@ public class HealthManager : MonoBehaviour
 
         foreach(HealthController h in healths)
         {
-            h.takingDamageMaterial = takingDamageMaterial;
+            h.takingDamageMaterial = h.takingDamageMaterial==null ? takingDamageMaterial: h.takingDamageMaterial; //solo cambia si es nulo ;)
         }
     }
     IEnumerator BecameInvinsible()

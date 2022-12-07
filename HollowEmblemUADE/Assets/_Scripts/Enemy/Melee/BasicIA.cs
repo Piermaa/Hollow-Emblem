@@ -14,6 +14,7 @@ public class BasicIA : MonoBehaviour
     float startWaitTime = 1;
     bool playerAtLeft;
     [SerializeField] Transform next;
+    HealthController health;
 
     Transform playerTransform;
     bool chasingPlayer;
@@ -21,6 +22,7 @@ public class BasicIA : MonoBehaviour
     private void Start()
     {
         speedAux = speed;
+        health = GetComponent<HealthController>();
     }
 
     private void Update()

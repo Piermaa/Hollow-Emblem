@@ -15,6 +15,7 @@ public class HealthController : MonoBehaviour
     [Header("Bool")]
     public bool inmune = false;
     public bool white;
+    public bool died;
 
     bool takingDamage;
     [Header("Int")]
@@ -116,14 +117,18 @@ public class HealthController : MonoBehaviour
 
     public void Death()
     {
-        if (DieEvent!=null)
+        if (!died)
         {
-            DieEvent.Invoke();
+            if (DieEvent != null)
+            {
+                DieEvent.Invoke();
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+            }
         }
-        else       
-        {
-            this.gameObject.SetActive(false);
-        } 
+     
     }
     public void DestroyThis()
     {
@@ -162,5 +167,21 @@ public class HealthController : MonoBehaviour
     public void DropItem(GameObject itemToDrop, int cuantity,string type)
     {
 
+    }
+
+    public void AnimatedDeath()
+    {
+        died = true;
+        gameObject.TryGetComponent<Animator>(out var anim);
+        if(anim!=null)
+        {
+            anim.SetTrigger("Death");
+        }
+        gameObject.TryGetComponent<BasicIA>(out var bia);
+        if (bia!=null)
+        {
+            bia.enabled = false;
+            //Destroy(bia);
+        }
     }
 }

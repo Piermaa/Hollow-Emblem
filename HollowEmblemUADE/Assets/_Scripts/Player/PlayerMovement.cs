@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
 	Vector3 lastPosition;
 	public HealthManager healthManager;
 	public CharacterController2D controller;
-
+	private MapInput cortana;
 
 	[Header("Floats")]
 	public float dashSpeed = 80;
@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Start()
 	{
+		cortana = MapInput.Cortana;
 		combat = GetComponent<PlayerCombat>();
 		animator = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
@@ -46,15 +47,25 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
+		
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		layerTimer -= Time.deltaTime;
-		
-		DashUpdate();
-		DashCorrection();
-		UIDash();
 
-		Run();
-		Jump();
+		if (cortana.state == ShowStates.HIDING)
+		{
+			DashUpdate();
+			DashCorrection();
+			UIDash();
+
+	
+			Jump();
+			if (Input.GetButtonDown("Dash") && dashCoolDown < 0 && dashUnlocked)
+			{
+				Dash();
+			}
+		}
+		
+	
 
 		if (Input.GetButtonDown("Crouch"))
 		{
@@ -63,11 +74,6 @@ public class PlayerMovement : MonoBehaviour
 		else if (Input.GetButtonUp("Crouch"))
 		{
 			crouch = false;
-		}
-
-		if (Input.GetButtonDown("Dash") && dashCoolDown<0 && dashUnlocked)
-		{
-			Dash();
 		}
 	}
 
@@ -99,11 +105,16 @@ public class PlayerMovement : MonoBehaviour
 		// Move our character
 		
 		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-		if (combat.aiming)
+		if (combat.aiming || combat.reloading || cortana.state != ShowStates.HIDING)
 		{
 			rb.velocity = new Vector2(0, 0); //evita que se mueva el jugador al apuntar
 		}
-			jump = false;
+		else
+		{
+			Run();
+		}
+
+		jump = false;
 		lastPosition = transform.position;
 	}
 

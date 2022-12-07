@@ -44,9 +44,15 @@ public class ChangeCameraPosition : MonoBehaviour
             collision.TryGetComponent<PlayerRespawn>(out var pr);
             pr.SetRespawn(transform.position);
 
-            vcam.Follow = bossTarget;
-            bossCanvas.SetActive (true);
-            boss.SetActive(true);
+        
+       
+            if (boss!=null)
+            {
+                vcam.Follow = bossTarget;
+                bossCanvas.SetActive(true);
+                boss.SetActive(true);
+            }
+
             //playerCamera.transform.position = bossCamera.transform.position;
             //playerCamera.SetActive(false);
             //bossCamera.SetActive(true);

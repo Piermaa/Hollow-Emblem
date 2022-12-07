@@ -19,7 +19,7 @@ public class AirIA : MonoBehaviour
     private float startWaitTime = 1;
     private float speedAux;
     private int spotsIndex;
- 
+    
 
     [Header("Combat Parameters")]
     public float xDistance;
@@ -29,6 +29,7 @@ public class AirIA : MonoBehaviour
     public bool playerAtLeft;
     public bool chasingPlayer;
     private bool shooting;
+    private bool mustFall;
     private Transform playerTransform;
     private Vector3 desiredPos;
 
@@ -42,64 +43,70 @@ public class AirIA : MonoBehaviour
 
     private void Update()
     {
-        if (!shooting)
+        if (!mustFall)
         {
-            if (!chasingPlayer) // SI NO ESTA PERSIGUIENDO AL JUGADOR:
-            { //PATRULLA
-                next = moveSpots[spotsIndex];
-                stopTime -= Time.deltaTime;
+            if (!shooting)
+            {
+                if (!chasingPlayer) // SI NO ESTA PERSIGUIENDO AL JUGADOR:
+                { //PATRULLA
+                    next = moveSpots[spotsIndex];
+                    stopTime -= Time.deltaTime;
 
-                if (stopTime >= 0)
-                {
-                    speed = 0;
-                }
-                else
-                {
-                    speed = speedAux;
-                }
-                //SE MUEVE HACIA EL SIGUIENTE SPOT
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(moveSpots[spotsIndex].transform.position.x, transform.position.y), speed * Time.deltaTime);
-                //SE REVISA QUE TAN PROXIMO ESTA AL SIGUIENTE SPOT
-                if (Vector2.Distance(transform.position, new Vector2(moveSpots[spotsIndex].position.x, transform.position.y)) < 0.3f)
-                {
-                    if (waitTime <= 0)
+                    if (stopTime >= 0)
                     {
-                        //SE MODIFICA EL SIGUIENTE SPOT Y SE GIRA EL SPRITE
-                        if (moveSpots[spotsIndex] != moveSpots[moveSpots.Length - 1])
-                        {
-                            Vector3 theScale = transform.localScale;
-                            theScale.x *= -1;
-                            transform.localScale = theScale;
-                            spotsIndex++;
-                        }
-                        else
-                        {
-                            Vector3 theScale = transform.localScale;
-                            theScale.x *= -1;
-                            transform.localScale = theScale;
-                            spotsIndex = 0;
-                        }
-                        waitTime = startWaitTime;
+                        speed = 0;
                     }
                     else
                     {
-                        waitTime -= Time.deltaTime;
+                        speed = speedAux;
                     }
+                    //SE MUEVE HACIA EL SIGUIENTE SPOT
+                    transform.position = Vector2.MoveTowards(transform.position, new Vector2(moveSpots[spotsIndex].transform.position.x, transform.position.y), speed * Time.deltaTime);
+                    //SE REVISA QUE TAN PROXIMO ESTA AL SIGUIENTE SPOT
+                    if (Vector2.Distance(transform.position, new Vector2(moveSpots[spotsIndex].position.x, transform.position.y)) < 0.3f)
+                    {
+                        if (waitTime <= 0)
+                        {
+                            //SE MODIFICA EL SIGUIENTE SPOT Y SE GIRA EL SPRITE
+                            if (moveSpots[spotsIndex] != moveSpots[moveSpots.Length - 1])
+                            {
+                                Vector3 theScale = transform.localScale;
+                                theScale.x *= -1;
+                                transform.localScale = theScale;
+                                spotsIndex++;
+                            }
+                            else
+                            {
+                                Vector3 theScale = transform.localScale;
+                                theScale.x *= -1;
+                                transform.localScale = theScale;
+                                spotsIndex = 0;
+                            }
+                            waitTime = startWaitTime;
+                        }
+                        else
+                        {
+                            waitTime -= Time.deltaTime;
+                        }
 
+                    }
+                }//(!chasing player)
+                else
+                {
+                    if (!shooting)
+                    {
+                        shootTimer = (shootTimer > 0) ? (shootTimer - Time.deltaTime) : 0;
+                        ChasePlayer();
+                    }
                 }
-            }//(!chasing player)
+            }//(!shooting)
             else
             {
-                if (!shooting)
-                {
-                    shootTimer = (shootTimer > 0) ? (shootTimer - Time.deltaTime) : 0;
-                    ChasePlayer();
-                }
+                rb.velocity = Vector2.zero;
             }
-        }//(!shooting)
-        else
+        }//(!mustFall)
         {
-            rb.velocity = Vector2.zero;
+            
         }
     }
 
@@ -147,4 +154,22 @@ public class AirIA : MonoBehaviour
         shooting = false;
     }
 
+    public void FallToDeath()
+    {
+        gameObject.layer = 0;
+        mustFall = true;
+        rb.gravityScale = 1;
+        rb.AddForce(Vector2.down*3, ForceMode2D.Impulse);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (mustFall)
+        {
+            if (collision.gameObject.layer == 6 || collision.gameObject.layer == 22)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+  
 }
