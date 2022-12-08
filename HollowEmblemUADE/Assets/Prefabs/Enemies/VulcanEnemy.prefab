@@ -569,8 +569,10 @@ MonoBehaviour:
   takeDamageSound: {fileID: 4404865927510759996}
   takingDamageMaterial: {fileID: 0}
   dropItemPrefab: {fileID: 0}
+  takeDamageParticles: {fileID: 0}
   inmune: 0
   white: 0
+  died: 0
   healthPoints: 5
   maxHealth: 0
   playerInmunity: 1

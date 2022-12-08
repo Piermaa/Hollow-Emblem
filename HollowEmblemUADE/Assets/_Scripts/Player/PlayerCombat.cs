@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] GameObject bulletShootLights;
     private Light2D shootLightSpread;
     private MapInput cortana;
-
+    private IEnumerator reloadingC;
     [Header("Transforms")]
     public Transform playerCenter; //saves the position of the player center, this to attack from there when liquid
     public Transform attackPosition; // saves the transform of the normal attack in case of changing to liquid
@@ -252,9 +252,10 @@ public class PlayerCombat : MonoBehaviour
     }
     public void Reload()
     {
-        if ( controller.CheckGround() && maxAmmo>currentAmmo &&!reloading)
+        if ( controller.CheckGround() && maxAmmo>currentAmmo && !reloading &&reloadingC==null)
         {
-            StartCoroutine(Reloading());
+            reloadingC = Reloading();
+            StartCoroutine(reloadingC);
         }
     }
 
@@ -284,18 +285,20 @@ public class PlayerCombat : MonoBehaviour
             sounds.PlaySound(sounds.reload);
             animator.SetTrigger("Reload");
             Debug.Log(inventory.GetAmmoFromInventory(true));
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.9f);
             while (hasAmmoOnInventory)
             {
                 currentAmmo += inventory.GetAmmoFromInventory(false);
                 hasAmmoOnInventory = inventory.GetAmmoFromInventory(true) != 0;
                 UpdateUI();
             }
+            reloadingC = null;
+            reloading = false;
         }
         else
         {
             reloading = false;
-            yield return null;
+            reloadingC = null;
         }
 
     }

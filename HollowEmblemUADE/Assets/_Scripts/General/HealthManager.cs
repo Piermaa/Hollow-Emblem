@@ -8,7 +8,7 @@ public class HealthManager : MonoBehaviour
 
     [Header("CommonToAllHealthControllers")]
     public Material takingDamageMaterial;
-
+    public GameObject takingDamageParticlesPrefab;
     private void Start()
     {
         var healths =FindObjectsOfType<HealthController>();
@@ -16,6 +16,12 @@ public class HealthManager : MonoBehaviour
         foreach(HealthController h in healths)
         {
             h.takingDamageMaterial = h.takingDamageMaterial==null ? takingDamageMaterial: h.takingDamageMaterial; //solo cambia si es nulo ;)
+
+            if (h.takeDamageParticles==null)
+            {
+                var part=Instantiate(takingDamageParticlesPrefab, h.gameObject.transform);
+                h.takeDamageParticles = part.GetComponentInChildren<ParticleSystem>();
+            }
         }
     }
     IEnumerator BecameInvinsible()

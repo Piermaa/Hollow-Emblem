@@ -11,8 +11,9 @@ public class HealthController : MonoBehaviour
     public GameObject dropItemPrefab;
     Material baseMaterial;
     private UIHealth uiHealth;
-    
-    [Header("Bool")]
+    public ParticleSystem takeDamageParticles;
+
+  [Header("Bool")]
     public bool inmune = false;
     public bool white;
     public bool died;
@@ -28,6 +29,7 @@ public class HealthController : MonoBehaviour
     public UnityEvent OnHealthAdd;
     public UnityEvent DieEvent;
 
+  
 
     private void Awake()
     {
@@ -92,9 +94,14 @@ public class HealthController : MonoBehaviour
 
             //Color col = sprite.color;
             //var red = new Color(255, 0, 0);
-            
-            //sprite.color = red;
 
+            //sprite.color = red;
+            if (takeDamageParticles!=null)
+            {
+                //float xMult = gameObject.transform.localScale.x;
+                //takeDamageParticles.velocityOverLifetime.orbitalX *= xMult;
+                takeDamageParticles.Play();
+            }
             StartCoroutine(DamageTaken());
         }
     }

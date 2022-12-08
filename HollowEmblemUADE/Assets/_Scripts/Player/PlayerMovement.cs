@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		layerTimer -= Time.deltaTime;
 
-		if (cortana.state == ShowStates.HIDING)
+		if (cortana.state == ShowStates.HIDING && !combat.reloading)
 		{
 			DashUpdate();
 			DashCorrection();
