@@ -10,11 +10,12 @@ public class PlayerMovement : MonoBehaviour
 	Animator animator;
 	Rigidbody2D rb;
 	PlayerCombat combat;
+	private PlayerAbilities abilities;
 	Vector3 lastPosition;
 	public HealthManager healthManager;
 	public CharacterController2D controller;
 	private MapInput cortana;
-
+	public ParticleSystem landParticles;
 	[Header("Floats")]
 	public float dashSpeed = 80;
 	public float runSpeed = 30f;
@@ -23,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
 	public float horizontalMove = 0f;
 	public float layerCD;
 	float layerTimer;
-
 
 	[Header("Bools")]
 	bool doubleJumped;
@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Start()
 	{
+		abilities = GetComponent<PlayerAbilities>();
 		cortana = MapInput.Cortana;
 		combat = GetComponent<PlayerCombat>();
 		animator = GetComponent<Animator>();
@@ -47,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-		
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		layerTimer -= Time.deltaTime;
 
@@ -64,8 +64,6 @@ public class PlayerMovement : MonoBehaviour
 				Dash();
 			}
 		}
-		
-	
 
 		if (Input.GetButtonDown("Crouch"))
 		{
@@ -158,9 +156,18 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-    /// <summary>
-    /// Sets player movement and running animation
-    /// </summary>
+	public void PlayerLand()
+	{
+		if (!abilities.willDestroy)
+		{
+			landParticles.Play();
+			animator.SetTrigger("Idle");
+		}
+	}
+
+	/// <summary>
+	/// Sets player movement and running animation
+	/// </summary>
 	void Run()
 	{
 		if (horizontalMove / runSpeed != 0)
@@ -209,7 +216,6 @@ public class PlayerMovement : MonoBehaviour
         {
 			dashUIGameObject.SetActive(true);
         }
-
         else
         {
 			dashUIGameObject.SetActive(false);

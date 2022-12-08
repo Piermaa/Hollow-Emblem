@@ -5,24 +5,28 @@ using UnityEngine.UI;
 
 public class PlayerAbilities : MonoBehaviour
 {
-    [Header("Classes")]
+    [Header("Objects")]
     [SerializeField] private PlayerSounds sounds;
     private CharacterController2D controller;
     private PlayerMovement movement;
     private Animator animator;
     private Rigidbody2D rb;
     private PlayerCombat playerCombat;
+    private HealthManager healthManager;
     StateManager stateManager;
+    public LayerMask enemyLayer;
 
     [Header("Bool")]
     public bool isParrying;
     public bool unlockAll;
     public bool slamUnlocked;
-    bool willDestroy;
+    public bool willDestroy;
 
     [Header("Floats")]
     public float slamForce;
     public float slamCD = 3;
+    float slamTime;
+    float slamCoolDown;
     float slamTimer;
 
     public Image slamUI;
@@ -30,6 +34,7 @@ public class PlayerAbilities : MonoBehaviour
 
     private void Start()
     {
+        healthManager = FindObjectOfType<HealthManager>();
         stateManager = GetComponent<StateManager>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController2D>();
@@ -44,7 +49,7 @@ public class PlayerAbilities : MonoBehaviour
 
     private void Update()
     {
-        slamTimer -= Time.deltaTime;
+        slamTimer = slamTimer<0?0: slamTimer-Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && slamUnlocked && slamTimer < 0)
         {
@@ -65,7 +70,6 @@ public class PlayerAbilities : MonoBehaviour
             {
                 animator.SetTrigger("Slam");
             }
-
         }
                
         UISlam();
@@ -79,9 +83,9 @@ public class PlayerAbilities : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((collision.collider.tag == "Ground" || collision.collider.tag == "DestructibleGround") && willDestroy)
+        if ((collision.collider.CompareTag( "Ground") || collision.collider.CompareTag("DestructibleGround")) && willDestroy)
         {
-            if (collision.collider.tag == "DestructibleGround")
+            if (collision.collider.CompareTag("DestructibleGround"))
             {
                 StartCoroutine(Destroy(collision.gameObject));
               
@@ -95,11 +99,36 @@ public class PlayerAbilities : MonoBehaviour
 
     void AutoUnlock()
     {
+        TryGetComponent<PlayerCombat>(out var combat);
+        combat.canShoot = true;
         stateManager.enabled = enabled;
         slamUnlocked = true;
         TryGetComponent<PlayerMovement>(out var movement);
         movement.dashUnlocked = true;
     }
+
+    public void SlamImpact()
+    {
+        animator.SetBool("Falling", false);
+        animator.SetTrigger("Slam");
+
+
+        slamTime = slamCoolDown;
+
+        healthManager.SetInmunity();
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 5, enemyLayer);
+
+        foreach (Collider2D collided in colliders)
+        {
+            collided.TryGetComponent<HealthController>(out var health);
+
+            health.TakeDamage(2);
+
+        }
+    }
+
+ 
 
     public void AbilityUnlock(string unlockedAb)
     {

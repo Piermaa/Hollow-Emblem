@@ -9,6 +9,7 @@ public class AirIA : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private ObjectPooler objectPooler;
+    private ParticleSystem shootParticles;
 
     [Header ("Patrolling Parameters")]
     public Transform[] moveSpots;
@@ -33,8 +34,17 @@ public class AirIA : MonoBehaviour
     private Transform playerTransform;
     private Vector3 desiredPos;
 
+    private void Awake()
+    {
+        if (shootParticles == null)
+        {
+            shootParticles = GetComponentInChildren<ParticleSystem>();
+        }
+    }
     private void Start()
     {
+       
+  
         rb = GetComponent<Rigidbody2D>();
         objectPooler = ObjectPooler.Instance;
         animator = GetComponent<Animator>();
@@ -141,6 +151,7 @@ public class AirIA : MonoBehaviour
     }
     public void Shot()
     {
+        shootParticles.Play();
         objectPooler.SpawnFromPool("Bullet", bulletOrigin.position, Quaternion.Euler(playerTransform.position - bulletOrigin.position), (playerTransform.position));//- transform.position);
     }
     public void StartShoot()
