@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 	public float horizontalMove = 0f;
 	public float layerCD;
 	float layerTimer;
+	float stepSoundCD;
 
 	[Header("Bools")]
 	bool doubleJumped;
@@ -165,24 +166,34 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	public void PlayerStep()
+	{
+		sounds.PlayStep();
+	}
+
 	/// <summary>
 	/// Sets player movement and running animation
 	/// </summary>
 	void Run()
 	{
-		if (horizontalMove / runSpeed != 0)
-		{
-			if (controller.CheckGround())
-			{
-				sounds.PlaySound(sounds.step);
-			}
 
-			animator.SetBool("Run", true);
+		if (horizontalMove / runSpeed != 0 && controller.CheckGround())
+		{
+			if (!animator.GetBool("Run"))
+			{
+				animator.SetBool("Run", true);
+			}
 		}
-		else
+		else 
 		{
 			animator.SetBool("Run", false);
+			if( !controller.CheckGround()&& !animator.GetBool("Jump"))
+			{
+				animator.SetBool("Falling",true);
+			}
 		}
+		
+	
 	}
 	void DashUpdate()
 	{
@@ -194,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Dash()
     {
+		rb.velocity = Vector2.zero;
         sounds.PlaySound(sounds.dash);
         dashCoolDown = maxDashCoolDown;
         animator.SetBool("Jump", false);

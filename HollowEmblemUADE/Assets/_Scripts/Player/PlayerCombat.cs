@@ -164,7 +164,11 @@ public class PlayerCombat : MonoBehaviour
                 animator.SetTrigger("AttackFront");
                 break;
             case DirectionsToAttack.Down:
-                animator.SetTrigger("AttackDown");
+                if (!controller.CheckGround())
+                {
+                    animator.SetTrigger("AttackDown");
+                }
+      
                 break;
             case DirectionsToAttack.Up:
                 animator.SetTrigger("AttackUp");

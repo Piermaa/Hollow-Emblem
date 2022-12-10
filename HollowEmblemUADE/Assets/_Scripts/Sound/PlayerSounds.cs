@@ -19,6 +19,8 @@ public class PlayerSounds : MonoBehaviour
     public AudioSource die;
     public AudioSource shoot;
     public AudioSource reload;
+
+    public AudioClip[] steps;
     public void PlaySound(AudioSource sound)
     {
         if (!sound.isPlaying)
@@ -29,7 +31,12 @@ public class PlayerSounds : MonoBehaviour
     public void PlaySound(AudioSource sound, bool canRepeat)
     {
         
-            sound.PlayOneShot(sound.clip);
+         sound.PlayOneShot(sound.clip);
         
+    }
+
+    public void PlayStep()
+    {
+          step.PlayOneShot(steps[Random.Range(0, steps.Length - 1)]);
     }
 }

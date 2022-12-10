@@ -84,7 +84,7 @@ public class HealthController : MonoBehaviour
     /// <param name="damage">Amount of damage</param>
     public void TakeDamage(int damage)
     {
-        takeDamageSound.Play();
+        takeDamageSound.PlayOneShot(takeDamageSound.clip);
         if (!inmune && healthPoints>0 &&!takingDamage)
         {   
             healthPoints -= damage;

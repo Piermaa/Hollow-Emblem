@@ -20,6 +20,8 @@ public class Platform : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    PlayerInventory.Instance.TryGetComponent<Animator>(out var a);
+                    a.SetBool("Falling",true);
                     boxCollider.enabled = false;
                 }
             }
@@ -48,7 +50,7 @@ public class Platform : MonoBehaviour
             }
             else if (distance < 1.87f)
             {
-                collision.gameObject.transform.position += new Vector3(0, 1.88f - distance);
+                collision.gameObject.transform.position += new Vector3(0, (1.88f - distance));
             }
            
         }
@@ -58,7 +60,6 @@ public class Platform : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(ReestablishCollider());
-            
         }
     }
 }

@@ -66,6 +66,7 @@ public class CharacterController2D : MonoBehaviour
 						OnSlamEvent.Invoke();
 						triggerSlam = false;
 					}
+					
 				}
 				m_Grounded = true;
 			}
