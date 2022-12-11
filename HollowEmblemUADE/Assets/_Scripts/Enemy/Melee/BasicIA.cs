@@ -43,7 +43,7 @@ public class BasicIA : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(moveSpots[spotsIndex].transform.position.x, transform.position.y), speed * Time.deltaTime);
 
-           
+    
 
             if (Vector2.Distance(transform.position, new Vector2(moveSpots[spotsIndex].position.x, transform.position.y)) < 0.3f)
             {
@@ -51,16 +51,12 @@ public class BasicIA : MonoBehaviour
                 {
                     if (moveSpots[spotsIndex] != moveSpots[moveSpots.Length - 1])
                     {
-                        Vector3 theScale = transform.localScale;
-                        theScale.x *= -1;
-                        transform.localScale = theScale;
+                  
                         spotsIndex++;
                     }
                     else
                     {
-                        Vector3 theScale = transform.localScale;
-                        theScale.x *= -1;
-                        transform.localScale = theScale;
+      
                         spotsIndex = 0;
                     }
 
@@ -71,6 +67,17 @@ public class BasicIA : MonoBehaviour
                     waitTime -= Time.deltaTime;
                 }
 
+                Vector3 dir = moveSpots[spotsIndex].position - transform.position;
+                Vector3 theScale = transform.localScale;
+                if (dir.x < 0)
+                {
+                    theScale.x = -1;
+                }
+                else
+                {
+                    theScale.x = 1;
+                }
+                transform.localScale = theScale;
             }
         }
         else
