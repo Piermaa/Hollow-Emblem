@@ -6,6 +6,7 @@ public class Parallax : MonoBehaviour
 {
     Transform cameraT;
     public float parallaxEffectMultiplier;
+    public bool ignoreY;
     Vector3 lastPos;
     float width;
     // Start is called before the first frame update
@@ -19,12 +20,22 @@ public class Parallax : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!ignoreY)
+        {
 
-        Vector3 deltaMov = cameraT.position - lastPos;
+            Vector3 deltaMov = cameraT.position - lastPos;
 
-        transform.position += deltaMov * parallaxEffectMultiplier;
+            transform.position += deltaMov * parallaxEffectMultiplier;
 
-        lastPos = cameraT.position;
+            lastPos = cameraT.position;
+        }
+        else
+        {
+            Vector3 deltaMov = cameraT.position - lastPos;
 
+            transform.position += new Vector3(deltaMov.x,0) * parallaxEffectMultiplier;
+
+            lastPos = cameraT.position;
+        }
     }
 }

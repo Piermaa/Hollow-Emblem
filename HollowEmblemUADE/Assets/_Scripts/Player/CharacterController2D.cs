@@ -57,7 +57,11 @@ public class CharacterController2D : MonoBehaviour
 		{
 			if (colliders[i].gameObject != gameObject)
 			{
-			
+				if (colliders[i].TryGetComponent<Platform>(out var plat))
+				{
+					TryGetComponent<Collider2D>(out var col);
+					plat.PlayerSnap(col);
+				}
 				if (!wasGrounded)
 				{
 					OnLandEvent.Invoke();

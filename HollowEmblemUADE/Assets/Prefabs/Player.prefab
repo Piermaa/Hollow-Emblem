@@ -71,6 +71,7 @@ MonoBehaviour:
   die: {fileID: 1275478982}
   shoot: {fileID: 1012327978}
   reload: {fileID: 639884953}
+  steps: []
 --- !u!1 &34504561
 GameObject:
   m_ObjectHideFlags: 0
@@ -4635,6 +4636,7 @@ MonoBehaviour:
   die: {fileID: 119353772}
   shoot: {fileID: 0}
   reload: {fileID: 0}
+  steps: []
 --- !u!1 &1849951503
 GameObject:
   m_ObjectHideFlags: 0
@@ -5488,7 +5490,6 @@ GameObject:
   - component: {fileID: 7873459444671638752}
   - component: {fileID: 1503712108}
   - component: {fileID: 7873459444671638758}
-  - component: {fileID: 7873459444671638762}
   - component: {fileID: 7873459444671638766}
   - component: {fileID: 1461584761}
   - component: {fileID: 1352803176}
@@ -5556,7 +5557,7 @@ MonoBehaviour:
     m_Bits: 4194368
   m_GroundCheck: {fileID: 7873459444979928690}
   m_CeilingCheck: {fileID: 7873459445446498529}
-  m_CrouchDisableCollider: {fileID: 7873459444671638762}
+  m_CrouchDisableCollider: {fileID: 0}
   m_Rigidbody2D: {fileID: 7873459444671638766}
   OnLandEvent:
     m_PersistentCalls:
@@ -5873,32 +5874,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.663157}
   m_Size: {x: 1, y: 1.4524689}
   m_Direction: 0
---- !u!61 &7873459444671638762
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7873459444671638765}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 21ed9b83fd2a6d045a9c75dff7b4cc0f, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.1571596}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.26751205, y: 0.49999997}
-    oldSize: {x: 3.02, y: 2.44}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.3959498}
-  m_EdgeRadius: 0
 --- !u!50 &7873459444671638766
 Rigidbody2D:
   serializedVersion: 4
