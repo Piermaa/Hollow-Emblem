@@ -12,32 +12,36 @@ public class Bullet : MonoBehaviour, IPooledObject
     public Vector3 moveDirection;
 
     bool verifyScale=false;
-    public void OnObjectSpawn()
-    {
-        rb.velocity = Vector3.zero;
-        moveDirection += Vector3.up;
-        moveDirection -= transform.position;
-        moveDirection.Normalize();
-        rb.AddForce(moveDirection.normalized * speed, ForceMode2D.Force);
-        verifyScale = true;
-    }
+  
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
+
+      
+    }
+
+    public void OnObjectSpawn()
+    {
+        rb.velocity = Vector3.zero;
+        verifyScale = true;
+        moveDirection -= transform.position;
+        moveDirection.Normalize();
+        Debug.Log("VelocimoveDirection * speed,ty before force:" +rb.velocity);
+        rb.velocity = moveDirection * speed;
+      
+        Debug.Log("Velocity after force:" + rb.velocity);
         if (verifyScale)
         {
             if (rb.velocity.x < 0)
             {
-
                 Vector3 theScale = transform.localScale;
                 theScale.x = 1;
                 this.transform.localScale = theScale;
-             
 
             }
             else
@@ -45,10 +49,14 @@ public class Bullet : MonoBehaviour, IPooledObject
                 Vector3 theScale = transform.localScale;
                 theScale.x = -1;
                 this.transform.localScale = theScale;
-             
+
             }
             verifyScale = false;
         }
+    }
+    private void Update()
+    {
+      
 
         xvelocity = rb.velocity.x;
         timeToDespawn += Time.deltaTime;

@@ -90,8 +90,7 @@ public class ObjectPooler : MonoBehaviour
 
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.SetPositionAndRotation(position, rotation);
-        //objectToSpawn.transform.position = position;
-        //objectToSpawn.transform.rotation = rotation;
+
         objectToSpawn.transform.localScale = scale;
         var pAttack = objectToSpawn.GetComponent<PlayerAttack>();
         //Debug.Log("Has");
