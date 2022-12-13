@@ -51,6 +51,13 @@ public class Boss : MonoBehaviour
     public LayerMask playerLayer;
     public LayerMask spikeLayer;
 
+    [Header("Sounds")]
+    [SerializeField] AudioSource stepSound;
+    [SerializeField] AudioSource step2Sound;
+    [SerializeField] AudioSource crashSound;
+    [SerializeField] AudioSource growlSound;
+    //[SerializeField] AudioSource dieSound;
+
     private void Awake()
     {
         gameObject.SetActive(false);
@@ -72,8 +79,6 @@ public class Boss : MonoBehaviour
 
     private void Update()
     {
-        //Debug.DrawRay(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left) + new Vector3(distanceOfRay, 0, 0), Color.blue);
-        //Debug.DrawRay(seekPlayerStart.position, seekPlayerStart.TransformDirection(Vector2.left) + new Vector3(distanceOfWallRay, 0, 0), Color.red);
         UpdateCooldown();
         SetInvulnerability();
         BossStateExecution();
@@ -145,6 +150,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         transform.rotation = Quaternion.Euler(0, 0, 0);
         canEmbist = true;
+        growlSound.Play();
         state = BattleState.EMBISTING;
 
         yield return null;
@@ -153,7 +159,7 @@ public class Boss : MonoBehaviour
     void Embisting()
     {
         Debug.Log("EMBISTING");
-
+        
         isInvulnerable = false;
         damageCollider.enabled = true;
 
@@ -257,6 +263,7 @@ public class Boss : MonoBehaviour
 
                 if (canRecover)
                 {
+                    crashSound.Play();
                     StartCoroutine(Recovering());
                 }
         
@@ -266,9 +273,18 @@ public class Boss : MonoBehaviour
 
     public void Death()
     {
+        crashSound.Play();
         if (drop)
         {
             GameManager.instance.StartVictory(this.transform.position, "Dash");
         }
+    }
+    public void StepSoundEffect()
+    {
+        stepSound.Play();
+    }
+    public void Step2SoundEffect()
+    {
+        step2Sound.Play();
     }
 }
