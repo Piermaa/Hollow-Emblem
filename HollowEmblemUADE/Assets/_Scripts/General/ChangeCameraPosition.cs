@@ -29,7 +29,7 @@ public class ChangeCameraPosition : MonoBehaviour
     [SerializeField] RectTransform sliderValuePosition;
     [SerializeField] RectTransform secondSliderValuePosistion;
 
-    ChangeAmbientMusic changeAmbientMusic;
+    public ChangeAmbientMusic changeAmbientMusic;
 
     public static bool bossIsActive;
 

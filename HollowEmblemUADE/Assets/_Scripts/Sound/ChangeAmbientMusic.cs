@@ -23,22 +23,33 @@ public class ChangeAmbientMusic : MonoBehaviour
     {
         if (ChangeCameraPosition.bossIsActive)
         {
-            if (bosses[0].activeInHierarchy)
+            if (bosses[0] != null)
             {
-                audioSource.clip = spiderBossFightMusic;
-                audioSource.Play();
+                if (bosses[0].activeInHierarchy)
+                {
+                    audioSource.clip = spiderBossFightMusic;
+                    audioSource.Play();
+                }
+
+
             }
 
-            if (bosses[1].activeInHierarchy)
+            if (bosses[1] != null)
             {
-                audioSource.clip = slamBossFightMusic;
-                audioSource.Play();
+                if (bosses[1].activeInHierarchy)
+                {
+                    audioSource.clip = slamBossFightMusic;
+                    audioSource.Play();
+                }
             }
 
-            if (bosses[2].activeInHierarchy)
+            if (bosses[2] != null)
             {
-                audioSource.clip = finalBossFightMusic;
-                audioSource.Play();
+                if (bosses[2].activeInHierarchy)
+                {
+                    audioSource.clip = finalBossFightMusic;
+                    audioSource.Play();
+                }
             }
         }
 
