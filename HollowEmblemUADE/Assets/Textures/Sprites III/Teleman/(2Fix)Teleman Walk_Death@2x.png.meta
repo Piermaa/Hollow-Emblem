@@ -150,7 +150,7 @@ TextureImporter:
         width: 570
         height: 766
       alignment: 9
-      pivot: {x: 0.52917296, y: 0.5730191}
+      pivot: {x: 0.529173, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -166,12 +166,12 @@ TextureImporter:
       name: (2Fix)Teleman Walk_Death@2x_1
       rect:
         serializedVersion: 2
-        x: 864
+        x: 867
         y: 3122
         width: 510
         height: 764
       alignment: 9
-      pivot: {x: 0.5616151, y: 0.57143736}
+      pivot: {x: 0.5616151, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,7 +192,7 @@ TextureImporter:
         width: 503
         height: 796
       alignment: 9
-      pivot: {x: 0.5196111, y: 0.58726525}
+      pivot: {x: 0.5196111, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,7 +213,7 @@ TextureImporter:
         width: 493
         height: 786
       alignment: 9
-      pivot: {x: 0.46322045, y: 0.5840903}
+      pivot: {x: 0.46322045, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -234,7 +234,7 @@ TextureImporter:
         width: 420
         height: 766
       alignment: 9
-      pivot: {x: 0.32682756, y: 0.57652724}
+      pivot: {x: 0.32682756, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -255,7 +255,7 @@ TextureImporter:
         width: 490
         height: 764
       alignment: 9
-      pivot: {x: 0.4072669, y: 0.56833315}
+      pivot: {x: 0.4072669, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -276,7 +276,7 @@ TextureImporter:
         width: 486
         height: 718
       alignment: 9
-      pivot: {x: 0.47293425, y: 0.54741734}
+      pivot: {x: 0.47293425, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -297,7 +297,7 @@ TextureImporter:
         width: 492
         height: 722
       alignment: 9
-      pivot: {x: 0.5172996, y: 0.54715466}
+      pivot: {x: 0.5172996, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -314,11 +314,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1222
-        y: 2220
+        y: 2223
         width: 394
         height: 764
       alignment: 9
-      pivot: {x: 0.6119403, y: 0.56886905}
+      pivot: {x: 0.6119403, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -339,7 +339,7 @@ TextureImporter:
         width: 302
         height: 790
       alignment: 9
-      pivot: {x: 0.49743813, y: 0.5871709}
+      pivot: {x: 0.49743813, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -356,11 +356,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2322
-        y: 2116
+        y: 2119
         width: 282
         height: 770
       alignment: 9
-      pivot: {x: 0.4615868, y: 0.5773764}
+      pivot: {x: 0.4615868, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -376,12 +376,12 @@ TextureImporter:
       name: (2Fix)Teleman Walk_Death@2x_11
       rect:
         serializedVersion: 2
-        x: 2826
+        x: 2821
         y: 2124
         width: 350
         height: 764
       alignment: 9
-      pivot: {x: 0.57074356, y: 0.5719074}
+      pivot: {x: 0.57074356, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -397,12 +397,12 @@ TextureImporter:
       name: (2Fix)Teleman Walk_Death@2x_12
       rect:
         serializedVersion: 2
-        x: 3390
+        x: 3385
         y: 2132
         width: 404
         height: 766
       alignment: 9
-      pivot: {x: 0.48850846, y: 0.5727297}
+      pivot: {x: 0.48850846, y: 0.65}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

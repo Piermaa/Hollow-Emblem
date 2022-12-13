@@ -28,34 +28,39 @@ public class ChangeCameraPosition : MonoBehaviour
     [SerializeField] RectTransform sliderValuePosition;
     [SerializeField] RectTransform secondSliderValuePosistion;
 
+    ChangeAmbientMusic changeAmbientMusic;
+
+    public static bool bossIsActive;
+
     public bool canMaximize;
+
+    private void Awake()
+    {
+        changeAmbientMusic = FindObjectOfType<ChangeAmbientMusic>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            foreach (GameObject wall in invisibleWalls)
-            {
-                wall.SetActive(true);
-            }
-
-            canMaximize = true;
-
-            collision.TryGetComponent<PlayerRespawn>(out var pr);
-            pr.SetRespawn(transform.position);
-
-        
-       
             if (boss!=null)
             {
+                foreach (GameObject wall in invisibleWalls)
+                {
+                    wall.SetActive(true);
+                }
+
+                canMaximize = true;
+
+                collision.TryGetComponent<PlayerRespawn>(out var pr);
+                pr.SetRespawn(transform.position);
+
+                bossIsActive = true;
+                changeAmbientMusic.ChangeSong();
                 vcam.Follow = bossTarget;
                 bossCanvas.SetActive(true);
                 boss.SetActive(true);
             }
-
-            //playerCamera.transform.position = bossCamera.transform.position;
-            //playerCamera.SetActive(false);
-            //bossCamera.SetActive(true);
         }
     }
 
@@ -68,6 +73,8 @@ public class ChangeCameraPosition : MonoBehaviour
 
         PutMaxHealth();
 
+        bossIsActive = false;
+        changeAmbientMusic.ChangeSong();
         vcam.Follow = playerTarget;
         bossCanvas.SetActive(false);
 

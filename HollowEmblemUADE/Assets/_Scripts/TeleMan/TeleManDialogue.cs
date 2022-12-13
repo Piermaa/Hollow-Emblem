@@ -52,9 +52,33 @@ public class TeleManDialogue : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !playerCombat.canShoot && !playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
         {
             telemanText.text = "Hi There!";
+            textTutorial.SetActive(true);
+        }
+
+        if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && !playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
+        {
+            telemanText.text = "Hey, what do you have there?";
+            textTutorial.SetActive(true);
+        }
+
+        if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
+        {
+            telemanText.text = "Where is the embisting beast?";
+            textTutorial.SetActive(true);
+        }
+
+        if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && playerMovement.dashUnlocked && playerAbilities.slamUnlocked && !nearEnd)
+        {
+            telemanText.text = "Have you killed that slammer monster?";
+            textTutorial.SetActive(true);
+        }
+
+        if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && playerMovement.dashUnlocked && playerAbilities.slamUnlocked && nearEnd)
+        {
+            telemanText.text = "Hey!";
             textTutorial.SetActive(true);
         }
     }
@@ -112,7 +136,7 @@ public class TeleManDialogue : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
             {
                 canTalk = false;
-                telemanText.text = "I think that there´s a gun for you nearby!";
+                telemanText.text = "Be careful with that monsters, they´re so dangerous";
                 cooldown = 0.5f;
                 textChanger = 2;
                 canTalk = true;
@@ -195,7 +219,7 @@ public class TeleManDialogue : MonoBehaviour
             {
                 textTutorial.SetActive(false);
                 canTalk = false;
-                telemanText.text = "¿Have you killed the embisting beast?";
+                telemanText.text = "Have you killed it?";
                 animator.SetBool("isTalking", true);
                 cooldown = 0.5f;
                 textChanger = 1;

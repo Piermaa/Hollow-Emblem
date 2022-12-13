@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
     void Dash()
     {
 		rb.velocity = Vector2.zero;
-        sounds.PlaySound(sounds.dash);
+        sounds.dash.PlayOneShot(sounds.dash.clip);
         dashCoolDown = maxDashCoolDown;
         animator.SetBool("Jump", false);
         animator.SetTrigger("Dash");

@@ -36,7 +36,7 @@ public class FinalBossScript : MonoBehaviour
 
     [Header("Float")]
     private float distanceOfRay = -4f;
-    private float speed = 3f;
+    private float speed = 5f;
     private float flySpeed = 5.5f;
 
     [Header ("Transform")]
@@ -49,6 +49,12 @@ public class FinalBossScript : MonoBehaviour
     [Header("Vector3")]
     Vector3 direction;
     Vector3 directionDown;
+
+    [Header("Sounds")]
+    [SerializeField] AudioSource meleeAttackSound;
+    [SerializeField] AudioSource shootAttackSound;
+    [SerializeField] AudioSource floorAttackSound;
+    [SerializeField] AudioSource dieSound;
 
     private void Awake()
     {
@@ -148,7 +154,7 @@ public class FinalBossScript : MonoBehaviour
 
     IEnumerator FinishingGame()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4.2f);
 
         changer.GameOver();
 
@@ -158,11 +164,13 @@ public class FinalBossScript : MonoBehaviour
     public void InitializeShootOne()
     {
         objectPooler.SpawnFromPool("Bullet", shootStartUp.position, shootStartUp.rotation, direction);
+        shootAttackSound.Play();
     }
 
     public void InitializeShootTwo()
     {
         objectPooler.SpawnFromPool("Bullet", shootStartDown.position, shootStartDown.rotation, directionDown);
+        shootAttackSound.Play();
     }
 
     public void CalculatePosition()
@@ -197,7 +205,7 @@ public class FinalBossScript : MonoBehaviour
                 else
                 {
                     Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
-                    if (Vector2.Distance(transform.position, toFloor) > 0.5f)
+                    if (Vector2.Distance(transform.position, toFloor) > 0.83f)
                     {
                         animator.SetBool("Flying", true);
                         transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
@@ -243,13 +251,17 @@ public class FinalBossScript : MonoBehaviour
                 {
                     Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
 
-                    if (Vector2.Distance(transform.position, toFloor) > 0.5f)
+                    
+
+                    if (Vector2.Distance(transform.position, toFloor) > 0.83f)
                     {
                         transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
                     }
 
                     else
                     {
+                        animator.SetBool("Walking", false);
+                        animator.SetBool("Flying", false);
                         canDie = false;
                         animator.SetTrigger("Death");
                     }
@@ -306,5 +318,19 @@ public class FinalBossScript : MonoBehaviour
     public void PutIdle()
     {
         state = FBBattleState.IDLE;
+    }
+
+    public void MeleeAttackSoundEffect()
+    {
+        meleeAttackSound.Play();
+    }
+
+    public void FloorAttackSoundEffect()
+    {
+        floorAttackSound.Play();
+    }
+    public void DieSoundEffect()
+    {
+        dieSound.Play();
     }
 }

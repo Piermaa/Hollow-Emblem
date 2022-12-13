@@ -156,21 +156,25 @@ public class PlayerCombat : MonoBehaviour
     /// </summary>
     void Attack()
     {
-        sounds.PlaySound(sounds.attack);
+        
         animator.SetBool("Jump", false);
         switch (directionsToAttack)
         {
             case DirectionsToAttack.Front:
+                sounds.PlaySound(sounds.attack);
                 animator.SetTrigger("AttackFront");
                 break;
             case DirectionsToAttack.Down:
+                
                 if (!controller.CheckGround())
                 {
+                    sounds.PlaySound(sounds.attack);
                     animator.SetTrigger("AttackDown");
                 }
       
                 break;
             case DirectionsToAttack.Up:
+                sounds.PlaySound(sounds.attack);
                 animator.SetTrigger("AttackUp");
                 break;
         }
