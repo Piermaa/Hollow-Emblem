@@ -58,8 +58,6 @@ public class FinalBossScript : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.SetActive(false);
-
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         objectPooler = ObjectPooler.Instance;

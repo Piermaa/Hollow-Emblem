@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ChangeAmbientMusic : MonoBehaviour
 {
-    [SerializeField] GameObject[] bosses;
+    //[SerializeField] GameObject[] bosses;
 
     private AudioSource audioSource;
 
     [SerializeField] AudioClip ambientClip;
-    [SerializeField] AudioClip spiderBossFightMusic;
-    [SerializeField] AudioClip slamBossFightMusic;
+    [SerializeField] AudioClip bossFightMusic;
     [SerializeField] AudioClip finalBossFightMusic;
-
 
     private void Awake()
     {
@@ -23,23 +21,8 @@ public class ChangeAmbientMusic : MonoBehaviour
     {
         if (ChangeCameraPosition.bossIsActive)
         {
-            if (bosses[0].activeInHierarchy)
-            {
-                audioSource.clip = spiderBossFightMusic;
-                audioSource.Play();
-            }
-
-            if (bosses[1].activeInHierarchy)
-            {
-                audioSource.clip = slamBossFightMusic;
-                audioSource.Play();
-            }
-
-            if (bosses[2].activeInHierarchy)
-            {
-                audioSource.clip = finalBossFightMusic;
-                audioSource.Play();
-            }
+            audioSource.clip = bossFightMusic;
+            audioSource.Play();
         }
 
         else

@@ -16,7 +16,6 @@ public class ChangeCameraPosition : MonoBehaviour
 
     [SerializeField] GameObject playerCamera;
     [SerializeField] GameObject bossCamera;
-    [SerializeField] GameObject activator;
 
     [SerializeField] GameObject boss;
     [SerializeField] GameObject bossCanvas;
@@ -44,40 +43,24 @@ public class ChangeCameraPosition : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            activator.SetActive(false);
-
-            boss.SetActive(true);
-            bossCanvas.SetActive(true);
-            vcam.Follow = bossTarget;
-            bossIsActive = true;
-            changeAmbientMusic.ChangeSong();
-
-            foreach (GameObject wall in invisibleWalls)
+            if (boss!=null)
             {
-                wall.SetActive(true);
+                foreach (GameObject wall in invisibleWalls)
+                {
+                    wall.SetActive(true);
+                }
+
+                canMaximize = true;
+
+                collision.TryGetComponent<PlayerRespawn>(out var pr);
+                pr.SetRespawn(transform.position);
+
+                bossIsActive = true;
+                changeAmbientMusic.ChangeSong();
+                vcam.Follow = bossTarget;
+                bossCanvas.SetActive(true);
+                boss.SetActive(true);
             }
-
-            canMaximize = true;
-
-            collision.TryGetComponent<PlayerRespawn>(out var pr);
-            pr.SetRespawn(transform.position);
-
-            //if (boss!= null)
-            //{
-            //    foreach (GameObject wall in invisibleWalls)
-            //    {
-            //        wall.SetActive(true);
-            //    }
-
-            //    canMaximize = true;
-
-            //    collision.TryGetComponent<PlayerRespawn>(out var pr);
-            //    pr.SetRespawn(transform.position);
-
-            //    bossIsActive = true;
-            //    changeAmbientMusic.ChangeSong();
-                
-            //}
         }
     }
 
