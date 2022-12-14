@@ -34,6 +34,7 @@ public class TeleManDialogue : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] AudioSource talkAudio;
 
 
     private void Awake()
@@ -56,30 +57,35 @@ public class TeleManDialogue : MonoBehaviour
         {
             telemanText.text = "Hi There!";
             textTutorial.SetActive(true);
+            talkAudio.Play();
         }
 
         if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && !playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
         {
             telemanText.text = "Hey, what do you have there?";
             textTutorial.SetActive(true);
+            talkAudio.Play();
         }
 
         if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
         {
             telemanText.text = "Where is the embisting beast?";
             textTutorial.SetActive(true);
+            talkAudio.Play();
         }
 
         if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && playerMovement.dashUnlocked && playerAbilities.slamUnlocked && !nearEnd)
         {
             telemanText.text = "Have you killed that slammer monster?";
             textTutorial.SetActive(true);
+            talkAudio.Play();
         }
 
         if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && playerMovement.dashUnlocked && playerAbilities.slamUnlocked && nearEnd)
         {
             telemanText.text = "Hey!";
             textTutorial.SetActive(true);
+            talkAudio.Play();
         }
     }
 
