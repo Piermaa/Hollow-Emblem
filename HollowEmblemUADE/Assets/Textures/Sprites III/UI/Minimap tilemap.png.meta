@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9d82e4f9e94d75246b7a1914236c044c
+guid: cd275804bdd6a9a489896d59e38f43d7
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -26,6 +26,21 @@ TextureImporter:
   - first:
       213: -8376128329988966552
     second: Minimap tilemap_7
+  - first:
+      213: 8451416126046229957
+    second: Minimap tilemap_8
+  - first:
+      213: -5490543863867987419
+    second: Minimap tilemap_9
+  - first:
+      213: -170727835550328569
+    second: Minimap tilemap_10
+  - first:
+      213: -2910879799955153655
+    second: Minimap tilemap_11
+  - first:
+      213: -5443633550147642032
+    second: Minimap tilemap_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -214,7 +229,7 @@ TextureImporter:
       name: Minimap tilemap_4
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 1024
         width: 512
         height: 512
@@ -235,8 +250,8 @@ TextureImporter:
       name: Minimap tilemap_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
+        x: 1024
+        y: 1024
         width: 512
         height: 512
       alignment: 0
@@ -256,7 +271,7 @@ TextureImporter:
       name: Minimap tilemap_6
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 512
         width: 512
         height: 512
@@ -277,7 +292,7 @@ TextureImporter:
       name: Minimap tilemap_7
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 512
         width: 512
         height: 512
@@ -290,6 +305,111 @@ TextureImporter:
       bones: []
       spriteID: 867fbe999a302cb80800000000000000
       internalID: -8376128329988966552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Minimap tilemap_8
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c55ef96036794570800000000000000
+      internalID: 8451416126046229957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Minimap tilemap_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52aa27a227badc3b0800000000000000
+      internalID: -5490543863867987419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Minimap tilemap_10
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70950c820f371adf0800000000000000
+      internalID: -170727835550328569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Minimap tilemap_11
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90d10d39e3a7a97d0800000000000000
+      internalID: -2910879799955153655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Minimap tilemap_12
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05d1d04b0245474b0800000000000000
+      internalID: -5443633550147642032
       vertices: []
       indices: 
       edges: []
