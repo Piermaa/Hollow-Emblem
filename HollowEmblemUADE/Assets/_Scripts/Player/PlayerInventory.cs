@@ -368,13 +368,14 @@ public class PlayerInventory : MonoBehaviour
             {
                 if (spaceAvailableOnClip > newSlot.amount) //Si las balas del slot son menos que las requeridas para llenar el cargador:
                 {
+                    int auxAmmo = newSlot.amount;
                     //combat.currentAmmo += newSlot.amount; //Sumar todas las balas al cargador
                     if (!justChecking)
                     {
                         EmptySlot(newSlot); // Y vaciar el slot
                     }
-
-                    return newSlot.amount;
+                    Debug.Log("SE RETURNEA newslotSmount: " + newSlot.amount);
+                    return auxAmmo;
                 }
                 else
                 {
@@ -388,7 +389,7 @@ public class PlayerInventory : MonoBehaviour
                             EmptySlot(newSlot);
                         }
                     }
-                
+                    Debug.Log("SE RETURNEA spaceAvailableOnClip: " + spaceAvailableOnClip);
                     return spaceAvailableOnClip;
                 }
             }

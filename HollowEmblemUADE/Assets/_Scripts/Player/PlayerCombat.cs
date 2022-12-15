@@ -292,14 +292,16 @@ public class PlayerCombat : MonoBehaviour
             reloading = true;
             sounds.PlaySound(sounds.reload);
             animator.SetTrigger("Reload");
-            Debug.Log(inventory.GetAmmoFromInventory(true));
+            Debug.Log("Initial ammo from inventory:"+inventory.GetAmmoFromInventory(true));
             yield return new WaitForSeconds(0.9f);
             while (hasAmmoOnInventory)
             {
+                print("has ammo on inventory:"+hasAmmoOnInventory);
                 currentAmmo += inventory.GetAmmoFromInventory(false);
-                hasAmmoOnInventory = inventory.GetAmmoFromInventory(true) != 0;
+                hasAmmoOnInventory = inventory.GetAmmoFromInventory(true) > 0;
                 UpdateUI();
             }
+            UpdateUI();
             reloadingC = null;
             reloading = false;
         }
