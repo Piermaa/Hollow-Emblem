@@ -58,7 +58,7 @@ public class Platform : MonoBehaviour
         playerCollides = true;
         float distance = (Vector2.Distance(new Vector3(transform.position.x, transform.position.y), new Vector3(transform.position.x, collision.transform.position.y, 0)));
         Vector2 dir = new Vector3(transform.position.x, collision.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y);
-        Debug.Log(distance);
+        //Debug.Log(distance);
 
         if (0.5f > distance && reestablishingCollider == null && dir.y < 0)
         {
@@ -78,7 +78,7 @@ public class Platform : MonoBehaviour
         playerCollides = true;
         float distance = (Vector2.Distance(new Vector3(transform.position.x, transform.position.y), new Vector3(transform.position.x, collision.transform.position.y, 0)));
         Vector2 dir = new Vector3(transform.position.x, collision.transform.position.y, 0) - new Vector3(transform.position.x, transform.position.y);
-        Debug.Log(distance);
+        //Debug.Log(distance);
 
         if (0.5f > distance && reestablishingCollider == null && dir.y < 0)
         {

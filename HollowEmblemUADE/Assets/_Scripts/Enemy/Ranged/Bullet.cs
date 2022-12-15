@@ -31,10 +31,10 @@ public class Bullet : MonoBehaviour, IPooledObject
         verifyScale = true;
         moveDirection -= transform.position;
         moveDirection.Normalize();
-        Debug.Log("VelocimoveDirection * speed,ty before force:" +rb.velocity);
+        //Debug.Log("VelocimoveDirection * speed,ty before force:" +rb.velocity);
         rb.velocity = moveDirection * speed;
       
-        Debug.Log("Velocity after force:" + rb.velocity);
+        //Debug.Log("Velocity after force:" + rb.velocity);
         if (verifyScale)
         {
             if (rb.velocity.x < 0)
