@@ -7,11 +7,19 @@ public class EventTriggerEnter : MonoBehaviour
 {
     public UnityEvent triggerEvent;
 
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();    
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             triggerEvent?.Invoke();
+            audioSource.Play();
         }
     }
 }

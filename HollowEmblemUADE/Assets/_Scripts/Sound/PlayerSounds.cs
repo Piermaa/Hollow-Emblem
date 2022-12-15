@@ -19,6 +19,7 @@ public class PlayerSounds : MonoBehaviour
     public AudioSource die;
     public AudioSource shoot;
     public AudioSource reload;
+    public AudioSource pickupable;
 
     public AudioClip[] steps;
     public void PlaySound(AudioSource sound)

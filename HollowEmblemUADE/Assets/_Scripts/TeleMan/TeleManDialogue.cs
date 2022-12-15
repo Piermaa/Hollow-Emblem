@@ -69,7 +69,7 @@ public class TeleManDialogue : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player") && playerCombat.canShoot && playerMovement.dashUnlocked && !playerAbilities.slamUnlocked && !nearEnd)
         {
-            telemanText.text = "Where is the embisting beast?";
+            telemanText.text = "Where is the charging beast?";
             textTutorial.SetActive(true);
             talkAudio.Play();
         }
@@ -131,7 +131,7 @@ public class TeleManDialogue : MonoBehaviour
             {
                 textTutorial.SetActive(false);
                 canTalk = false;
-                telemanText.text = "You´re not the first one on getting here";
+                telemanText.text = "You´re not the first one who has entered this place";
                 animator.SetBool("isTalking", true);
                 cooldown = 0.5f;
                 textChanger = 1;

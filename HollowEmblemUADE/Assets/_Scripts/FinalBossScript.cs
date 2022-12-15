@@ -45,6 +45,7 @@ public class FinalBossScript : MonoBehaviour
     [SerializeField] Transform floorSpot;
     [SerializeField] Transform shootStartUp;
     [SerializeField] Transform shootStartDown;
+    [SerializeField] Transform shootStartMiddle;
 
     [Header("Vector3")]
     Vector3 direction;
@@ -172,6 +173,12 @@ public class FinalBossScript : MonoBehaviour
     public void InitializeShootTwo()
     {
         objectPooler.SpawnFromPool("Bullet", shootStartDown.position, shootStartDown.rotation, directionDown);
+        shootAttackSound.Play();
+    }
+
+    public void InitializeShootThree()
+    {
+        objectPooler.SpawnFromPool("Bullet", shootStartMiddle.position, shootStartMiddle.rotation, directionDown);
         shootAttackSound.Play();
     }
 

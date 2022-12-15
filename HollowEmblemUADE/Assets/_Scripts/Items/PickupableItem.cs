@@ -12,12 +12,14 @@ public class PickupableItem : MonoBehaviour
     Item itemToAdd;
     ItemManager itemManager;
     SpriteRenderer sr;
-    // Start is called before the first frame update
+    PlayerSounds playerSounds;
+
     void Start()
     {
         itemManager = ItemManager.Instance;
         itemManager.itemDictionary.TryGetValue(itemName, out itemToAdd);
         //Debug.Log(itemToAdd.name);
+        playerSounds = FindObjectOfType<PlayerSounds>();
         sr = GetComponent<SpriteRenderer>();
         sr.sprite = itemToAdd.sprite;
     }
@@ -26,9 +28,11 @@ public class PickupableItem : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
+            playerSounds.PlaySound(playerSounds.pickupable);
             var inventory = PlayerInventory.Instance;
             inventory.AddItem(itemToAdd, amount);
             Destroy(this.gameObject);
         }
     }
+
 }
