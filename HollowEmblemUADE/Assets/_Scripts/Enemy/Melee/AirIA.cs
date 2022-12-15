@@ -10,6 +10,7 @@ public class AirIA : MonoBehaviour
     private Animator animator;
     private ObjectPooler objectPooler;
     private ParticleSystem shootParticles;
+    public AudioSource shootSound;
 
     [Header ("Patrolling Parameters")]
     public Transform[] moveSpots;
@@ -140,7 +141,7 @@ public class AirIA : MonoBehaviour
      
         if (shootTimer<=0)
         {
-            print("shoot");
+           // print("shoot");
             shootTimer = shootCD;
             StartShoot();
         }
@@ -153,6 +154,11 @@ public class AirIA : MonoBehaviour
     {
         shootParticles.Play();
         objectPooler.SpawnFromPool("Bullet", bulletOrigin.position, Quaternion.Euler(playerTransform.position - bulletOrigin.position), (playerTransform.position));//- transform.position);
+    }
+    public void PlayShotSund()
+    {
+        shootSound.Play();
+        print("shotsound");
     }
     public void StartShoot()
     {
