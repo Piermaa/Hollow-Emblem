@@ -55,6 +55,7 @@ public class Boss : MonoBehaviour
     [SerializeField] AudioSource stepSound;
     [SerializeField] AudioSource step2Sound;
     [SerializeField] AudioSource crashSound;
+    [SerializeField] AudioSource crash2Sound;
     [SerializeField] AudioSource growlSound;
     //[SerializeField] AudioSource dieSound;
 
@@ -264,6 +265,7 @@ public class Boss : MonoBehaviour
                 if (canRecover)
                 {
                     crashSound.Play();
+                    crash2Sound.Play();
                     StartCoroutine(Recovering());
                 }
         
