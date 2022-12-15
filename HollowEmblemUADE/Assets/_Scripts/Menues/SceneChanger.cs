@@ -74,7 +74,6 @@ public class SceneChanger : MonoBehaviour
     public void Volver()
     {
         Time.timeScale = 1f;
-        Cursor.visible = false;
         panelMenu.SetActive(false);
     }
 
