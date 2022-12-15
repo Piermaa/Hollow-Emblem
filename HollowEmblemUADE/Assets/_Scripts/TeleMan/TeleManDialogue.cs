@@ -176,7 +176,7 @@ public class TeleManDialogue : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 1)
             {
                 canTalk = false;
-                telemanText.text = "You can destroy that wall now";
+                telemanText.text = "You can destroy your enemies now";
                 animator.SetBool("isTalking", true);
                 cooldown = 0.5f;
                 textChanger = 2;
@@ -198,7 +198,7 @@ public class TeleManDialogue : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && canInteract && canTalk && cooldown <= 0 && textChanger == 3)
             {
                 canTalk = false;
-                telemanText.text = "I need to get somewhere";
+                telemanText.text = "They´re so dangerous";
                 animator.SetBool("isTalking", true);
                 cooldown = 0.5f;
                 textChanger = 4;
