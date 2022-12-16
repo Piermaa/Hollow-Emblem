@@ -39,16 +39,23 @@ public class Bullet : MonoBehaviour, IPooledObject
         {
             if (rb.velocity.x < 0)
             {
+                var partscale = GetComponentInChildren<ParticleSystem>().gameObject.transform;
                 Vector3 theScale = transform.localScale;
                 theScale.x = 1;
                 this.transform.localScale = theScale;
-
+                theScale = partscale.localScale;
+                theScale.x = 1;
+                partscale.localScale = theScale;
             }
             else
             {
+                var partscale = GetComponentInChildren<ParticleSystem>().gameObject.transform;
                 Vector3 theScale = transform.localScale;
                 theScale.x = -1;
                 this.transform.localScale = theScale;
+                theScale = partscale.localScale;
+                theScale.x = -1;
+                partscale.localScale = theScale;
 
             }
             verifyScale = false;

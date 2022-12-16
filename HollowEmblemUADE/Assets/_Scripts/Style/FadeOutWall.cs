@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class FadeOutWall : MonoBehaviour
 {
+    bool playerEntered=false;
     public GameObject hideParent;
     bool mustFade;
+    public AudioSource fadeSound;
     public List<SpriteRenderer> sprites=new List<SpriteRenderer>();
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        fadeSound = GetComponent<AudioSource>();
+    }
+    void Start()
+    { 
         var spritesArray = (hideParent.GetComponentsInChildren<SpriteRenderer>());
         foreach (SpriteRenderer sr in spritesArray)
         {
@@ -20,10 +26,6 @@ public class FadeOutWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            Fade();
-        }
         if(mustFade)
         {
             StartCoroutine(Awaiting());
@@ -31,7 +33,13 @@ public class FadeOutWall : MonoBehaviour
     }
     public void Fade()
     {
-        mustFade = true;
+        if (!playerEntered)
+        {
+            fadeSound.Play();
+            mustFade = true;
+            playerEntered = true;
+        }
+      
     }
 
     private IEnumerator Awaiting()

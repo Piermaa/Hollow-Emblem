@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 437129273845125933}
   - component: {fileID: 6877764914123185177}
   - component: {fileID: 6960034903884884683}
+  - component: {fileID: 2007600347594897228}
   m_Layer: 10
   m_Name: Bullet
   m_TagString: Bomb
@@ -88,6 +89,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
+--- !u!95 &2007600347594897228
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4818572543945461635}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42bc67b7a57eb344fa8f95d22380aa83, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6848319852468482603
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +242,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4170461211671574, guid: 60c086b2cd53e374984f104ff2d8061f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170461211671574, guid: 60c086b2cd53e374984f104ff2d8061f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -268,6 +292,14 @@ PrefabInstance:
     - target: {fileID: 198606344947820792, guid: 60c086b2cd53e374984f104ff2d8061f, type: 3}
       propertyPath: lengthInSec
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198606344947820792, guid: 60c086b2cd53e374984f104ff2d8061f, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198606344947820792, guid: 60c086b2cd53e374984f104ff2d8061f, type: 3}
+      propertyPath: moveWithTransform
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198606344947820792, guid: 60c086b2cd53e374984f104ff2d8061f, type: 3}
       propertyPath: ShapeModule.m_Rotation.z

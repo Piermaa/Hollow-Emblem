@@ -38,6 +38,7 @@ public class ChangeCameraPosition : MonoBehaviour
     private void Awake()
     {
         changeAmbientMusic = FindObjectOfType<ChangeAmbientMusic>();
+        print("Found Ambient m");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,6 +52,7 @@ public class ChangeCameraPosition : MonoBehaviour
             vcam.Follow = bossTarget;
             bossIsActive = true;
             changeAmbientMusic.ChangeSong();
+            print("changedmusic");
 
             foreach (GameObject wall in invisibleWalls)
             {

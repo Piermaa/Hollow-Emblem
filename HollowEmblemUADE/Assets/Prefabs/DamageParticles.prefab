@@ -87,6 +87,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198689267340774794, guid: dc1d5ca3304bfa943859960d5d1bb9b3, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198689267340774794, guid: dc1d5ca3304bfa943859960d5d1bb9b3, type: 3}
       propertyPath: moveWithTransform
       value: 0
       objectReference: {fileID: 0}

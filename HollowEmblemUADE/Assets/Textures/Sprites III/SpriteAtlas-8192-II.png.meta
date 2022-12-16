@@ -596,6 +596,9 @@ TextureImporter:
   - first:
       213: 1076309832606399115
     second: SpriteAtlas-8192-II_49
+  - first:
+      213: -5439794405787287621
+    second: SpriteAtlas-8192-II_50
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -2128,10 +2131,10 @@ TextureImporter:
       name: SpriteAtlas-8192-II_95
       rect:
         serializedVersion: 2
-        x: 8899
-        y: 10951
+        x: 8900
+        y: 10949
         width: 634
-        height: 616
+        height: 325
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4850,6 +4853,27 @@ TextureImporter:
       bones: []
       spriteID: b8ab3c81712dfee00800000000000000
       internalID: 1076309832606399115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpriteAtlas-8192-II_50
+      rect:
+        serializedVersion: 2
+        x: 8875
+        y: 11276
+        width: 655
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf34e72fc7f184b0800000000000000
+      internalID: -5439794405787287621
       vertices: []
       indices: 
       edges: []

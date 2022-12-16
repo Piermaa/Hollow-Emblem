@@ -6,7 +6,7 @@ public class ChangeAmbientMusic : MonoBehaviour
 {
     [SerializeField] GameObject[] bosses;
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
     [SerializeField] AudioClip ambientClip;
     [SerializeField] AudioClip spiderBossFightMusic;
@@ -29,6 +29,7 @@ public class ChangeAmbientMusic : MonoBehaviour
                 {
                     audioSource.clip = spiderBossFightMusic;
                     audioSource.Play();
+                    print("boss1plays");
                 }
 
 
