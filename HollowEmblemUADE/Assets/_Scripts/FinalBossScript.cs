@@ -77,6 +77,11 @@ public class FinalBossScript : MonoBehaviour
     {
         BossStateExecution();
         ChangeScale();
+
+        if (animator.GetBool("Flying"))
+        {
+            print("flyng true");
+        }
     }
 
     IEnumerator SpawningAnimation()
@@ -138,6 +143,7 @@ public class FinalBossScript : MonoBehaviour
                 transform.position = Vector2.MoveTowards(transform.position, hangingSpot.transform.position, flySpeed * Time.deltaTime);
                 if (!animator.GetBool("Flying"))
                 {
+                    print("Flying por flooractivator");
                     animator.SetBool("Flying", true);
                 }
         }
@@ -216,6 +222,7 @@ public class FinalBossScript : MonoBehaviour
                     Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
                     if (Vector2.Distance(transform.position, toFloor) > 0.83f)
                     {
+                        print("Flying por idle que no llego al sopi");
                         animator.SetBool("Flying", true);
                         transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
                     }
