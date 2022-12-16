@@ -237,7 +237,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e9484dbf663369645b97a4c9d0bc5bbd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 82ddd603d89388046a67f2a8951d08df, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.446
   m_Pitch: 1
@@ -247,8 +247,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 10
+  MinDistance: 0.28818893
+  MaxDistance: 5.1598473
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -439,7 +439,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.029994965, y: 0.084754944}
+  m_Offset: {x: 0.04135132, y: 0.20856142}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -450,7 +450,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7555237, y: 2.5520935}
+  m_Size: {x: 2.8228912, y: 3.8236818}
   m_EdgeRadius: 0
 --- !u!212 &6733455178630262126
 SpriteRenderer:
@@ -523,7 +523,7 @@ MonoBehaviour:
   inmune: 0
   white: 0
   died: 0
-  healthPoints: 5
+  healthPoints: 4
   maxHealth: 0
   playerInmunity: 1
   OnHealthAdd:
@@ -623,7 +623,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7774358346959962255}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1545491055937965685}
@@ -650,7 +650,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.3459587
-  MaxDistance: 10
+  MaxDistance: 7.391617
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

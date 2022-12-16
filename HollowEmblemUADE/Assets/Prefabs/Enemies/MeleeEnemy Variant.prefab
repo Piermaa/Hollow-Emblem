@@ -258,7 +258,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 10
@@ -377,7 +377,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 14cc1a41f6418724898d8f1f9f3ffa71, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2ad21e4c549e3514f8359c6c01599345, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -507,6 +507,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1734119088, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.94
+      objectReference: {fileID: 0}
     - target: {fileID: 1734119090, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Size.x
       value: 8.213855
@@ -583,6 +587,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5046753533769194676, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.41
+      objectReference: {fileID: 0}
     - target: {fileID: 5046753533769194677, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: attackSound
       value: 
@@ -597,7 +605,7 @@ PrefabInstance:
       objectReference: {fileID: 828257228030277400}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: healthPoints
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802617, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: dropItemPrefab
@@ -713,11 +721,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802620, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.07
+      value: 20.4
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802620, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -30.13
+      value: 29.894192
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802620, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -753,7 +761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802622, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: m_Name
-      value: MeleeEnemy Variant
+      value: MeleeEnemy A
       objectReference: {fileID: 0}
     - target: {fileID: 5046753533852802623, guid: 4ff7b460242eda94792ed945e1de32a2, type: 3}
       propertyPath: speed
