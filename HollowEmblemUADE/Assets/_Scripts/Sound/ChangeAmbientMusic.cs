@@ -7,17 +7,30 @@ public class ChangeAmbientMusic : MonoBehaviour
     [SerializeField] GameObject[] bosses;
 
     public AudioSource audioSource;
-
+    bool mustMute;
     [SerializeField] AudioClip ambientClip;
     [SerializeField] AudioClip spiderBossFightMusic;
     [SerializeField] AudioClip slamBossFightMusic;
     [SerializeField] AudioClip finalBossFightMusic;
-
+    float defaultVolume;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        defaultVolume = audioSource.volume;
     }
+
+    private void Update()
+    {
+        mustMute = Input.GetKeyDown(KeyCode.K);
+
+
+        if (mustMute)
+        {
+            StartCoroutine(Silencing());       
+        }
+    }
+
 
     public void ChangeSong()
     {
@@ -59,5 +72,29 @@ public class ChangeAmbientMusic : MonoBehaviour
             audioSource.clip = ambientClip;
             audioSource.Play();
         }
+
+        audioSource.volume = defaultVolume;
+    }
+
+    public void SetSilence()
+    {
+        mustMute = true;
+    }
+    IEnumerator Silencing()
+    {
+       
+            // Colocar el audio del ascensor
+
+            for (float i = audioSource.volume; i >= 0; i -= Time.deltaTime/25)
+            {
+                
+                    audioSource.volume = i;
+                
+
+                yield return null;
+            }
+            audioSource.Stop();
+            mustMute = false;
+        
     }
 }

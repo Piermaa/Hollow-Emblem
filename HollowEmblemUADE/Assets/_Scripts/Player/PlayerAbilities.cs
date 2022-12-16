@@ -51,7 +51,7 @@ public class PlayerAbilities : MonoBehaviour
     {
         slamTimer = slamTimer<0?0: slamTimer-Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && slamUnlocked && slamTimer < 0)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && slamUnlocked && slamTimer <= 0)
         {
             if (!controller.CheckGround())
             {

@@ -16,6 +16,8 @@ public class BasicIA : MonoBehaviour
     [SerializeField] Transform next;
     HealthController health;
 
+    bool toCloseToPlayer;
+
     Transform playerTransform;
     bool chasingPlayer;
 
@@ -43,7 +45,6 @@ public class BasicIA : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(moveSpots[spotsIndex].transform.position.x, transform.position.y), speed * Time.deltaTime);
 
-    
 
             if (Vector2.Distance(transform.position, new Vector2(moveSpots[spotsIndex].position.x, transform.position.y)) < 0.3f)
             {
@@ -51,12 +52,10 @@ public class BasicIA : MonoBehaviour
                 {
                     if (moveSpots[spotsIndex] != moveSpots[moveSpots.Length - 1])
                     {
-                  
                         spotsIndex++;
                     }
                     else
                     {
-      
                         spotsIndex = 0;
                     }
 
@@ -82,8 +81,11 @@ public class BasicIA : MonoBehaviour
         }
         else
         {
-
-            speed = chasingSpeed;
+            if (!toCloseToPlayer)
+            {
+                speed = chasingSpeed;
+            }
+           
             ChasePlayer();
         }
     }
@@ -107,8 +109,12 @@ public class BasicIA : MonoBehaviour
         theScale.x = dirMultpiplier;
         transform.localScale = theScale;
 
-        if (Vector2.Distance(transform.position, playerTransform.position) < 2)
+        //print(Vector2.Distance(transform.position, playerTransform.position));
+
+        if (Vector2.Distance(transform.position, playerTransform.position) < 1.3f)
         {
+            toCloseToPlayer = true;
+            //print("playerCerca!!");
             waitTime = startWaitTime;
             StopWalking(0.2f);
         }
