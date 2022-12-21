@@ -263,9 +263,11 @@ public class DashBossController : MonoBehaviour
         drop.TryGetComponent<AbilityUnlocker>(out var ability);
         ability.unlockedAb = "Dash";
 
-        tutorial.SetActive(true);
-    }
 
+        SceneChanger.Instance.GameOver();
+        //tutorial.SetActive(true);
+
+    }
     IEnumerator JumpSoundDelay()
     {
         jump.Play();

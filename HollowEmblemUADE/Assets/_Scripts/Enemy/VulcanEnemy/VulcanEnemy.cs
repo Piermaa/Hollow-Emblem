@@ -15,6 +15,7 @@ public class VulcanEnemy : MonoBehaviour
 
     Animator animator;
     [SerializeField] AudioSource shootsound;
+    [SerializeField] ParticleSystem[] shootParticles;
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -30,10 +31,12 @@ public class VulcanEnemy : MonoBehaviour
         animator.SetTrigger("Shoot");
         yield return new WaitForSeconds(1f);
         shootsound.Play();
+        shootParticles[0].Play();
         objectPooler.SpawnFromPool(ammunition[1], spawnPos.position, rotation); //Far Shots
         objectPooler.SpawnFromPool(ammunition[1], spawnPos.position, invertedRotation);
         yield return new WaitForSeconds(0.2f);
         shootsound.Play();
+        shootParticles[1].Play();
         objectPooler.SpawnFromPool(ammunition[0], spawnPos.position, rotation); //Near shots
         objectPooler.SpawnFromPool(ammunition[0], spawnPos.position, invertedRotation);
     }

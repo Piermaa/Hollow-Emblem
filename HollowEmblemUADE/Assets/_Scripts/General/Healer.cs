@@ -10,13 +10,10 @@ public class Healer : MonoBehaviour
     public GameObject healer;
     public float healCD;
     float healTimer;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+    public GameObject textFeedback;
+
+
     void Update()
     {
         healTimer -= Time.deltaTime;
@@ -39,7 +36,17 @@ public class Healer : MonoBehaviour
                 health.healthPoints += healingAmount;
                 healTimer = healCD;
                 print("playerHeaLED:");
-            
+
+                StartCoroutine(ShowText());
         }
+    }
+
+    IEnumerator ShowText()
+    {
+        textFeedback.SetActive(true);
+
+        yield return new WaitForSeconds(1.5F);
+
+        textFeedback.SetActive(false);
     }
 }

@@ -52,6 +52,8 @@ public class SlammerBossController : MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(false);
+
         animator = GetComponent<Animator>();
         for (int i = 0; i < 5; i++)
         {

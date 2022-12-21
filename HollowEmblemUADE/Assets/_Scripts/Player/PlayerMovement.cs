@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,19 +10,21 @@ public class PlayerMovement : MonoBehaviour
 	Animator animator;
 	Rigidbody2D rb;
 	PlayerCombat combat;
+	private PlayerAbilities abilities;
 	Vector3 lastPosition;
 	public HealthManager healthManager;
 	public CharacterController2D controller;
-
-
+	private MapInput cortana;
+	public ParticleSystem landParticles;
 	[Header("Floats")]
 	public float dashSpeed = 80;
 	public float runSpeed = 30f;
 	public float dashCoolDown = 0;
+	public float maxDashCoolDown = 0.5f;
 	public float horizontalMove = 0f;
 	public float layerCD;
 	float layerTimer;
-
+	float stepSoundCD;
 
 	[Header("Bools")]
 	bool doubleJumped;
@@ -31,8 +34,13 @@ public class PlayerMovement : MonoBehaviour
 	public bool isDashing;
 	public bool dashUnlocked = false;
 
+	public Image dashUI;
+	public GameObject dashUIGameObject;
+
 	private void Start()
 	{
+		abilities = GetComponent<PlayerAbilities>();
+		cortana = MapInput.Cortana;
 		combat = GetComponent<PlayerCombat>();
 		animator = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody2D>();
@@ -43,12 +51,20 @@ public class PlayerMovement : MonoBehaviour
 	{
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 		layerTimer -= Time.deltaTime;
-		
-		DashUpdate();
-		DashCorrection();
 
-		Run();
-		Jump();
+		if (cortana.state == ShowStates.HIDING && !combat.reloading)
+		{
+			DashUpdate();
+			DashCorrection();
+			UIDash();
+
+	
+			Jump();
+			if (Input.GetButtonDown("Dash") && dashCoolDown < 0 && dashUnlocked)
+			{
+				Dash();
+			}
+		}
 
 		if (Input.GetButtonDown("Crouch"))
 		{
@@ -57,11 +73,6 @@ public class PlayerMovement : MonoBehaviour
 		else if (Input.GetButtonUp("Crouch"))
 		{
 			crouch = false;
-		}
-
-		if (Input.GetButtonDown("Dash") && dashCoolDown<0 && dashUnlocked)
-		{
-			Dash();
 		}
 	}
 
@@ -93,11 +104,16 @@ public class PlayerMovement : MonoBehaviour
 		// Move our character
 		
 		controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
-		if (combat.aiming)
+		if (combat.aiming || combat.reloading || cortana.state != ShowStates.HIDING)
 		{
 			rb.velocity = new Vector2(0, 0); //evita que se mueva el jugador al apuntar
 		}
-			jump = false;
+		else
+		{
+			Run();
+		}
+
+		jump = false;
 		lastPosition = transform.position;
 	}
 
@@ -111,9 +127,9 @@ public class PlayerMovement : MonoBehaviour
 			animator.SetBool("Jump", true);
 			//animator.SetTrigger("DoubleJump");
 			StartCoroutine(BeginJump());
-			if (dashUnlocked)
-			{
+			
 				jump = true;
+
 				if (!controller.CheckGround() && !doubleJumped)
 				{
 					sounds.PlaySound(sounds.doubleJump);
@@ -122,15 +138,15 @@ public class PlayerMovement : MonoBehaviour
 					doubleJumped = true;
 					//animator.SetBool("Jump", false);
 				}
-			}
-			else
-			{
+			
+			
+			
 				if (controller.CheckGround())
 				{
 					sounds.PlaySound(sounds.jump);
 					jump = true;
 				}
-			}
+			
 		}
 
 		if (controller.CheckGround() && !beginingJump)
@@ -141,24 +157,43 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-    /// <summary>
-    /// Sets player movement and running animation
-    /// </summary>
+	public void PlayerLand()
+	{
+		if (!abilities.willDestroy)
+		{
+			landParticles.Play();
+			animator.SetTrigger("Idle");
+		}
+	}
+
+	public void PlayerStep()
+	{
+		sounds.PlayStep();
+	}
+
+	/// <summary>
+	/// Sets player movement and running animation
+	/// </summary>
 	void Run()
 	{
-		if (horizontalMove / runSpeed != 0)
-		{
-			if (controller.CheckGround())
-			{
-				sounds.PlaySound(sounds.step);
-			}
 
-			animator.SetBool("Run", true);
+		if (horizontalMove / runSpeed != 0 && controller.CheckGround())
+		{
+			if (!animator.GetBool("Run"))
+			{
+				animator.SetBool("Run", true);
+			}
 		}
-		else
+		else 
 		{
 			animator.SetBool("Run", false);
+			if( !controller.CheckGround()&& !animator.GetBool("Jump"))
+			{
+				animator.SetBool("Falling",true);
+			}
 		}
+		
+	
 	}
 	void DashUpdate()
 	{
@@ -170,8 +205,9 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Dash()
     {
-        sounds.PlaySound(sounds.dash);
-        dashCoolDown = 0.3f;
+		rb.velocity = Vector2.zero;
+        sounds.dash.PlayOneShot(sounds.dash.clip);
+        dashCoolDown = maxDashCoolDown;
         animator.SetBool("Jump", false);
         animator.SetTrigger("Dash");
         //controller.Move(horizontalMove * Time.fixedDeltaTime * dashSpeed, false, false);
@@ -184,6 +220,27 @@ public class PlayerMovement : MonoBehaviour
 		gameObject.layer = 9;
 	}
 
-    
-}
+	void UIDash()
+    {
+		dashUI.fillAmount = dashCoolDown / maxDashCoolDown;
 
+		if (dashUnlocked)
+        {
+			dashUIGameObject.SetActive(true);
+        }
+        else
+        {
+			dashUIGameObject.SetActive(false);
+        }
+    }
+
+	void PlatFormFix()
+	{ 
+		
+	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+		
+    }
+}

@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class AbilityUnlocker : MonoBehaviour
 {
-    [Tooltip("Dash (includes dj), Slam, Slime")]
+    [Tooltip("Dash (includes dj), Slam, Slime, Shoot")]
     public string unlockedAb;
+
+    PlayerSounds playerSounds;
+
+    private void Awake()
+    {
+        playerSounds = FindObjectOfType<PlayerSounds>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,6 +20,7 @@ public class AbilityUnlocker : MonoBehaviour
         {
             collision.TryGetComponent<PlayerAbilities>(out var abilities);
             abilities.AbilityUnlock(unlockedAb);
+            playerSounds.PlaySound(playerSounds.pickupable);
 
             gameObject.SetActive(false);
         }

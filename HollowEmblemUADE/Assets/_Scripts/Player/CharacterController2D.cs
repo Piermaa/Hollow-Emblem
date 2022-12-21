@@ -26,6 +26,7 @@ public class CharacterController2D : MonoBehaviour
 	[Space]
 
 	public UnityEvent OnLandEvent;
+	public UnityEvent OnSlamEvent;
 
 	[System.Serializable]
 	public class BoolEvent : UnityEvent<bool> { }
@@ -56,12 +57,22 @@ public class CharacterController2D : MonoBehaviour
 		{
 			if (colliders[i].gameObject != gameObject)
 			{
-				m_Grounded = true;
-				if (!wasGrounded && triggerSlam) //if wasnt grounded and the slam is triggered the OnLandEvent will play, wich is the slam
+				if (colliders[i].TryGetComponent<Platform>(out var plat))
+				{
+					TryGetComponent<Collider2D>(out var col);
+					plat.PlayerSnap(col);
+				}
+				if (!wasGrounded)
 				{
 					OnLandEvent.Invoke();
-					triggerSlam = false;
+					if (triggerSlam)
+					{
+						OnSlamEvent.Invoke();
+						triggerSlam = false;
+					}
+					
 				}
+				m_Grounded = true;
 			}
 		}
 	}

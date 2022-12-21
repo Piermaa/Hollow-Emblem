@@ -5,11 +5,21 @@ using UnityEngine;
 public class PlayerDetector : MonoBehaviour
 {
     [SerializeField] BasicIA basicIA;
+    [SerializeField]AirIA airIA;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag=="Player")
+        if(collision.CompareTag("Player"))
         {
-            basicIA.MustChasePlayer(collision.gameObject.transform);
+            if (basicIA != null)
+            {
+                basicIA.MustChasePlayer(collision.gameObject.transform);
+            }
+            else 
+            {
+                airIA.MustChasePlayer(collision.gameObject.transform);
+            }
+          
             print("playerinrange");
         }
     }

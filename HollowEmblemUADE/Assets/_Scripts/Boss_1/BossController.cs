@@ -10,7 +10,7 @@ public class BossController : MonoBehaviour
     [SerializeField] Animator spikesAnimator;
     [SerializeField] GameObject spikesOnBody;
     [SerializeField] Transform shootTransform;
-    [SerializeField] GameObject tutorial;
+    //[SerializeField] GameObject tutorial;
     Animator animator;
 
     [Header("Bools")]
@@ -195,6 +195,12 @@ public class BossController : MonoBehaviour
         drop.TryGetComponent<AbilityUnlocker>(out var ability);
         ability.unlockedAb = "Slime";
 
-        tutorial.SetActive(true);
+        //if (tutorial!=null)
+        //{
+        //    tutorial.SetActive(true);
+        //}
+                {
+            SceneChanger.Instance.GameOver();
+        }
     }
 }

@@ -17,11 +17,27 @@ public class PlayerSounds : MonoBehaviour
     public AudioSource step;
     public AudioSource powerUp;
     public AudioSource die;
+    public AudioSource shoot;
+    public AudioSource reload;
+    public AudioSource pickupable;
+
+    public AudioClip[] steps;
     public void PlaySound(AudioSource sound)
     {
         if (!sound.isPlaying)
         {
             sound.Play();
         }
+    }
+    public void PlaySound(AudioSource sound, bool canRepeat)
+    {
+        
+         sound.PlayOneShot(sound.clip);
+        
+    }
+
+    public void PlayStep()
+    {
+          step.PlayOneShot(steps[Random.Range(0, steps.Length - 1)]);
     }
 }
