@@ -19,11 +19,6 @@ public class Bullet : MonoBehaviour, IPooledObject
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void OnEnable()
-    {
-
-      
-    }
 
     public void OnObjectSpawn()
     {

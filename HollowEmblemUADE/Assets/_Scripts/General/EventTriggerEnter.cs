@@ -7,11 +7,25 @@ public class EventTriggerEnter : MonoBehaviour
 {
     public UnityEvent triggerEvent;
 
+    public UnityEvent exitEvent;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             triggerEvent?.Invoke();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Player"))
+        {
+            if (exitEvent!=null)
+            {
+                exitEvent?.Invoke();
+
+            }
         }
     }
 }

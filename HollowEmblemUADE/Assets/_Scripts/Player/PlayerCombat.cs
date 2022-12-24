@@ -112,26 +112,18 @@ public class PlayerCombat : MonoBehaviour
         if(y==0)
         {
             directionsToAttack = DirectionsToAttack.Front;
-    
-            shootStart.position = shootDirections[0].position;
-            shootStart.rotation = shootDirections[0].rotation;
-            
+            shootStart.SetPositionAndRotation(shootDirections[0].position, shootDirections[0].rotation);
         }
         if(y>0)
         {
             directionsToAttack = DirectionsToAttack.Up;
-            
-            shootStart.position = shootDirections[1].position;
-            shootStart.rotation = shootDirections[1].rotation;
- 
+            shootStart.SetPositionAndRotation(shootDirections[1].position, shootDirections[1].rotation);
         }
     
         if(y<0)
         {
             directionsToAttack = DirectionsToAttack.Down;
-            shootStart.position = shootDirections[2].position;
-            shootStart.rotation = shootDirections[2].rotation;
-           
+            shootStart.SetPositionAndRotation(shootDirections[2].position, shootDirections[2].rotation);
         }
     }
 

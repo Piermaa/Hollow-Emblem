@@ -262,7 +262,7 @@ public class PlayerInventory : MonoBehaviour
         slot.tMPro.text = slot.amount.ToString();
         slot.image.enabled = true;
         slot.image.sprite = itemType.sprite;
-        var popUpReference = slot.button.gameObject.GetComponentsInChildren<PopUp>();
+        //var popUpReference = slot.button.gameObject.GetComponentsInChildren<PopUp>();
         //Debug.Log("POPUPS: " + popUpReference.Length);
         if (slot.slotPopUp==null)
         {
@@ -356,7 +356,7 @@ public class PlayerInventory : MonoBehaviour
     /// </summary>
     public int GetAmmoFromInventory(bool justChecking)
     {
-        int spaceAvailableOnClip=0; 
+        int spaceAvailableOnClip; 
         Slot newSlot;
         
         do
