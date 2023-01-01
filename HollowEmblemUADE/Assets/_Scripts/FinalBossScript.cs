@@ -77,11 +77,6 @@ public class FinalBossScript : MonoBehaviour
     {
         BossStateExecution();
         ChangeScale();
-
-        if (animator.GetBool("Flying"))
-        {
-            print("flyng true");
-        }
     }
 
     IEnumerator SpawningAnimation()
@@ -172,26 +167,46 @@ public class FinalBossScript : MonoBehaviour
 
     public void InitializeShootOne()
     {
-        objectPooler.SpawnFromPool("Bullet", shootStartUp.position, shootStartUp.rotation, direction);
+        GameObject bullet= objectPooler.SpawnFromPool("BossBullet", shootStartUp.position, Quaternion.Euler(direction), directionDown);
+        bullet.TryGetComponent<Bullet>(out var bulletScript);
+        bulletScript.speed = 20;
+        //objectPooler.SpawnFromPool("Bullet", shootStartUp.position, shootStartUp.rotation, direction);
         shootAttackSound.Play();
     }
 
     public void InitializeShootTwo()
     {
-        objectPooler.SpawnFromPool("Bullet", shootStartDown.position, shootStartDown.rotation, directionDown);
+        GameObject bullet = objectPooler.SpawnFromPool("BossBullet", shootStartDown.position, Quaternion.Euler(direction), directionDown);
+        bullet.TryGetComponent<Bullet>(out var bulletScript);
+        bulletScript.speed = 20;
+        //objectPooler.SpawnFromPool("Bullet", shootStartDown.position, shootStartDown.rotation, directionDown);
         shootAttackSound.Play();
     }
 
     public void InitializeShootThree()
     {
-        objectPooler.SpawnFromPool("Bullet", shootStartMiddle.position, shootStartMiddle.rotation, directionDown);
+        GameObject bullet = objectPooler.SpawnFromPool("BossBullet", shootStartMiddle.position, Quaternion.Euler(direction), directionDown);
+        bullet.TryGetComponent<Bullet>(out var bulletScript);
+        bulletScript.speed = 20;
+        //objectPooler.SpawnFromPool("Bullet", shootStartMiddle.position, shootStartMiddle.rotation, directionDown);
         shootAttackSound.Play();
     }
 
     public void CalculatePosition()
     {
-        direction = new Vector3(player.transform.position.x - 2, shootStartUp.transform.position.y, 0);
-        directionDown = new Vector3(player.transform.position.x - 2, shootStartDown.transform.position.y, 0);
+        //HOLA JUAN ACA ESTABA EL PROBLEMA
+
+        direction = player.transform.position - shootStartMiddle.position;
+        Debug.Log("Dir" + direction);
+        directionDown = transform.localScale;
+        Debug.Log("Dir down"+directionDown);
+        //direction.y = 0;
+        //direction.x = direction.x < 0 ? -1 : 1;
+        //Debug.Log(direction.x);
+        //directionDown = direction;
+        //objectPooler.SpawnFromPool("Bullet", shootStartUp.position, Quaternion.Euler(player.transform.position - shootStartUp.position), (player.transform.position));
+        //direction = new Vector3(player.transform.position.x, shootStartUp.transform.position.y, 0);
+        //directionDown = new Vector3(player.transform.position.x, shootStartDown.transform.position.y, 0);
     }
 
     void BossStateExecution()
@@ -222,7 +237,7 @@ public class FinalBossScript : MonoBehaviour
                     Vector2 toFloor = new Vector2(transform.position.x, floorSpot.transform.position.y);
                     if (Vector2.Distance(transform.position, toFloor) > 0.83f)
                     {
-                        print("Flying por idle que no llego al sopi");
+                        //print("Flying por idle que no llego al sopi");
                         animator.SetBool("Flying", true);
                         transform.position = Vector2.MoveTowards(transform.position, toFloor, flySpeed * Time.deltaTime);
                     }
@@ -255,7 +270,7 @@ public class FinalBossScript : MonoBehaviour
             case FBBattleState.SHOOTATTACK:
                 if (canShoot)
                 {
-                    CalculatePosition();
+                    //CalculatePosition();
                     canShoot = false;
                     ShootAttackActivator();
                 }

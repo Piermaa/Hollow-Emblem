@@ -173,6 +173,11 @@ public class CharacterController2D : MonoBehaviour
 	{
 		triggerSlam = true;
 	}
+
+	public void CancelSlam()
+	{
+		triggerSlam = false;
+	}
 	private void Flip()
 	{
 		// Switch the way the player is labelled as facing.

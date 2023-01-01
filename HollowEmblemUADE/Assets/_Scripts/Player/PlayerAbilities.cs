@@ -73,6 +73,15 @@ public class PlayerAbilities : MonoBehaviour
         }
                
         UISlam();
+
+        if(willDestroy)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                willDestroy = false;
+                controller.CancelSlam();
+            }
+        }
     }
 
     IEnumerator Destroy(GameObject ground)
@@ -88,7 +97,6 @@ public class PlayerAbilities : MonoBehaviour
             if (collision.collider.CompareTag("DestructibleGround"))
             {
                 StartCoroutine(Destroy(collision.gameObject));
-              
             }
             sounds.PlaySound(sounds.slam);
         }
